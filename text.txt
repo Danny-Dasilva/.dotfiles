@@ -1,0 +1,37 @@
+
+echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"' >> $HOME/.dotfiles
+
+source ~/.dotfiles 
+
+git clone --bare https://github.com/Danny-Dasilva/.dotfiles.git
+
+
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |    http://www.youtube.com/c/DistroTube
+# | |_| || |    http://www.gitlab.com/dwt1/ 
+# |____/ |_|
+#
+# My bash config. 
+# PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
+
+
+#    ___    _ 
+#   /   \__| |	
+#  / /\ / _` |	Danny Dasilva
+# / /_// (_| |	dannydasilva.solutions@gmail.com
+#/___,' \__,_|	https://github.com/Danny-Dasilva
+#
+# My bash config. 
+# PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
+
+
+dotfiles add .vimrc
+dotfiles commit -m "Add vimrc"
+dotfiles remote add origin https://github.com/Danny-Dasilva/.dotfiles.git
+dotfiles push origin master
+
+
+
+
+git fetch https://github.com/Danny-Dasilva/.dotfiles.git master:master
