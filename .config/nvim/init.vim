@@ -51,7 +51,7 @@ if (&term =~ '^xterm' && &t_Co == 256)
 endif
 
 set number        " add line numbers
-
+set clipboard+=unnamedplus
 """"""""""""""""""""""""""""
 " => Open a terminal inside Vim
 """"""""""""""""""""""""""""""
