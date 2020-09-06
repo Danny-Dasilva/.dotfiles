@@ -1,3 +1,12 @@
+"    ___    _ 
+"   /   \__| |	
+"  / /\ / _` |	Danny Dasilva
+" / /_// (_| |	dannydasilva.solutions@gmail.com
+"/___,' \__,_|	https://github.com/Danny-Dasilva
+"
+" A customized init.vim for neovim (https://neovim.io/)
+"
+"
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -17,27 +26,26 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
     Plug 'itchyny/lightline.vim'                       " Lightline statusbar
-    Plug 'arcticicestudio/nord-vim'
+    Plug 'dracula/vim'
+    Plug 'neoclide/coc.nvim',{'branch': 'release'}
 call plug#end()
 
 
-"theme
+" Automatically install missing plugins on startup
 
-
-colorscheme nord
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status Line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " The lightline.vim theme
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'dracula',
       \ }
 
 " Always show statusline
 set laststatus=2
 
-
+set termguicolors
 if (&term =~ '^xterm' && &t_Co == 256)
   set t_ut= | set ttyscroll=1
 endif
