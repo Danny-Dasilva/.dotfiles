@@ -26,7 +26,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
     Plug 'itchyny/lightline.vim'                       " Lightline statusbar
-    Plug 'dracula/vim'
+    Plug 'morhetz/gruvbox'
     Plug 'neoclide/coc.nvim',{'branch': 'release'}
 call plug#end()
 

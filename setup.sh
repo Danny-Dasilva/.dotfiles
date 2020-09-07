@@ -1,6 +1,6 @@
 sudo apt install neovim
 sudo apt-get install xsel
-
+sudo apt-get install curl
 pip3 install pynvim
 #plugins
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
