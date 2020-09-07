@@ -154,14 +154,14 @@ ex ()
   fi
 }
 
-export WORKON_HOME=~/.environments
-source /usr/local/bin/virtualenvwrapper.sh
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
+#export WORKON_HOME=~/.environments
+#source /usr/local/bin/virtualenvwrapper.sh
+#export GOROOT=/usr/local/go
+#export PATH=$PATH:$GOROOT/bin
 
-export GOPATH=/home/tech-garage/Documents/go
-export PATH=$PATH:$GOPATH/bin
-export GOPATH=$GOPATH:/home/tech-garage/Documents/GOCODE
+#export GOPATH=/home/tech-garage/Documents/go
+#export PATH=$PATH:$GOPATH/bin
+#export GOPATH=$GOPATH:/home/tech-garage/Documents/GOCODE
 ### ALIASES ###
 
 # navigation

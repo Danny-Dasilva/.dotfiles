@@ -1,19 +1,11 @@
+git clone --bare https://github.com/Danny-Dasilva/.dotfiles.git
 
 echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"' >> $HOME/.dotfiles
 
 source ~/.dotfiles 
+dotfiles checkout
 
-git clone --bare https://github.com/Danny-Dasilva/.dotfiles.git
 
-
-#  ____ _____ 
-# |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |    http://www.youtube.com/c/DistroTube
-# | |_| || |    http://www.gitlab.com/dwt1/ 
-# |____/ |_|
-#
-# My bash config. 
-# PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
 
 
 #    ___    _ 
