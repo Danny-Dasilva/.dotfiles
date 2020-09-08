@@ -179,26 +179,20 @@ screens = [
                 widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.TextBox(
                         text="\ue0b8",
-                        background = colors[0],
-                        foreground = "#FF0000",
+                        background = colors[7],
+                        foreground = colors[0],
                         padding=0,
                         fontsize=37
                         ),
               
-                widget.TextBox(
-                        text="\ue0ba",
-                        background = colors[0],
-                        foreground = "#FF0000",
-                        padding=0,
-                        fontsize=37
-                        ),
-                widget.TextBox(
-                        text='',
-                        background = colors[0],
-                        foreground = colors[7],
-                        padding=0,
-                        fontsize=37
-                        ),
+                # widget.TextBox(
+                #         text="\ue0ba",
+                #         background = colors[0],
+                #         foreground = "#FF0000",
+                #         padding=0,
+                #         fontsize=37
+                #         ),
+                
                 widget.CPU(
                         format='CPU {freq_current}GHz {load_percent}%',
                         update_interval=1.0,
@@ -206,12 +200,26 @@ screens = [
                         background=colors[7],
                         padding = 5
                         ),
+                widget.TextBox(
+                        text="\ue0b8",
+                        background = colors[7],
+                        foreground = colors[10],
+                        padding=0,
+                        fontsize=37
+                        ),
                 widget.Net(
                         interface = "enp34s0",
                         format = '{down} ↓↑ {up}',
                         foreground = colors[0],
-                        background = colors[9],
+                        background = colors[10],
                         padding = 5
+                        ),
+                widget.TextBox(
+                        text="\ue0b8",
+                        background = colors[7],
+                        foreground = colors[8],
+                        padding=0,
+                        fontsize=37
                         ),
                 widget.TextBox(
                         text=" 🖬",
@@ -225,7 +233,10 @@ screens = [
                         background = colors[8],
                         padding = 5
                         ),
-                widget.Systray(),
+                widget.Systray(
+                    background=colors[0],
+                    padding = 5
+                ),
                 widget.Clock(
                         foreground = colors[0],
                         background = colors[8],
@@ -233,7 +244,7 @@ screens = [
                         ),
                 widget.QuickExit(),
             ],
-            24,
+            20,
         ),
     ),
 ]
