@@ -178,7 +178,7 @@ screens = [
                 widget.TextBox("default config", name="default"),
                 widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.TextBox(
-                        text='',
+                        text="\ue0b8",
                         background = "#FF0000",
                         foreground = "#FF0000",
                         padding=0,
