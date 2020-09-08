@@ -145,7 +145,7 @@ colors = [["#2e3440", "#2e3440"], #nord0
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(font="Ubuntu Regular",
@@ -177,6 +177,20 @@ screens = [
                 ),
                 widget.TextBox("default config", name="default"),
                 widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.TextBox(
+                        text='',
+                        background = "#FF0000",
+                        foreground = "#FF0000",
+                        padding=0,
+                        fontsize=37
+                        ),
+                widget.TextBox(
+                        text='',
+                        background = colors[0],
+                        foreground = colors[7],
+                        padding=0,
+                        fontsize=37
+                        ),
                 widget.CPU(
                         format='CPU {freq_current}GHz {load_percent}%',
                         update_interval=1.0,
