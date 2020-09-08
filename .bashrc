@@ -183,6 +183,6 @@ alias vim=nvim
 alias pip=pip3
 #set faster speed for  scroll
 xset r rate 300 50 
-
+export TERM=xterm-256color
 #source dotfiles
 source ~/.dotfiles 

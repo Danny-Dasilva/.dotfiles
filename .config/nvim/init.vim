@@ -26,12 +26,19 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
     Plug 'itchyny/lightline.vim'                       " Lightline statusbar
-    Plug 'morhetz/gruvbox'
+    Plug 'arcticicestudio/nord-vim'
+    "iceberg theme
+    Plug 'gkeep/iceberg-dark'
+    Plug 'cocopon/iceberg.vim'
+    Plug 'vim-python/python-syntax'
     Plug 'neoclide/coc.nvim',{'branch': 'release'}
+    Plug 'itchyny/lightline.vim'
 call plug#end()
 
 
 " Automatically install missing plugins on startup
+set t_Co=256
+set encoding=UTF-8
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -39,19 +46,19 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " The lightline.vim theme
 let g:lightline = {
-      \ 'colorscheme': 'dracula',
+      \ 'colorscheme': 'icebergDark',
       \ }
-
+set bg=dark
+colorscheme iceberg 
 " Always show statusline
 set laststatus=2
+source ~/.config/nvim/lightline.vim
 
 set termguicolors
-if (&term =~ '^xterm' && &t_Co == 256)
-  set t_ut= | set ttyscroll=1
-endif
 
-set number        " add line numbers
 set clipboard+=unnamedplus
+set showtabline=2
+
 """"""""""""""""""""""""""""
 " => Open a terminal inside Vim
 """"""""""""""""""""""""""""""
@@ -101,3 +108,8 @@ nnoremap <CR> :noh<CR><CR>
 inoremap kj <Esc>
 " esc in command mode
 cnoremap kj <C-C>
+
+
+
+
+set number 
