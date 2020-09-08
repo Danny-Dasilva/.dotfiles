@@ -1,10 +1,11 @@
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-
+import os
+import socket
 mod = "mod4"
 terminal = guess_terminal()
 
@@ -77,6 +78,27 @@ layout_theme = {"border_width": 2,
                 "border_focus": "e1acff",
                 "border_normal": "1D2330"
                 }
+layouts = [
+    layout.Columns(**layout_theme),
+    # Try more layouts by unleashing below layouts.
+    # layout.Stack(num_stacks=2),
+    # layout.Bsp(),
+    # layout.Matrix(),
+    # layout.MonadTall(),
+    # layout.MonadWide(),
+    # layout.RatioTile(),
+    # layout.Tile(),
+    # layout.TreeTab(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
+    layout.MonadTall(**layout_theme),
+    layout.Max(**layout_theme),
+    layout.Tile(shift_windows=True, **layout_theme),
+    layout.Stack(num_stacks=2),
+    layout.Floating(**layout_theme)
+]
+
+
 layouts = [
     layout.Columns(**layout_theme),
     # Try more layouts by unleashing below layouts.
@@ -173,4 +195,3 @@ focus_on_window_activation = "smart"
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
-
