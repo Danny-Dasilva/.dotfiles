@@ -184,6 +184,35 @@ screens = [
                         padding=0,
                         fontsize=37
                         ),
+                 widget.TextBox(
+                        text="\ue0b9",
+                        background = colors[0],
+                        foreground = "#FF0000",
+                        padding=0,
+                        fontsize=37
+                        ),
+                 widget.TextBox(
+                        text="\ue0bc",
+                        background = colors[0],
+                        foreground = "#FF0000",
+                        padding=0,
+                        fontsize=37
+                        ),
+
+                 widget.TextBox(
+                        text="\ue0bb",
+                        background = colors[0],
+                        foreground = "#FF0000",
+                        padding=0,
+                        fontsize=37
+                        ),
+                widget.TextBox(
+                        text="\ue0ba",
+                        background = colors[0],
+                        foreground = "#FF0000",
+                        padding=0,
+                        fontsize=37
+                        ),
                 widget.TextBox(
                         text='',
                         background = colors[0],
