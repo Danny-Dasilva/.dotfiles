@@ -125,48 +125,13 @@ widget_defaults = dict(
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
-colors = [["#2e3440", "#2e3440"], #nord0
-          ["#3b4252", "#3b4252"], #nord1
-          ["#434c5e", "#434c5e"], #nord2
-          ["#4c566a", "#4c566a"], #nord3
-          ["#d8dee9", "#d8dee9"], #nord4
-          ["#e5e9f0", "#e5e9f0"], #nord5
-          ["#eceff4", "#eceff4"], #nord6
-          ["#8fbcbb", "#8fbcbb"], #nord7
-          ["#88c0d0", "#88c0d0"], #nord8
-          ["#81a1c1", "#81a1c1"], #nord9
-          ["#5e81ac", "#5e81ac"], #nord10
-          ["#bf616a", "#bf616a"], #nord11
-          ["#d08770", "#d08770"], #nord12
-          ["#ebcb8b", "#ebcb8b"], #nord13
-          ["#a3be8c", "#a3be8c"], #nord14
-          ["#b48ead", "#b48ead"]] #nord15
-
 
 screens = [
     Screen(
         bottom=bar.Bar(
             [
                 widget.CurrentLayout(),
-                widget.GroupBox(font="Ubuntu Regular",
-                        fontsize = 11,
-                        margin_y = 3,
-                        margin_x = 0,
-                        padding_y = 5,
-                        padding_x = 5,
-                        borderwidth = 3,
-                        active = colors[6],
-                        inactive = colors[6],
-                        rounded = False,
-                        highlight_color = colors[3],
-                        highlight_method = "block",
-                        this_current_screen_border = colors[3],
-                        this_screen_border = colors [0],
-                        other_current_screen_border = colors[0],
-                        other_screen_border = colors[0],
-                        foreground = colors[6],
-                        background = colors[0]
-                        ),
+                widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -177,38 +142,8 @@ screens = [
                 ),
                 widget.TextBox("default config", name="default"),
                 widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                widget.CPU(
-                        format='CPU {freq_current}GHz {load_percent}%',
-                        update_interval=1.0,
-                        foreground=colors[0],
-                        background=colors[7],
-                        padding = 5
-                        ),
-                widget.Net(
-                        interface = "enp34s0",
-                        format = '{down} ↓↑ {up}',
-                        foreground = colors[0],
-                        background = colors[9],
-                        padding = 5
-                        ),
-                widget.TextBox(
-                        text=" 🖬",
-                        foreground=colors[0],
-                        background=colors[8],
-                        padding = 0,
-                        fontsize=14
-                        ),
-               widget.Memory(
-                        foreground = colors[0],
-                        background = colors[8],
-                        padding = 5
-                        ),
                 widget.Systray(),
-                widget.Clock(
-                        foreground = colors[0],
-                        background = colors[8],
-                        format="%A, %B %d  [ %I:%M %p ]"
-                        ),
+                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
                 widget.QuickExit(),
             ],
             24,
