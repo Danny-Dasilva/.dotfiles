@@ -43,10 +43,13 @@ Xft.autohint: true
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
-XTerm*renderFont: true
-XTerm*faceName: xft:Fira Code iCursive S12, \
-                xft:JoyPixels:size=12, \
-                xft:Monospace:style=Medium:size=12   
 XTerm*faceSize: 11
 XTerm*utf8: 2
 XTerm*locale: true 
+
+
+Xterm*savelines:16384
+XTerm*renderFont: true
+XTerm*faceName: xft:Fira Code iCursive S12, \
+                xft:Monospace:style=Medium:size=12   
+

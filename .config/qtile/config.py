@@ -75,8 +75,8 @@ for i in groups:
     ])
 layout_theme = {"border_width": 2,
                 "margin": 6,
-                "border_focus": "e1acff",
-                "border_normal": "1D2330"
+                "border_focus": "5e81ac",
+                "border_normal": "4c566a"
                 }
 layouts = [
     layout.Columns(**layout_theme),
@@ -125,7 +125,7 @@ widget_defaults = dict(
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
-colors = [["#2e3440", "#2e3440"], #nord0
+colors = [["#1e2132", "#1e2132"], #nord0
           ["#3b4252", "#3b4252"], #nord1
           ["#434c5e", "#434c5e"], #nord2
           ["#4c566a", "#4c566a"], #nord3
@@ -147,7 +147,11 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
+                widget.CurrentLayout(
+                        foreground = colors[0],
+                        background = colors[10],
+                        padding = 5
+                        ),
                 widget.GroupBox(font="Ubuntu Regular",
                         fontsize = 11,
                         margin_y = 3,
@@ -167,16 +171,24 @@ screens = [
                         foreground = colors[6],
                         background = colors[0]
                         ),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        'launch': ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.WindowName(
+                        foreground = "ff005f",
+                        background = colors[0],
+                        padding = 0
+                        ),
+                widget.Prompt(
+                        foreground = "ff005f",
+                        background = colors[0],
+                        padding = 0
+                        ),
+                
+                
+                # widget.Chord(
+                #     chords_colors={
+                #         'launch': ("#ff0000", "#c57339"),
+                #     },
+                #     name_transform=lambda name: name.upper(),
+                # ),
                 widget.TextBox(
                         text="\ue0b8",
                         background = colors[7],
@@ -200,51 +212,68 @@ screens = [
                         background=colors[7],
                         padding = 5
                         ),
+
                 widget.TextBox(
                         text="\ue0b8",
-                        background = colors[7],
-                        foreground = colors[10],
+                        background = "e27878",
+                        foreground = colors[7],
                         padding=0,
                         fontsize=37
                         ),
                 widget.Net(
-                        interface = "enp34s0",
-                        format = '{down} ↓↑ {up}',
-                        foreground = colors[0],
-                        background = colors[10],
-                        padding = 5
-                        ),
+                       interface = "wlp3s0",
+                       format = '{down} ↓↑ {up}',
+                       foreground = colors[0],
+                       background = "e27878",
+                       padding = 5
+                       ),
+
                 widget.TextBox(
                         text="\ue0b8",
-                        background = colors[7],
-                        foreground = colors[8],
+                        background = "#88c0d0",
+                        foreground = "e27878",
                         padding=0,
                         fontsize=37
                         ),
                 widget.TextBox(
                         text=" 🖬",
                         foreground=colors[0],
-                        background=colors[8],
+                        background="#88c0d0",
                         padding = 0,
                         fontsize=14
                         ),
                widget.Memory(
                         foreground = colors[0],
-                        background = colors[8],
+                        background = "#88c0d0",
                         padding = 5
                         ),
-                widget.Systray(
-                    background=colors[0],
-                    padding = 5
-                ),
+                widget.Systray(),
+                widget.TextBox(
+                        text="\ue0b8",
+                        background = "81a1c1",
+                        foreground = "#88c0d0",
+                        padding=0,
+                        fontsize=37
+                        ),
                 widget.Clock(
                         foreground = colors[0],
-                        background = colors[8],
+                        background = "81a1c1",
                         format="%A, %B %d  [ %I:%M %p ]"
                         ),
-                widget.QuickExit(),
+                widget.TextBox(
+                        text="\ue0b8",
+                        background = "5e81ac",
+                        foreground = "81a1c1",
+                        padding=0,
+                        fontsize=37
+                        ),
+                widget.QuickExit(
+                    foreground = colors[0],
+                    background = "5e81ac",
+
+                ),
             ],
-            20,
+            24,
         ),
     ),
 ]
@@ -280,7 +309,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'branchdialog'},  # gitk
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
-])
+], **layout_theme)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
