@@ -1,10 +1,7 @@
-import socket
-import os
-lst = ['example', 'test']
-for count, i in enumerate(lst):
-    print(i, count)
-def example(yeet):
-    print("hi")
+from hello import exp
+
+
+exp.example()
 # example line
  # gg and shift g to go up and down
  # 0 first line and shift g for end of the lin

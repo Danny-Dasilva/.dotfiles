@@ -59,7 +59,17 @@ practice copy pasting with V and curlys
 with y
 delete 2w and copying with dots
 
+-------------------
+gd for go to definition
+shift o for back
 
+ctrl space for start autocomplete
+f2 for change function name
+
+
+terminal 
+control arrows to skip words
+shift a for start of line
 --------------
 ideas:
 center on insert
@@ -71,3 +81,5 @@ ctrl shift arrows for changing windows
 work with vumscript functions
 currently Ctrl w shift h jkl move window to location
 ctrl w  ctrl r for hotswap change to shift S
+
+shift alt a commenting with nerdcommenter
