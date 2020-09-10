@@ -24,15 +24,19 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " File Explorer
     Plug 'scrooloose/NERDTree'
     " Auto pairs for '(' '[' '{'
-    Plug 'jiangmiao/auto-pairs'
     Plug 'itchyny/lightline.vim'                       " Lightline statusbar
     Plug 'arcticicestudio/nord-vim'
     "iceberg theme
     Plug 'gkeep/iceberg-dark'
     Plug 'cocopon/iceberg.vim'
-    Plug 'vim-python/python-syntax'
+    "code stuff
     Plug 'neoclide/coc.nvim',{'branch': 'release'}
     Plug 'itchyny/lightline.vim'
+    Plug 'scrooloose/nerdtree'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 
@@ -40,6 +44,8 @@ call plug#end()
 set t_Co=256
 set encoding=UTF-8
 
+" prettier command for coc
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status Line
@@ -108,8 +114,24 @@ nnoremap <CR> :noh<CR><CR>
 inoremap kj <Esc>
 " esc in command mode
 cnoremap kj <C-C>
+" nerdtree toggle
+nmap <C-b> :NERDTreeToggle<CR>
 
 
-
+nmap <C-_>   <Plug>NERDCommenterToggle
+" coc extensions
+let g:coc_global_extensions = [
+  \'coc-snippets',
+  \'coc-pairs',
+  \'coc-prettier',
+  \'coc-python',
+  \'coc-json',
+  \'coc-prettier'
+  \ ]
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 set number 
