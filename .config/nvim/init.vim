@@ -1,9 +1,8 @@
-"    ___    _ 
-"   /   \__| |	
-"  / /\ / _` |	Danny Dasilva
-" / /_// (_| |	dannydasilva.solutions@gmail.com
-"/___,' \__,_|	https://github.com/Danny-Dasilva
-"
+"     ____    
+"    / __ \   __
+"   / / / /__/ / Danny Dasilva
+"  / /_/ / _  /  dannydasilva.solutions@gmail.com
+" /____,'\_,_/  https://github.com/Danny-Dasilva
 " A customized init.vim for neovim (https://neovim.io/)
 "
 "
@@ -19,22 +18,17 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-    " Better Syntax Support
-    Plug 'sheerun/vim-polyglot'
     " File Explorer
-    Plug 'scrooloose/NERDTree'
-    " Auto pairs for '(' '[' '{'
+    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}  
     Plug 'itchyny/lightline.vim'                       " Lightline statusbar
-    Plug 'arcticicestudio/nord-vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf'
     "iceberg theme
     Plug 'gkeep/iceberg-dark'
     Plug 'cocopon/iceberg.vim'
     "code stuff
     Plug 'neoclide/coc.nvim',{'branch': 'release'}
     Plug 'itchyny/lightline.vim'
-    Plug 'scrooloose/nerdtree'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'ryanoasis/vim-devicons'
     Plug 'scrooloose/nerdcommenter'
 call plug#end()
@@ -107,7 +101,7 @@ tnoremap <Esc> <C-\><C-n>
 
 noremap <Leader>r :so $MYVIMRC<CR>
 
-"This unsets the "last search pattern" register by hitting return
+"This unsets the "last search pattern" register by hitting enter
 nnoremap <CR> :noh<CR><CR>
 
 " esc in insert mode
@@ -115,10 +109,13 @@ inoremap kj <Esc>
 " esc in command mode
 cnoremap kj <C-C>
 " nerdtree toggle
-nmap <C-b> :NERDTreeToggle<CR>
+nmap <C-b> :CHADopen<CR>
 
+"szf fuzzy finder 
+nmap <C-p> :CHADopen<CR>   
 
 nmap <C-_>   <Plug>NERDCommenterToggle
+nmap <C-c>   <Plug>NERDCommenterToggle
 " coc extensions
 let g:coc_global_extensions = [
   \'coc-snippets',
