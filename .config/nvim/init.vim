@@ -22,7 +22,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}  
     Plug 'itchyny/lightline.vim'                       " Lightline statusbar
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
     "iceberg theme
     Plug 'gkeep/iceberg-dark'
     Plug 'cocopon/iceberg.vim'
@@ -53,7 +53,7 @@ colorscheme iceberg
 " Always show statusline
 set laststatus=2
 source ~/.config/nvim/lightline.vim
-
+"cmment
 set termguicolors
 
 set clipboard+=unnamedplus
@@ -112,8 +112,10 @@ cnoremap kj <C-C>
 nmap <C-b> :CHADopen<CR>
 
 "szf fuzzy finder 
-nmap <C-p> :CHADopen<CR>   
-
+nmap <C-p> :Files<CR>   
+nnoremap <leader>g :Rg<CR>
+map <C-f> :BLines<CR>
+"Lines for all of the buffers
 nmap <C-_>   <Plug>NERDCommenterToggle
 nmap <C-c>   <Plug>NERDCommenterToggle
 " coc extensions
@@ -130,5 +132,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
+set hidden
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 set number 
