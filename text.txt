@@ -7,17 +7,6 @@ dotfiles checkout
 
 
 
-
-#    ___    _ 
-#   /   \__| |	
-#  / /\ / _` |	Danny Dasilva
-# / /_// (_| |	dannydasilva.solutions@gmail.com
-#/___,' \__,_|	https://github.com/Danny-Dasilva
-#
-# My bash config. 
-# PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
-
-
 dotfiles add .vimrc
 dotfiles commit -m "Add vimrc"
 dotfiles remote add origin https://github.com/Danny-Dasilva/.dotfiles.git
