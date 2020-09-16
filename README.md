@@ -2,7 +2,7 @@
 Personal dofiles
 
 
-cloning files
+### cloning files / Setup
 
 `git clone --bare https://github.com/Danny-Dasilva/.dotfiles.git` (or your fork)
 
@@ -13,7 +13,7 @@ cloning files
 `dotfiles checkout`
 
 
-How to commit 
+### How to commit or add changes
 
 `dotfiles add $your_file `
 
@@ -23,10 +23,10 @@ How to commit
 `dotfiles push origin master`
 
 
-in case of no origin error
+### in case of no origin error
 
 `dotfiles remote add origin https://github.com/Danny-Dasilva/.dotfiles.git`
 
 
-How to update from repo
+### How to update from repo
 `dotfiles pull`
