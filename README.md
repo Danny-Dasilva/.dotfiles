@@ -1,5 +1,5 @@
 # dotfiles
-Personal dofiles
+Personal dotfiles 
 
 
 ### cloning files / Setup
