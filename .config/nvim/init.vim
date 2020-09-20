@@ -65,6 +65,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
+    "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'vim-python/python-syntax'                                           " added python syntax
     Plug 'ryanoasis/vim-devicons'                                             " Icons 
     Plug 'scrooloose/nerdcommenter'                                           " auto comment 
 call plug#end()
@@ -155,8 +157,8 @@ nnoremap <leader>g :Rg<CR>      "ripgrep
 map <C-f> :BLines<CR>           "search current files
 
 "Comment text lines
-nmap <C-_>   <Plug>NERDCommenterToggle
-nmap <C-c>   <Plug>NERDCommenterToggle
+map <C-_>   <Plug>NERDCommenterToggle
+map <C-c>   <Plug>NERDCommenterToggle
 
 " coc languageextensions
 let g:coc_global_extensions = [
@@ -171,6 +173,30 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
 
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -187,8 +213,20 @@ inoremap kj <Esc>
 " esc in command mode
 cnoremap kj <C-C>
 
+"make sure enter does not spawn a new line if autofill tab is on screen
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+"use tab and shift tab to select coc autocomplete
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
 "use system keyboard
 set clipboard+=unnamedplus
 
 "Leader R to reset vim 
 noremap <Leader>r :so $MYVIMRC<CR>
+
+
+let g:python_highlight_all = 1
+set so=7
