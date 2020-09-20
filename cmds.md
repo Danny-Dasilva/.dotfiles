@@ -134,3 +134,4 @@ shift alt a commenting with nerdcommenter
 # figure out shift tab
 # ctrl k ctrl F
 
+"diagnostic.messageTarget": "echo"

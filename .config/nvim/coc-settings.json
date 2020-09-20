@@ -1,0 +1,8 @@
+{
+	"python.jediEnabled": false,
+	"coc.preferences.jumpCommand": "drop",
+	"python.linting.enabled": true,
+	"python.pythonPath": "python3",
+	"diagnostic.checkCurrentLine": true
+
+}
