@@ -72,11 +72,14 @@ else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
+IP=$(hostname -I | awk '{print $1}')
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-	PS1="\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;27m\]\w\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"
+# 	PS1="\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;27m\]\w\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"
+	PS1="\[\033[38;5;32m\]┌(\[$(tput sgr0)\]\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[\033[38;5;78m\]\w\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[$(tput sgr0)\] IP: $IP \[$(tput sgr0)\]\[\033[38;5;32m\])\n\[$(tput sgr0)\]\[\033[38;5;32m\]└─>\[$(tput sgr0)\]"
+
     ;;
 *)
     ;;
