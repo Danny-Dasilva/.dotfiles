@@ -3,6 +3,9 @@
 	"coc.preferences.jumpCommand": "drop",
 	"python.linting.enabled": true,
 	"python.pythonPath": "python3",
-	"diagnostic.checkCurrentLine": true
-
+	"diagnostic.checkCurrentLine": true,
+	"emmet.includeLanguages": {"htmldjango": "html"},
+	"go.goplsOptions": {
+		"completeUnimported": true
+  	}
 }

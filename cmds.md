@@ -135,3 +135,8 @@ shift alt a commenting with nerdcommenter
 # ctrl k ctrl F
 
 "diagnostic.messageTarget": "echo"
+
+Enter visual mode by pressing v.
+Select the outer tag block by pressing a+t or i+t for inner tag block.
+o or Shift O for back and forth
+it alternatively

@@ -53,4 +53,4 @@ Xterm*savelines:16384
 XTerm*renderFont: true
 XTerm*faceName: xft:Fira Code iCursive S12, \
                 xft:Monospace:style=Medium:size=12   
-
+xterm*metaSendsEscape: true
