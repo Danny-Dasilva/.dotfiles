@@ -63,10 +63,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'gkeep/iceberg-dark'
     Plug 'cocopon/iceberg.vim'                                               
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
+    Plug 'mengelbrecht/lightline-bufferline'
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
     "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'vim-python/python-syntax'                                           " added python syntax
+    
     Plug 'ryanoasis/vim-devicons'                                             " Icons 
     Plug 'scrooloose/nerdcommenter'                                           " auto comment 
 call plug#end()
@@ -122,6 +124,19 @@ nnoremap <S-Tab> :bprevious<CR>
 " ==============================================================================
 let g:lightline = {
       \ 'colorscheme': 'icebergDark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ ['close'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
       \ }
 set bg=dark
 colorscheme iceberg 
@@ -140,9 +155,8 @@ set showtabline=2
 " ==============================================================================
 "open a terminal leader tt
 map <Leader>tt :vnew term://bash<CR>
-"Leader R to reset vim 
-noremap <Leader>r :so $MYVIMRC<CR>
-
+"escape exits terminal 
+tnoremap <Esc> <C-\><C-n>
 
 " ==============================================================================
 " 6. PLUGIN NAVIGATION
@@ -158,15 +172,20 @@ map <C-f> :BLines<CR>           "search current files
 
 "Comment text lines
 map <C-_>   <Plug>NERDCommenterToggle
-map <C-c>   <Plug>NERDCommenterToggle
+map <A-c>   <Plug>NERDCommenterToggle
 
 " coc languageextensions
 let g:coc_global_extensions = [
   \'coc-snippets',
   \'coc-pairs',
   \'coc-python',
+  \'coc-go',
   \'coc-json',
-  \'coc-prettier'
+  \'coc-css',
+  \'coc-html',
+  \'coc-prettier',
+  \'coc-highlight',
+  \'coc-emmet'
   \ ]
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -175,7 +194,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <A-d> :call <SID>show_documentation()<CR>
 
 
 function! s:show_documentation()
@@ -186,12 +205,31 @@ function! s:show_documentation()
   endif
 endfunction
 
+"added references
+nmap <leader>u <Plug>(coc-references)
+
+
+"make sure enter does not spawn a new line if autofill tab is on screen
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+
+"enable highlight list swapping
+let g:coc_enable_locationlist = 0
+autocmd User CocLocationsChange CocList --no-quit --normal location
+
+
+"use alt n(ext) and b(ack) for navigating through coc highlights
+nnoremap <silent><nowait> <A-n> :CocCommand document.jumpToNextSymbol<CR>
+nnoremap <silent><nowait> <A-b> :CocCommand document.jumpToPrevSymbol<CR>
+
+"use tab and shift tab to select coc autocomplete
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -204,29 +242,39 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " ==============================================================================
 " 7. EDITING
 " ==============================================================================
+"python syntax highlight
+let g:python_highlight_all = 1
 
 "This unsets the "last search pattern" register by hitting enter
 nnoremap <CR> :noh<CR><CR>
 
-" esc in insert mode
+" esc in insert mode 
 inoremap kj <Esc>
+" esc in visual mode
+vnoremap kj <Esc>
 " esc in command mode
 cnoremap kj <C-C>
 
-"make sure enter does not spawn a new line if autofill tab is on screen
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"quick snippets and formatting
+nnoremap <silent> <A-a> :CocAction('doHover')<CR>
+vnoremap <silent> <A-a> :CocAction('doHover')<CR>
 
-"use tab and shift tab to select coc autocomplete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
 "use system keyboard
 set clipboard+=unnamedplus
 
+
+
 "Leader R to reset vim 
 noremap <Leader>r :so $MYVIMRC<CR>
 
+"skip one character forward
+inoremap <S-Tab> <esc>la
+"go to end of line 
+inoremap <A-l> <C-o>A
+"CTRL A for select all
+nnoremap <C-A> ggVG
 
-let g:python_highlight_all = 1
-set so=7
+

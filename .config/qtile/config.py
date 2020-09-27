@@ -6,8 +6,42 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import os
 import socket
+from pathlib import Path
+import subprocess
+from time import time
 mod = "mod4"
 terminal = guess_terminal()
+
+
+
+def screenshot(save=True, copy=True):
+    def f(qtile):
+        path = Path.home() / 'Pictures'
+        path /= f'screenshot_{str(int(time() * 100))}.png'
+        shot = subprocess.run(['maim'], stdout=subprocess.PIPE)
+
+        if save:
+            with open(path, 'wb') as sc:
+                sc.write(shot.stdout)
+
+        if copy:
+            subprocess.run(['xclip', '-selection', 'clipboard', '-t',
+                            'image/png'], input=shot.stdout)
+    return f
+
+
+def backlight(action):
+    def f(qtile):
+        brightness = int(subprocess.run(['xbacklight', '-get'],
+                                        stdout=subprocess.PIPE).stdout)
+        if brightness != 1 or action != 'dec':
+            if (brightness > 49 and action == 'dec') \
+                                or (brightness > 39 and action == 'inc'):
+                subprocess.run(['xbacklight', f'-{action}', '10',
+                                '-fps', '10'])
+            else:
+                subprocess.run(['xbacklight', f'-{action}', '1'])
+    return f
 
 keys = [
     # Switch between windows
@@ -55,6 +89,20 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+    Key([], 'XF86MonBrightnessUp',   lazy.function(backlight('inc'))),
+    Key([], 'XF86MonBrightnessDown', lazy.function(backlight('dec'))),
+    Key([mod], "F3",
+             lazy.spawn("amixer set 'Master' 1%+"),
+             desc='volume up 1%'
+             ),
+    Key([mod], "F2",
+             lazy.spawn("amixer set 'Master' 1%-"),
+             desc='volume up 1%'
+             ),
+    Key([mod], "F1",
+             lazy.spawn("amixer set 'Master' toggle"),
+             desc='Volume mute toggle'
+             ),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -91,31 +139,10 @@ layouts = [
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
-    layout.MonadTall(**layout_theme),
-    layout.Max(**layout_theme),
-    layout.Tile(shift_windows=True, **layout_theme),
-    layout.Stack(num_stacks=2),
-    layout.Floating(**layout_theme)
-]
-
-
-layouts = [
-    layout.Columns(**layout_theme),
-    # Try more layouts by unleashing below layouts.
+    # layout.MonadTall(**layout_theme),
+    # layout.Tile(shift_windows=True, **layout_theme),
     # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-    layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Tile(shift_windows=True, **layout_theme),
-    layout.Stack(num_stacks=2),
     layout.Floating(**layout_theme)
 ]
 
@@ -172,23 +199,17 @@ screens = [
                         background = colors[0]
                         ),
                 widget.WindowName(
-                        foreground = "ff005f",
+                        foreground = "#ff005f",
                         background = colors[0],
                         padding = 0
                         ),
                 widget.Prompt(
-                        foreground = "ff005f",
+                        foreground = "#ff005f",
                         background = colors[0],
                         padding = 0
                         ),
                 
                 
-                # widget.Chord(
-                #     chords_colors={
-                #         'launch': ("#ff0000", "#c57339"),
-                #     },
-                #     name_transform=lambda name: name.upper(),
-                # ),
                 widget.TextBox(
                         text="\ue0b8",
                         background = colors[7],
@@ -197,14 +218,7 @@ screens = [
                         fontsize=37
                         ),
               
-                # widget.TextBox(
-                #         text="\ue0ba",
-                #         background = colors[0],
-                #         foreground = "#FF0000",
-                #         padding=0,
-                #         fontsize=37
-                #         ),
-                
+               
                 widget.CPU(
                         format='CPU {freq_current}GHz {load_percent}%',
                         update_interval=1.0,
@@ -215,7 +229,7 @@ screens = [
 
                 widget.TextBox(
                         text="\ue0b8",
-                        background = "e27878",
+                        background = "#e27878",
                         foreground = colors[7],
                         padding=0,
                         fontsize=37
@@ -224,14 +238,14 @@ screens = [
                        interface = "wlp3s0",
                        format = '{down} ↓↑ {up}',
                        foreground = colors[0],
-                       background = "e27878",
+                       background = "#e27878",
                        padding = 5
                        ),
 
                 widget.TextBox(
                         text="\ue0b8",
                         background = "#88c0d0",
-                        foreground = "e27878",
+                        foreground = "#e27878",
                         padding=0,
                         fontsize=37
                         ),
@@ -245,31 +259,46 @@ screens = [
                widget.Memory(
                         foreground = colors[0],
                         background = "#88c0d0",
+                        format = "{MemPercent}%m/{SwapPercent}%s",
                         padding = 5
                         ),
-                widget.Systray(),
+               widget.TextBox(
+                    text = '♫ ',
+                    background = colors[0],
+                    foreground = colors[3],
+                    ),
+                widget.TextBox(
+                    text = 'Voll: ',
+                    background = colors[2],
+                    ),
+                widget.Volume(
+                    background = colors[2],
+                    ),
+                widget.Systray(
+                        background = colors[7]
+                        ),
                 widget.TextBox(
                         text="\ue0b8",
-                        background = "81a1c1",
+                        background = "#81a1c1",
                         foreground = "#88c0d0",
                         padding=0,
                         fontsize=37
                         ),
                 widget.Clock(
                         foreground = colors[0],
-                        background = "81a1c1",
-                        format="%A, %B %d  [ %I:%M %p ]"
+                        background = "#81a1c1",
+                        format="%a, %b %d  [ %I:%M %p ]"
                         ),
                 widget.TextBox(
                         text="\ue0b8",
-                        background = "5e81ac",
-                        foreground = "81a1c1",
+                        background = "#5e81ac",
+                        foreground = "#81a1c1",
                         padding=0,
                         fontsize=37
                         ),
                 widget.QuickExit(
                     foreground = colors[0],
-                    background = "5e81ac",
+                    background = "#5e81ac",
 
                 ),
             ],
@@ -321,4 +350,4 @@ focus_on_window_activation = "smart"
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "Kristof"
+wmname = "Qtile"
