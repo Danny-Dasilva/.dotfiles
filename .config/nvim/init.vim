@@ -163,7 +163,7 @@ tnoremap <Esc> <C-\><C-n>
 " ==============================================================================
 
 "Chadtree/nerdtree toggle
-nmap <C-b> :CHADopen<CR>
+nmap <C-b> :CocCommand explorer<CR>
 
 "szf fuzzy finder 
 nmap <C-p> :Files<CR>           "search files in current dir 
@@ -177,6 +177,7 @@ map <A-c>   <Plug>NERDCommenterToggle
 " coc languageextensions
 let g:coc_global_extensions = [
   \'coc-snippets',
+  \'coc-explorer',
   \'coc-pairs',
   \'coc-python',
   \'coc-go',
@@ -251,7 +252,7 @@ nnoremap <CR> :noh<CR><CR>
 " esc in insert mode 
 inoremap kj <Esc>
 " esc in visual mode
-vnoremap kj <Esc>
+"vnoremap kj <Esc>
 " esc in command mode
 cnoremap kj <C-C>
 
