@@ -13,7 +13,6 @@ mod = "mod4"
 terminal = guess_terminal()
 
 
-
 def screenshot(save=True, copy=True):
     def f(qtile):
         path = Path.home() / 'Pictures'
@@ -103,6 +102,11 @@ keys = [
              lazy.spawn("amixer set 'Master' toggle"),
              desc='Volume mute toggle'
              ),
+    Key([mod], "v",
+             lazy.spawn("xterm alsamixer"),
+             desc='change volume settings'
+             ),
+
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -153,10 +157,10 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 colors = [["#1e2132", "#1e2132"], #nord0
-          ["#3b4252", "#3b4252"], #nord1
+          ["#3d435c", "#3d435c"], #nord1
           ["#434c5e", "#434c5e"], #nord2
           ["#4c566a", "#4c566a"], #nord3
-          ["#d8dee9", "#d8dee9"], #nord4
+          ["#81a1c1", "#81a1c1"], #nord4
           ["#e5e9f0", "#e5e9f0"], #nord5
           ["#eceff4", "#eceff4"], #nord6
           ["#8fbcbb", "#8fbcbb"], #nord7
@@ -164,11 +168,10 @@ colors = [["#1e2132", "#1e2132"], #nord0
           ["#81a1c1", "#81a1c1"], #nord9
           ["#5e81ac", "#5e81ac"], #nord10
           ["#bf616a", "#bf616a"], #nord11
-          ["#d08770", "#d08770"], #nord12
+          ["#e27878", "#e27878"], #nord12
           ["#ebcb8b", "#ebcb8b"], #nord13
           ["#a3be8c", "#a3be8c"], #nord14
           ["#b48ead", "#b48ead"]] #nord15
-
 
 screens = [
     Screen(
@@ -178,6 +181,9 @@ screens = [
                         foreground = colors[0],
                         background = colors[10],
                         padding = 5
+                        ),
+                widget.Systray(
+                        background = colors[7]
                         ),
                 widget.GroupBox(font="Ubuntu Regular",
                         fontsize = 11,
@@ -208,8 +214,6 @@ screens = [
                         background = colors[0],
                         padding = 0
                         ),
-                
-                
                 widget.TextBox(
                         text="\ue0b8",
                         background = colors[7],
@@ -217,8 +221,6 @@ screens = [
                         padding=0,
                         fontsize=37
                         ),
-              
-               
                 widget.CPU(
                         format='CPU {freq_current}GHz {load_percent}%',
                         update_interval=1.0,
@@ -226,7 +228,6 @@ screens = [
                         background=colors[7],
                         padding = 5
                         ),
-
                 widget.TextBox(
                         text="\ue0b8",
                         background = "#e27878",
@@ -263,20 +264,22 @@ screens = [
                         padding = 5
                         ),
                widget.TextBox(
-                    text = '♫ ',
-                    background = colors[0],
-                    foreground = colors[3],
-                    ),
+                        text="\ue0b8",
+                        background = "#81a1c1",
+                        foreground = "#88c0d0",
+                        padding=0,
+                        fontsize=37
+                        ),
+
                 widget.TextBox(
-                    text = 'Voll: ',
-                    background = colors[2],
+                    text = '♫ Vol: ',
+                    foreground = colors[0],
+                    background = colors[8],
                     ),
                 widget.Volume(
                     background = colors[2],
                     ),
-                widget.Systray(
-                        background = colors[7]
-                        ),
+                
                 widget.TextBox(
                         text="\ue0b8",
                         background = "#81a1c1",
@@ -287,7 +290,7 @@ screens = [
                 widget.Clock(
                         foreground = colors[0],
                         background = "#81a1c1",
-                        format="%a, %b %d  [ %I:%M %p ]"
+                        format="%a, %b %d  [ %I:%M %p ]",
                         ),
                 widget.TextBox(
                         text="\ue0b8",
