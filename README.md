@@ -10,7 +10,7 @@ Personal dotfiles
 
 `source ~/.dotfiles `
 
-`dotfiles checkout`
+`dotfiles checkout --force`
 
 
 ### How to commit or add changes
