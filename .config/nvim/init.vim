@@ -55,8 +55,6 @@ endif
 call plug#begin('~/.config/nvim/autoload/plugged')
  
     " Navigation
-    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}  " Nerdtree with the addons 
-    
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
     "Theme
