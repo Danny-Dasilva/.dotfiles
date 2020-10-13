@@ -1,8 +1,8 @@
-#    ___    _ 
-#   /   \__| |	
-#  / /\ / _` |	Danny Dasilva
-# / /_// (_| |	dannydasilva.solutions@gmail.com
-#/___,' \__,_|	https://github.com/Danny-Dasilva
+#     ____    
+#    / __ \   __
+#   / / / /__/ / Danny Dasilva
+#  / /_/ / _  /  dannydasilva.solutions@gmail.com
+# /____,'\_,_/   https://github.com/Danny-Dasilva
 #
 # My bash config. 
 # PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
