@@ -2,7 +2,7 @@
 "    / __ \   __
 "   / / / /__/ / Danny Dasilva
 "  / /_/ / _  /  dannydasilva.solutions@gmail.com
-" /____,'\_,_/  https://github.com/Danny-Dasilva
+" /____,'\_,_/   https://github.com/Danny-Dasilva
 " 
 " A customized init.vim for neovim (https://neovim.io/)
 "
