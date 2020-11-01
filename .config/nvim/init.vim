@@ -182,6 +182,7 @@ let g:coc_global_extensions = [
   \'coc-json',
   \'coc-css',
   \'coc-html',
+  \'coc-tsserver',
   \'coc-prettier',
   \'coc-highlight',
   \'coc-emmet'
@@ -265,6 +266,12 @@ nmap <leader>rn <Plug>(coc-rename)
 set clipboard+=unnamedplus
 
 
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 
 "Leader R to reset vim 
 noremap <Leader>r :so $MYVIMRC<CR>
