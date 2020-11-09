@@ -3,8 +3,7 @@
 "  __/ / / /__/ / Danny Dasilva
 " /_  /_/ / _  /  dannydasilva.solutions@gmail.com
 "  /____,'\_,_/   https://github.com/Danny-Dasilva
-" A customized init.vim for neovim (https://neovim.io/) tooled for editing code
-"
+" A customized init.vim for neovim (https://neovim.io/) 
 " TABLE OF CONTENTS:
 " 1. GENERIC SETTINGS
 " 2. VIM-PLUG PLUGINS
@@ -193,7 +192,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> <A-d> :call <SID>show_documentation()<CR>
+nnoremap <silent>  K :call <SID>show_documentation()<CR>
 
 
 function! s:show_documentation()
@@ -281,5 +280,4 @@ inoremap <S-Tab> <esc>la
 inoremap <A-l> <C-o>A
 "CTRL A for select all
 nnoremap <C-A> ggVG
-
 
