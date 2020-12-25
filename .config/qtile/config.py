@@ -263,18 +263,38 @@ screens = [
                         format = "{MemPercent}%m/{SwapPercent}%s",
                         padding = 5
                         ),
-               widget.TextBox(
+                widget.TextBox(
                         text="\ue0b8",
-                        background = "#81a1c1",
+                        background = colors[13],
                         foreground = "#88c0d0",
                         padding=0,
                         fontsize=37
                         ),
 
                 widget.TextBox(
+                    text = 'Bat : ',
+                    background = colors[13],
+                    ),
+                widget.Battery(charge_char='+',
+                               discharge_char='-',
+                               background = colors[13],
+                               battery=0,
+                                format='{char} {percent:2.0%}'),
+                widget.Battery(background = colors[13],
+                               battery=1,
+                                format='{percent:2.0%}'),
+
+                widget.TextBox(
+                        text="\ue0b8",
+                        background = colors[2],
+                        foreground = colors[13],
+                        padding=0,
+                        fontsize=37
+                        ),
+
+                widget.TextBox(
                     text = '♫ Vol: ',
-                    foreground = colors[0],
-                    background = colors[8],
+                    background = colors[2],
                     ),
                 widget.Volume(
                     background = colors[2],
@@ -283,7 +303,7 @@ screens = [
                 widget.TextBox(
                         text="\ue0b8",
                         background = "#81a1c1",
-                        foreground = "#88c0d0",
+                        foreground = colors[2],
                         padding=0,
                         fontsize=37
                         ),
