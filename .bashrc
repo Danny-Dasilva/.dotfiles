@@ -1,8 +1,4 @@
-#      ____    
-#     / __ \   __
-#  __/ / / /__/ / Danny Dasilva
-# /_  /_/ / _  /  dannydasilva.solutions@gmail.com
-#  /____,'\_,_/   https://github.com/Danny-Dasilva
+
 # My bash config configured for xterm and x11 
 # PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
 
