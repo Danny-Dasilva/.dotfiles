@@ -5,7 +5,4 @@
 	"python.pythonPath": "python3",
 	"diagnostic.checkCurrentLine": true,
 	"emmet.includeLanguages": {"htmldjango": "html"},
-	"go.goplsOptions": {
-		"completeUnimported": true
-  	}
 }
