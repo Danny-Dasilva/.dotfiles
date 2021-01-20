@@ -23,10 +23,9 @@ from libqtile import qtile
 from typing import List  # noqa: F401
 from custom.bsp import Bsp as CustomBsp
 from custom.pomodoro import Pomodoro as CustomPomodoro
-from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = guess_terminal() 
+terminal = "urxvt"
 myconfig = "/home/barbarossa/.config/qtile/config.py"
 
 ## Resize functions for bsp layout
@@ -370,7 +369,7 @@ keys = [
     Key(
         [mod, "control"],
         "r",
-        lazy.spawn("mp4"),
+        lazy.spawn("recorder.sh"),
         desc="Record selected part of screen in mp4",
     ),
     Key(
@@ -468,8 +467,8 @@ workspaces = [
     },
     {"name": "", "key": "3", "matches": []},
     {"name": "", "key": "4", "matches": [Match(wm_class="emacs")]},
-    {"name": "", "key": "5", "matches": []},
-    {"name": "", "key": "6", "matches": [Match(wm_class="slack")]},
+    {"name": "", "key": "5", "matches": []},
+    {"name": "", "key": "6", "matches": [Match(wm_class="slack")]},
     {"name": "", "key": "7", "matches": [Match(wm_class="spotify")]},
     {"name": "", "key": "8", "matches": [Match(wm_class="zoom")]},
     {"name": "", "key": "9", "matches": [Match(wm_class="gimp")]},
@@ -518,16 +517,23 @@ for workspace in workspaces:
     )
 
 layout_theme = {
-    "border_width": 3,
+    "border_width": 9,
     "margin": 9,
-    "border_focus": "3b4252",
-    "border_normal": "3b4252",
+    "corner_radius": 12,
+    # "border_focus": ["#000000", "#3b4252", "#3b4252"],
+    # "border_normal": ["#000000", "#3b4252", "#3b4252"],
 }
 
 layouts = [
     # layout.MonadWide(**layout_theme),
-    # layout.Bsp(**layout_theme, fair=False, grow_amount=2),
-    CustomBsp(**layout_theme, fair=False, grow_amount=2),
+    layout.Bsp(
+        **layout_theme,
+        fair=False,
+        grow_amount=2,
+        border_focus=["#000000", "#3b4252", "#3b4252"],
+        border_normal=["#000000", "#3b4252", "#3b4252"],
+    ),
+    # CustomBsp(**layout_theme, fair=False, grow_amount=2),
     # layout.Columns(**layout_theme),
     # layout.RatioTile(**layout_theme),
     # layout.Verticmod1ile(**layout_theme),
@@ -536,7 +542,12 @@ layouts = [
     # layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
     # layout.Tile(shift_windows=True, **layout_theme),
-    layout.Stack(num_stacks=2, **layout_theme),
+    layout.Stack(
+        num_stacks=2,
+        **layout_theme,
+        border_focus=["#000000", "#3b4252", "#3b4252"],
+        border_normal=["#000000", "#3b4252", "#3b4252"],
+    ),
     layout.Floating(**layout_theme, fullscreen_border_width=3, max_border_width=3),
 ]
 
@@ -587,7 +598,7 @@ group_box_settings = {
 # Define functions for bar
 def taskwarrior():
     return (
-        subprocess.check_output(["./.config/qtile/task_polybar.sh"])
+        subprocess.check_output(["./.config/polybar/polybar-scripts/task_polybar.sh"])
         .decode("utf-8")
         .strip()
     )
@@ -595,7 +606,9 @@ def taskwarrior():
 
 def bluetooth():
     return (
-        subprocess.check_output(["./.config/qtile/system-bluetooth-bluetoothctl.sh"])
+        subprocess.check_output(
+            ["./.config/polybar/polybar-scripts/system-bluetooth-bluetoothctl.sh"]
+        )
         .decode("utf-8")
         .strip()
     )
@@ -623,7 +636,9 @@ def open_pavu():
 
 
 def toggle_bluetooth():
-    qtile.cmd_spawn("./.config/qtile/system-bluetooth-bluetoothctl.sh --toggle")
+    qtile.cmd_spawn(
+        "./.config/polybar/polybar-scripts/system-bluetooth-bluetoothctl.sh --toggle"
+    )
 
 
 def open_bt_menu():
@@ -644,369 +659,7 @@ def open_powermenu():
 
 screens = [
     Screen(
-        top=bar.Bar(
-            [
-                # widget.Image(
-                #   background=colors[0],
-                #    filename="~/.config/qtile/icons/qtilelogo.png",
-                #    margin=6,
-                #    mouse_callbacks={
-                #        "Button1": lambda qtile: qtile.cmd_spawn(
-                #            "./.config/rofi/launchers/ribbon/launcher.sh"
-                #        )
-                #    },
-                # ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[13],
-                    background=colors[0],
-                    font="Font Awesome 5 Free Solid",
-                    fontsize=28,
-                    padding=20,
-                    mouse_callbacks={"Button1": open_launcher},
-                ),
-                # widget.Sep(
-                #    linewidth=2,
-                #    foreground=colors[2],
-                #    padding=25,
-                #    size_percent=50,
-                # ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.GroupBox(
-                    font="Font Awesome 5 Brands",
-                    visible_groups=[""],
-                    **group_box_settings,
-                ),
-                widget.GroupBox(
-                    font="Font Awesome 5 Free Solid",
-                    visible_groups=["", "", "", "", ""],
-                    **group_box_settings,
-                ),
-                widget.GroupBox(
-                    font="Font Awesome 5 Brands",
-                    visible_groups=[""],
-                    **group_box_settings,
-                ),
-                widget.GroupBox(
-                    font="Font Awesome 5 Free Solid",
-                    visible_groups=["", "", ""],
-                    **group_box_settings,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    background=colors[0],
-                    padding=10,
-                    size_percent=40,
-                ),
-                # widget.TextBox(
-                #    text=" ",
-                #    foreground=colors[7],
-                #    background=colors[0],
-                #    font="Font Awesome 5 Free Solid",
-                # ),
-                # widget.CurrentLayout(
-                #    background=colors[0],
-                #    foreground=colors[7],
-                # ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.CurrentLayoutIcon(
-                    custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-                    foreground=colors[2],
-                    background=colors[14],
-                    padding=-2,
-                    scale=0.45,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.GenPollText(
-                    func=taskwarrior,
-                    update_interval=5,
-                    foreground=colors[11],
-                    background=colors[14],
-                    mouse_callbacks={"Button1": finish_task},
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Spacer(),
-                widget.TextBox(
-                    text=" ",
-                    foreground=colors[12],
-                    background=colors[0],
-                    # fontsize=38,
-                    font="Font Awesome 5 Free Solid",
-                ),
-                widget.WindowName(
-                    background=colors[0],
-                    foreground=colors[12],
-                    width=bar.CALCULATED,
-                    empty_group_string="Desktop",
-                    mouse_callbacks={"Button2": kill_window},
-                ),
-                widget.CheckUpdates(
-                    background=colors[0],
-                    foreground=colors[3],
-                    colour_have_updates=colors[3],
-                    custom_command="./.config/qtile/updates-arch-combined",
-                    display_format=" {updates}",
-                    execute=update,
-                    padding=20,
-                ),
-                # widget.GenPollText(
-                #    func=updates,
-                #    update_interval=300,
-                #    foreground=colors[3],
-                #    mouse_callbacks={"Button1": update},
-                # ),
-                widget.Spacer(),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                # widget.Systray(icon_size=24, background=colors[14], padding=10),
-                CustomPomodoro(
-                    background=colors[14],
-                    fontsize=24,
-                    color_active=colors[3],
-                    color_break=colors[6],
-                    color_inactive=colors[10],
-                    timer_visible=False,
-                    prefix_active="",
-                    prefix_break="",
-                    prefix_inactive="",
-                    prefix_long_break="",
-                    prefix_paused="",
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    text=" ",
-                    foreground=colors[8],
-                    background=colors[14],
-                    font="Font Awesome 5 Free Solid",
-                    # fontsize=38,
-                ),
-                widget.PulseVolume(
-                    foreground=colors[8],
-                    background=colors[14],
-                    limit_max_volume="True",
-                    mouse_callbacks={"Button3": open_pavu},
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.GenPollText(
-                    func=bluetooth,
-                    background=colors[14],
-                    foreground=colors[6],
-                    update_interval=3,
-                    mouse_callbacks={
-                        "Button1": toggle_bluetooth,
-                        "Button3": open_bt_menu,
-                    },
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    text=" ",
-                    font="Font Awesome 5 Free Solid",
-                    foreground=colors[7],  # fontsize=38
-                    background=colors[14],
-                ),
-                widget.Wlan(
-                    interface="wlan0",
-                    format="{essid}",
-                    foreground=colors[7],
-                    background=colors[14],
-                    padding=5,
-                    mouse_callbacks={"Button1": open_connman},
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    text=" ",
-                    font="Font Awesome 5 Free Solid",
-                    foreground=colors[5],  # fontsize=38
-                    background=colors[14],
-                ),
-                widget.Clock(
-                    format="%a, %b %d",
-                    background=colors[14],
-                    foreground=colors[5],
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                widget.TextBox(
-                    text=" ",
-                    font="Font Awesome 5 Free Solid",
-                    foreground=colors[4],  # fontsize=38
-                    background=colors[14],
-                ),
-                widget.Clock(
-                    format="%I:%M %p",
-                    foreground=colors[4],
-                    background=colors[14],
-                    # mouse_callbacks={"Button1": todays_date},
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=28,
-                    padding=0,
-                ),
-                # widget.Sep(
-                #    linewidth=2,
-                #    foreground=colors[2],
-                #    padding=25,
-                #    size_percent=50,
-                # ),
-                widget.TextBox(
-                    text="⏻",
-                    foreground=colors[13],
-                    font="Font Awesome 5 Free Solid",
-                    fontsize=34,
-                    padding=20,
-                    mouse_callbacks={"Button1": open_powermenu},
-                ),
-            ],
-            48,
-            margin=[0, -4, 18, -4],
-        ),
+        top=bar.Gap(18),
         bottom=bar.Gap(18),
         left=bar.Gap(18),
         right=bar.Gap(18),
