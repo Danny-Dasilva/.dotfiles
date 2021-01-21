@@ -5,6 +5,19 @@ from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import os
+from libqtile import qtile
+from libqtile.config import (
+    KeyChord,
+    Key,
+    Screen,
+    Group,
+    Drag,
+    Click,
+    ScratchPad,
+    DropDown,
+    Match,
+)
+from custom.pomodoro import Pomodoro as CustomPomodoro
 import socket
 from pathlib import Path
 import subprocess
@@ -42,6 +55,38 @@ def backlight(action):
                 subprocess.run(['xbacklight', f'-{action}', '1'])
     return f
 
+# Define functions for bar
+def taskwarrior():
+    return (
+        subprocess.check_output(["./.config/qtile/task_polybar.sh"])
+        .decode("utf-8")
+        .strip()
+    )
+
+def finish_task():
+    qtile.cmd_spawn('task "$((`cat /tmp/tw_polybar_id`))" done')
+
+def update():
+    qtile.cmd_spawn(terminal + "-e yay")
+def open_alsa():
+    qtile.cmd_spawn("alsamixer")
+
+def toggle_bluetooth():
+    qtile.cmd_spawn("./.config/qtile/system-bluetooth-bluetoothctl.sh --toggle")
+def open_bt_menu():
+    qtile.cmd_spawn("blueman")
+def bluetooth():
+    return (
+        subprocess.check_output(["./.config/qtile/system-bluetooth-bluetoothctl.sh"])
+        .decode("utf-8")
+        .strip()
+    )
+
+def open_powermenu():
+    qtile.cmd_spawn("./.config/rofi/powermenu/powermenu.sh")
+
+def open_nmtui():
+    qtile.cmd_spawn("nmtui")
 keys = [
     # Switch between windows
     Key([mod, "shift"], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -109,22 +154,100 @@ keys = [
 
 ]
 
-groups = [Group(i) for i in "123456789"]
+def show_keys():
+    key_help = ""
+    for k in keys:
+        mods = ""
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
+        for m in k.modifiers:
+            if m == "mod4":
+                mods += "Super + "
+            else:
+                mods += m.capitalize() + " + "
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
-    ])
+        if len(k.key) > 1:
+            mods += k.key.capitalize()
+        else:
+            mods += k.key
+
+        key_help += "{:<30} {}".format(mods, k.desc + "\n")
+
+    return key_help
+
+
+keys.extend(
+    [
+        Key(
+            [mod],
+            "a",
+            lazy.spawn(
+                "sh -c 'echo \""
+                + show_keys()
+                + '" | rofi -dmenu -theme ~/.config/rofi/configTall.rasi -i -p "?"\''
+            ),
+            desc="Print keyboard bindings",
+        ),
+    ]
+)
+
+workspaces = [
+    {"name": "", "key": "1", "matches": [Match(wm_class="firefox")]},
+    {
+        "name": "",
+        "key": "2",
+        "matches": [Match(wm_class="Thunderbird"), Match(wm_class="ptask")],
+    },
+    {"name": "", "key": "3", "matches": []},
+    {"name": "", "key": "4", "matches": [Match(wm_class="vim")]},
+    {"name": "", "key": "5", "matches": []},
+    {"name": "", "key": "6", "matches": [Match(wm_class="slack")]},
+    {"name": "", "key": "7", "matches": [Match(wm_class="spotify")]},
+    {"name": "", "key": "8", "matches": [Match(wm_class="zoom")]},
+    {"name": "", "key": "9", "matches": [Match(wm_class="gimp")]},
+    {
+        "name": "",
+        "key": "0",
+        "matches": [Match(wm_class="lxappearance"), Match(wm_class="pavucontrol")],
+    },
+]
+
+groups = [
+    ScratchPad(
+        "scratchpad",
+        [
+            # define a drop down terminal.
+            # it is placed in the upper third of screen by default.
+            DropDown(
+                "term",
+                "urxvt -e tmux_startup.sh",
+                height=0.6,
+                on_focus_lost_hide=False,
+                opacity=1,
+                warp_pointer=False,
+            )
+        ],
+    ),
+]
+for workspace in workspaces:
+    matches = workspace["matches"] if "matches" in workspace else None
+    groups.append(Group(workspace["name"], matches=matches, layout="Bsp"))
+    keys.append(
+        Key(
+            [mod],
+            workspace["key"],
+            lazy.group[workspace["name"]].toscreen(),
+            desc="Focus this desktop",
+        )
+    )
+    keys.append(
+        Key(
+            [mod, "shift"],
+            workspace["key"],
+            lazy.window.togroup(workspace["name"]),
+            desc="Move focused window to another group",
+        )
+    )
+
 layout_theme = {"border_width": 2,
                 "margin": 6,
                 "border_focus": "5e81ac",
@@ -150,179 +273,375 @@ layouts = [
     layout.Floating(**layout_theme)
 ]
 
+
+colors = [
+    ["#2e3440", "#2e3440"],  # background
+    ["#d8dee9", "#d8dee9"],  # foreground
+    ["#3b4252", "#3b4252"],  # background lighter
+    ["#bf616a", "#bf616a"],  # red
+    ["#a3be8c", "#a3be8c"],  # green
+    ["#ebcb8b", "#ebcb8b"],  # yellow
+    ["#81a1c1", "#81a1c1"],  # blue
+    ["#b48ead", "#b48ead"],  # magenta
+    ["#88c0d0", "#88c0d0"],  # cyan
+    ["#e5e9f0", "#e5e9f0"],  # white
+    ["#4c566a", "#4c566a"],  # grey
+    ["#d08770", "#d08770"],  # orange
+    ["#8fbcbb", "#8fbcbb"],  # super cyan
+    ["#5e81ac", "#5e81ac"],  # super blue
+    ["#242831", "#242831"],  # super dark background
+]
 widget_defaults = dict(
-    font='sans',
+    font='Fira Code iCursive  S12',
     fontsize=12,
     padding=3,
+    background=colors[0]
 )
 extension_defaults = widget_defaults.copy()
-colors = [["#1e2132", "#1e2132"], #nord0
-          ["#3d435c", "#3d435c"], #nord1
-          ["#434c5e", "#434c5e"], #nord2
-          ["#4c566a", "#4c566a"], #nord3
-          ["#81a1c1", "#81a1c1"], #nord4
-          ["#e5e9f0", "#e5e9f0"], #nord5
-          ["#eceff4", "#eceff4"], #nord6
-          ["#8fbcbb", "#8fbcbb"], #nord7
-          ["#88c0d0", "#88c0d0"], #nord8
-          ["#81a1c1", "#81a1c1"], #nord9
-          ["#5e81ac", "#5e81ac"], #nord10
-          ["#bf616a", "#bf616a"], #nord11
-          ["#e27878", "#e27878"], #nord12
-          ["#ebcb8b", "#ebcb8b"], #nord13
-          ["#a3be8c", "#a3be8c"], #nord14
-          ["#b48ead", "#b48ead"]] #nord15
+
+group_box_settings = {
+    "padding": 5,
+    "borderwidth": 4,
+    "active": colors[9],
+    "inactive": colors[10],
+    "disable_drag": True,
+    "rounded": True,
+    "highlight_color": colors[2],
+    "block_highlight_text_color": colors[6],
+    "highlight_method": "block",
+    "this_current_screen_border": colors[14],
+    "this_screen_border": colors[7],
+    "other_current_screen_border": colors[14],
+    "other_screen_border": colors[14],
+    "foreground": colors[1],
+    "background": colors[14],
+    "urgent_border": colors[3],
+}
 
 screens = [
     Screen(
         top=bar.Bar(
-            [
-                widget.CurrentLayout(
-                        foreground = colors[0],
-                        background = colors[10],
-                        padding = 5
-                        ),
-                widget.Systray(
-                        background = colors[7]
-                        ),
-                widget.GroupBox(font="Ubuntu Regular",
-                        fontsize = 11,
-                        margin_y = 3,
-                        margin_x = 0,
-                        padding_y = 5,
-                        padding_x = 5,
-                        borderwidth = 3,
-                        active = colors[6],
-                        inactive = colors[6],
-                        rounded = False,
-                        highlight_color = colors[3],
-                        highlight_method = "block",
-                        this_current_screen_border = colors[3],
-                        this_screen_border = colors [0],
-                        other_current_screen_border = colors[0],
-                        other_screen_border = colors[0],
-                        foreground = colors[6],
-                        background = colors[0]
-                        ),
+            [   
+                
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.GroupBox(
+                    font="Font Awesome 5 Brands",
+                    visible_groups=[""],
+                    **group_box_settings,
+                ),
+                widget.GroupBox(
+                    font="Font Awesome 5 Free Solid",
+                    visible_groups=["", "", "", "", ""],
+                    **group_box_settings,
+                ),
+                widget.GroupBox(
+                    font="Font Awesome 5 Brands",
+                    visible_groups=[""],
+                    **group_box_settings,
+                ),
+                widget.GroupBox(
+                    font="Font Awesome 5 Free Solid",
+                    visible_groups=["", "", ""],
+                    **group_box_settings,
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    background=colors[0],
+                    padding=10,
+                    size_percent=40,
+                ),
+
+                 # widget.TextBox(
+                #    text=" ",
+                #    foreground=colors[7],
+                #    background=colors[0],
+                #    font="Font Awesome 5 Free Solid",
+                # ),
+                # widget.CurrentLayout(
+                #    background=colors[0],
+                #    foreground=colors[7],
+                # ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.CurrentLayoutIcon(
+                    custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+                    foreground=colors[2],
+                    background=colors[14],
+                    padding=-2,
+                    scale=0.45,
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    padding=10,
+                    size_percent=50,
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+              
+                widget.GenPollText(
+                    func=taskwarrior,
+                    update_interval=5,
+                    foreground=colors[11],
+                    background=colors[14],
+                    mouse_callbacks={"Button1": finish_task},
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Spacer(),
+                widget.TextBox(
+                    text=" ",
+                    foreground=colors[12],
+                    background=colors[0],
+                    # fontsize=38,
+                    font="Font Awesome 5 Free Solid",
+                ),
                 widget.WindowName(
-                        foreground = "#ff005f",
-                        background = colors[0],
-                        padding = 0
-                        ),
-                widget.Prompt(
-                        foreground = "#ff005f",
-                        background = colors[0],
-                        padding = 0
-                        ),
+                    background=colors[0],
+                    foreground=colors[12],
+                    width=bar.CALCULATED,
+                    empty_group_string="Desktop",
+                ),
+                widget.CheckUpdates(
+                    background=colors[0],
+                    foreground=colors[3],
+                    colour_have_updates=colors[3],
+                    custom_command="./.config/qtile/updates-arch-combined",
+                    display_format=" {updates}",
+                    execute=update,
+                    padding=20,
+                ),
+                
+                widget.Spacer(),
                 widget.TextBox(
-                        text="\ue0b8",
-                        background = colors[7],
-                        foreground = colors[0],
-                        padding=0,
-                        fontsize=37
-                        ),
-                widget.CPU(
-                        format='CPU {freq_current}GHz {load_percent}%',
-                        update_interval=1.0,
-                        foreground=colors[0],
-                        background=colors[7],
-                        padding = 5
-                        ),
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                CustomPomodoro(
+                    background=colors[14],
+                    fontsize=24,
+                    color_active=colors[3],
+                    color_break=colors[6],
+                    color_inactive=colors[10],
+                    timer_visible=False,
+                    prefix_active="",
+                    prefix_break="",
+                    prefix_inactive="",
+                    prefix_long_break="",
+                    prefix_paused="",
+                ),
                 widget.TextBox(
-                        text="\ue0b8",
-                        background = "#e27878",
-                        foreground = colors[7],
-                        padding=0,
-                        fontsize=37
-                        ),
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    padding=10,
+                    size_percent=50,
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    text=" ",
+                    foreground=colors[8],
+                    background=colors[14],
+                    font="Font Awesome 5 Free Solid",
+                    # fontsize=38,
+                ),
+                widget.Volume(
+                    foreground=colors[8],
+                    background=colors[14],
+                    mouse_callbacks={"Button3": open_alsa},
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    padding=10,
+                    size_percent=50,
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.GenPollText(
+                    func=bluetooth,
+                    background=colors[14],
+                    foreground=colors[6],
+                    update_interval=3,
+                    mouse_callbacks={
+                        "Button1": toggle_bluetooth,
+                        "Button3": open_bt_menu,
+                    },
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    padding=10,
+                    size_percent=50,
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    text=" ",
+                    font="Font Awesome 5 Free Solid",
+                    foreground=colors[7],  # fontsize=38
+                    background=colors[14],
+                ),
                 widget.Net(
                        interface = "wlp3s0",
                        format = '{down} ↓↑ {up}',
-                       foreground = colors[0],
-                       background = "#e27878",
+                       foreground=colors[7],
+                       background=colors[14],
                        padding = 5
+                    #    mouse_callbacks={"Button1": open_nmtui},
                        ),
-
                 widget.TextBox(
-                        text="\ue0b8",
-                        background = "#88c0d0",
-                        foreground = "#e27878",
-                        padding=0,
-                        fontsize=37
-                        ),
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    padding=10,
+                    size_percent=50,
+                ),
                 widget.TextBox(
-                        text=" 🖬",
-                        foreground=colors[0],
-                        background="#88c0d0",
-                        padding = 0,
-                        fontsize=14
-                        ),
-               widget.Memory(
-                        foreground = colors[0],
-                        background = "#88c0d0",
-                        format = "{MemPercent}%m/{SwapPercent}%s",
-                        padding = 5
-                        ),
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
                 widget.TextBox(
-                        text="\ue0b8",
-                        background = colors[13],
-                        foreground = "#88c0d0",
-                        padding=0,
-                        fontsize=37
-                        ),
-
-                widget.TextBox(
-                    text = 'Bat : ',
-                    background = colors[13],
-                    ),
-                widget.Battery(charge_char='+',
-                               discharge_char='-',
-                               background = colors[13],
-                               battery=0,
-                                format='{char} {percent:2.0%}'),
-                widget.Battery(background = colors[13],
-                               battery=1,
-                                format='{percent:2.0%}'),
-
-                widget.TextBox(
-                        text="\ue0b8",
-                        background = colors[2],
-                        foreground = colors[13],
-                        padding=0,
-                        fontsize=37
-                        ),
-
-                widget.TextBox(
-                    text = '♫ Vol: ',
-                    background = colors[2],
-                    ),
-                widget.Volume(
-                    background = colors[2],
-                    ),
-                
-                widget.TextBox(
-                        text="\ue0b8",
-                        background = "#81a1c1",
-                        foreground = colors[2],
-                        padding=0,
-                        fontsize=37
-                        ),
+                    text=" ",
+                    font="Font Awesome 5 Free Solid",
+                    foreground=colors[5],  # fontsize=38
+                    background=colors[14],
+                ),
                 widget.Clock(
-                        foreground = colors[0],
-                        background = "#81a1c1",
-                        format="%a, %b %d  [ %I:%M %p ]",
-                        ),
+                    format="%a, %b %d",
+                    background=colors[14],
+                    foreground=colors[5],
+                ),
                 widget.TextBox(
-                        text="\ue0b8",
-                        background = "#5e81ac",
-                        foreground = "#81a1c1",
-                        padding=0,
-                        fontsize=37
-                        ),
-                widget.QuickExit(
-                    foreground = colors[0],
-                    background = "#5e81ac",
-
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    foreground=colors[2],
+                    padding=10,
+                    size_percent=50,
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    text=" ",
+                    font="Font Awesome 5 Free Solid",
+                    foreground=colors[4],  # fontsize=38
+                    background=colors[14],
+                ),
+                widget.Clock(
+                    format="%I:%M %p",
+                    foreground=colors[4],
+                    background=colors[14],
+                    # mouse_callbacks={"Button1": todays_date},
+                ),
+                widget.TextBox(
+                    text="",
+                    foreground=colors[14],
+                    background=colors[0],
+                    fontsize=22,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    text="⏻",
+                    foreground=colors[13],
+                    font="Font Awesome 5 Free Solid",
+                    fontsize=16,
+                    padding=20,
+                    mouse_callbacks={"Button1": open_powermenu},
                 ),
             ],
             24,
