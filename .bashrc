@@ -186,3 +186,4 @@ export TERM=xterm-256color
 source ~/.dotfiles 
 export LS_COLORS='di=0;36:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=0;32:*.rpm=0:*.tar=0;31'
 #curl -u 'USER' https://api.github.com/user/repos -d '{"name":"REPO"}'
+source "$HOME/.cargo/env"

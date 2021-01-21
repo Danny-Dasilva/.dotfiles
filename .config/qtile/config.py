@@ -191,7 +191,7 @@ keys.extend(
 )
 
 workspaces = [
-    {"name": "", "key": "1", "matches": [Match(wm_class="firefox")]},
+    {"name": "", "key": "1", "matches": [Match(wm_class="firefox")]},
     {
         "name": "",
         "key": "2",
@@ -316,13 +316,22 @@ group_box_settings = {
     "foreground": colors[1],
     "background": colors[14],
     "urgent_border": colors[3],
+    "fontsize": 20,
 }
 
 screens = [
     Screen(
         top=bar.Bar(
             [   
-                
+                widget.TextBox(
+                    text="",
+                    foreground = "#ff005f",
+                    background=colors[0],
+                    font="Font Awesome 5 Free Solid",
+                    fontsize=22,
+                    padding=20,
+                ),
+
                 widget.TextBox(
                     text="",
                     foreground=colors[14],
@@ -332,7 +341,7 @@ screens = [
                 ),
                 widget.GroupBox(
                     font="Font Awesome 5 Brands",
-                    visible_groups=[""],
+                    visible_groups=[""],
                     **group_box_settings,
                 ),
                 widget.GroupBox(
@@ -388,6 +397,7 @@ screens = [
                     background=colors[14],
                     padding=-2,
                     scale=0.45,
+
                 ),
                 widget.TextBox(
                     text="",
@@ -425,11 +435,18 @@ screens = [
                     padding=0,
                 ),
                 widget.Spacer(),
+                widget.Prompt(
+                        foreground = "#ff005f",
+                        background = colors[0],
+                        padding = 0
+                        ),
+
                 widget.TextBox(
                     text=" ",
                     foreground=colors[12],
                     background=colors[0],
                     # fontsize=38,
+                    fontsize=20,
                     font="Font Awesome 5 Free Solid",
                 ),
                 widget.WindowName(
@@ -494,7 +511,7 @@ screens = [
                     foreground=colors[8],
                     background=colors[14],
                     font="Font Awesome 5 Free Solid",
-                    # fontsize=38,
+                    fontsize=20,
                 ),
                 widget.Volume(
                     foreground=colors[8],
@@ -521,41 +538,13 @@ screens = [
                     fontsize=22,
                     padding=0,
                 ),
-                widget.GenPollText(
-                    func=bluetooth,
-                    background=colors[14],
-                    foreground=colors[6],
-                    update_interval=3,
-                    mouse_callbacks={
-                        "Button1": toggle_bluetooth,
-                        "Button3": open_bt_menu,
-                    },
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
-                ),
-                widget.Sep(
-                    linewidth=0,
-                    foreground=colors[2],
-                    padding=10,
-                    size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
-                ),
                 widget.TextBox(
                     text=" ",
                     font="Font Awesome 5 Free Solid",
                     foreground=colors[7],  # fontsize=38
                     background=colors[14],
+
+                    fontsize=20,
                 ),
                 widget.Net(
                        interface = "wlp3s0",
@@ -590,6 +579,8 @@ screens = [
                     font="Font Awesome 5 Free Solid",
                     foreground=colors[5],  # fontsize=38
                     background=colors[14],
+
+                    fontsize=20,
                 ),
                 widget.Clock(
                     format="%a, %b %d",
@@ -621,12 +612,15 @@ screens = [
                     font="Font Awesome 5 Free Solid",
                     foreground=colors[4],  # fontsize=38
                     background=colors[14],
+
+                    fontsize=20,
                 ),
                 widget.Clock(
                     format="%I:%M %p",
                     foreground=colors[4],
                     background=colors[14],
                     # mouse_callbacks={"Button1": todays_date},
+
                 ),
                 widget.TextBox(
                     text="",
@@ -639,13 +633,15 @@ screens = [
                     text="⏻",
                     foreground=colors[13],
                     font="Font Awesome 5 Free Solid",
-                    fontsize=16,
+                    fontsize=20,
                     padding=20,
                     mouse_callbacks={"Button1": open_powermenu},
                 ),
             ],
             24,
+
         ),
+ 
     ),
 ]
 
