@@ -669,7 +669,7 @@ screens = [
                 #    linewidth=2,
                 #    foreground=colors[2],
                 #    padding=25,
-                #    size_percent=50,
+                #    size_percent=50,16
                 # ),
                 widget.TextBox(
                     text="",
