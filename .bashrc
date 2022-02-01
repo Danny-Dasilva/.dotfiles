@@ -73,7 +73,7 @@ IP=$(hostname -I | awk '{print $1}')
 case "$TERM" in
 xterm*|rxvt*)
 # 	PS1="\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;27m\]\w\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"
-	PS1="\[\033[38;5;32m\]┌(\[$(tput sgr0)\]\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[\033[38;5;78m\]\w\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[$(tput sgr0)\] IP: $IP \[$(tput sgr0)\]\[\033[38;5;32m\])\n\[$(tput sgr0)\]\[\033[38;5;32m\]└─>\[$(tput sgr0)\]"
+	PS1="\[\033[38;5;32m\]┌(\[$(tput sgr0)\]\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[\033[38;5;78m\]\w\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[$(tput sgr0)\] $IP \[$(tput sgr0)\]\[\033[38;5;32m\])\n\[$(tput sgr0)\]\[\033[38;5;32m\]└─>\[$(tput sgr0)\]"
 
     ;;
 *)
@@ -187,3 +187,7 @@ source ~/.dotfiles
 export LS_COLORS='di=0;36:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=0;32:*.rpm=0:*.tar=0;31'
 #curl -u 'USER' https://api.github.com/user/repos -d '{"name":"REPO"}'
 source "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

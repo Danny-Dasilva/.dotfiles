@@ -1,9 +1,12 @@
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget, hook
+# from typing import Enum
+
+from libqtile import bar, layout, hook, widget
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.config import Match
 import os
 from libqtile import qtile
 from libqtile.config import (
@@ -22,38 +25,45 @@ import socket
 from pathlib import Path
 import subprocess
 from time import time
+
 mod = "mod4"
 terminal = guess_terminal()
 
 
 def screenshot(save=True, copy=True):
     def f(qtile):
-        path = Path.home() / 'Pictures'
-        path /= f'screenshot_{str(int(time() * 100))}.png'
-        shot = subprocess.run(['maim'], stdout=subprocess.PIPE)
+        path = Path.home() / "Pictures"
+        path /= f"screenshot_{str(int(time() * 100))}.png"
+        shot = subprocess.run(["maim"], stdout=subprocess.PIPE)
 
         if save:
-            with open(path, 'wb') as sc:
+            with open(path, "wb") as sc:
                 sc.write(shot.stdout)
 
         if copy:
-            subprocess.run(['xclip', '-selection', 'clipboard', '-t',
-                            'image/png'], input=shot.stdout)
+            subprocess.run(
+                ["xclip", "-selection", "clipboard", "-t", "image/png"],
+                input=shot.stdout,
+            )
+
     return f
 
 
 def backlight(action):
     def f(qtile):
-        brightness = int(subprocess.run(['xbacklight', '-get'],
-                                        stdout=subprocess.PIPE).stdout)
-        if brightness != 1 or action != 'dec':
-            if (brightness > 49 and action == 'dec') \
-                                or (brightness > 39 and action == 'inc'):
-                subprocess.run(['xbacklight', f'-{action}', '10',
-                                '-fps', '10'])
+        brightness = int(
+            subprocess.run(["xbacklight", "-get"], stdout=subprocess.PIPE).stdout
+        )
+        if brightness != 1 or action != "dec":
+            if (brightness > 49 and action == "dec") or (
+                brightness > 39 and action == "inc"
+            ):
+                subprocess.run(["xbacklight", f"-{action}", "10", "-fps", "10"])
             else:
-                subprocess.run(['xbacklight', f'-{action}', '1'])
+                subprocess.run(["xbacklight", f"-{action}", "1"])
+
     return f
+
 
 # Define functions for bar
 def taskwarrior():
@@ -63,18 +73,27 @@ def taskwarrior():
         .strip()
     )
 
+
 def finish_task():
     qtile.cmd_spawn('task "$((`cat /tmp/tw_polybar_id`))" done')
 
+
 def update():
     qtile.cmd_spawn(terminal + "-e yay")
+
+
 def open_alsa():
     qtile.cmd_spawn("alsamixer")
 
+
 def toggle_bluetooth():
     qtile.cmd_spawn("./.config/qtile/system-bluetooth-bluetoothctl.sh --toggle")
+
+
 def open_bt_menu():
     qtile.cmd_spawn("blueman")
+
+
 def bluetooth():
     return (
         subprocess.check_output(["./.config/qtile/system-bluetooth-bluetoothctl.sh"])
@@ -82,77 +101,77 @@ def bluetooth():
         .strip()
     )
 
+
 def open_powermenu():
     qtile.cmd_spawn("./.config/rofi/powermenu/powermenu.sh")
 
+
 def open_nmtui():
     qtile.cmd_spawn("nmtui")
+
+
 keys = [
     # Switch between windows
     Key([mod, "shift"], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod, "shift"], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod, "shift"], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod, "shift"], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod, "shift"], "space", lazy.layout.next(),
-        desc="Move window focus to other window"),
-
+    Key(
+        [mod, "shift"],
+        "space",
+        lazy.layout.next(),
+        desc="Move window focus to other window",
+    ),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "control"], "h", lazy.layout.shuffle_left(),
-        desc="Move window to the left"),
-    Key([mod, "control"], "l", lazy.layout.shuffle_right(),
-        desc="Move window to the right"),
-    Key([mod, "control"], "j", lazy.layout.shuffle_down(),
-        desc="Move window down"),
+    Key(
+        [mod, "control"],
+        "h",
+        lazy.layout.shuffle_left(),
+        desc="Move window to the left",
+    ),
+    Key(
+        [mod, "control"],
+        "l",
+        lazy.layout.shuffle_right(),
+        desc="Move window to the right",
+    ),
+    Key([mod, "control"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "control"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod], "Left", lazy.layout.grow_left(),
-        desc="Grow window to the left"),
-    Key([mod], "Right", lazy.layout.grow_right(),
-        desc="Grow window to the right"),
-    Key([mod], "Down", lazy.layout.grow_down(),
-        desc="Grow window down"),
+    Key([mod], "Left", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key([mod], "Right", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key([mod], "Down", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod], "Up", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack"),
+    Key(
+        [mod, "shift"],
+        "Return",
+        lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack",
+    ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
-    Key([], 'XF86MonBrightnessUp',   lazy.function(backlight('inc'))),
-    Key([], 'XF86MonBrightnessDown', lazy.function(backlight('dec'))),
-    Key([mod], "F3",
-             lazy.spawn("amixer set 'Master' 1%+"),
-             desc='volume up 1%'
-             ),
-    Key([mod], "F2",
-             lazy.spawn("amixer set 'Master' 1%-"),
-             desc='volume up 1%'
-             ),
-    Key([mod], "F1",
-             lazy.spawn("amixer set 'Master' toggle"),
-             desc='Volume mute toggle'
-             ),
-    Key([mod], "v",
-             lazy.spawn("xterm alsamixer"),
-             desc='change volume settings'
-             ),
-
+    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([], "XF86MonBrightnessUp", lazy.function(backlight("inc"))),
+    Key([], "XF86MonBrightnessDown", lazy.function(backlight("dec"))),
+    Key([mod], "F3", lazy.spawn("amixer set 'Master' 1%+"), desc="volume up 1%"),
+    Key([mod], "F2", lazy.spawn("amixer set 'Master' 1%-"), desc="volume up 1%"),
+    Key(
+        [mod], "F1", lazy.spawn("amixer set 'Master' toggle"), desc="Volume mute toggle"
+    ),
+    Key([mod], "v", lazy.spawn("xterm alsamixer"), desc="change volume settings"),
 ]
+
 
 def show_keys():
     key_help = ""
@@ -228,9 +247,10 @@ groups = [
         ],
     ),
 ]
+
 for workspace in workspaces:
     matches = workspace["matches"] if "matches" in workspace else None
-    groups.append(Group(workspace["name"], matches=matches, layout="Bsp"))
+    groups.append(Group(workspace["name"], layout="Bsp"))
     keys.append(
         Key(
             [mod],
@@ -247,12 +267,12 @@ for workspace in workspaces:
             desc="Move focused window to another group",
         )
     )
-
-layout_theme = {"border_width": 2,
-                "margin": 6,
-                "border_focus": "5e81ac",
-                "border_normal": "4c566a"
-                }
+layout_theme = {
+    "border_width": 2,
+    "margin": 6,
+    "border_focus": "5e81ac",
+    "border_normal": "4c566a",
+}
 layouts = [
     layout.Columns(**layout_theme),
     # Try more layouts by unleashing below layouts.
@@ -270,8 +290,27 @@ layouts = [
     # layout.Tile(shift_windows=True, **layout_theme),
     # layout.Stack(num_stacks=2),
     layout.Max(**layout_theme),
-    layout.Floating(**layout_theme)
 ]
+
+from enum import Enum
+
+
+class Colors(Enum):
+    background = "#2e3440"  # background
+    foreground = "#d8dee9"  # foreground
+    background_lighter = "#3b4252"  # background lighter
+    red = "#bf616a"  # red
+    green = "#a3be8c"  # green
+    yellow = "#ebcb8b"  # yellow
+    blue = "#81a1c1"  # blue
+    magenta = "#b48ead"  # magenta
+    cyan = "#88c0d0"  # cyan
+    white = "#e5e9f0"  # white
+    grey = "#4c566a"  # grey
+    orange = "#d08770"  # orange
+    super_cyan = "#8fbcbb"  # super cyan
+    super_blue = "#5e81ac"  # super blue
+    dark_background = "#242831"  # super dark background
 
 
 colors = [
@@ -292,10 +331,7 @@ colors = [
     ["#242831", "#242831"],  # super dark background
 ]
 widget_defaults = dict(
-    font='Fira Code iCursive  S12',
-    fontsize=12,
-    padding=3,
-    background=colors[0]
+    font="Fira Code iCursive  S12", fontsize=12, padding=3, background=colors[0]
 )
 extension_defaults = widget_defaults.copy()
 
@@ -319,19 +355,115 @@ group_box_settings = {
     "fontsize": 20,
 }
 
+from libqtile.widget.base import _TextBox 
+from libqtile.widget import Volume, Net
+from qtile_extras.bar import Bar
+from qtile_extras.widget import modify
+from qtile_extras.widget.decorations import RectDecoration, BorderDecoration
+
+class Round(Enum):
+    right = [13,0,0,13]
+    left =  [0,13,13,0]
+    none = 13
+class CustomWidgets:
+    def __init__(self):
+        self.radius = 13
+        self.padding = 2
+        self.round_left = [13,0,0,13]
+        self.round_right = [0,13,13,0]
+    def volume(
+        self,
+        mouse_callbacks: dict,
+        background: Colors,
+        foreground: Colors,
+        round_corner: Round,
+        fontsize: int = 22,
+    ):
+
+        return modify(
+            Volume,
+            mouse_callbacks=mouse_callbacks,
+            fontsize=fontsize,
+            padding=13,
+            foreground=foreground.value if foreground else None,
+            decorations=[
+                RectDecoration(
+                    colour=background.value,
+                    radius=round_corner.value,
+                    filled=True,
+                    padding_y=self.padding,
+                    linewidth=20,
+                )
+            ],
+        )
+    def net(
+        self,
+        background: Colors,
+        foreground: Colors,
+        round_corner: Round,
+        fontsize: int = 22,
+        **kwargs
+    ):
+
+        return modify(
+            Net,
+            fontsize=fontsize,
+            foreground=foreground.value if foreground else None,
+            decorations=[
+                RectDecoration(
+                    colour=background.value,
+                    radius=round_corner.value,
+                    filled=True,
+                    padding_y=self.padding,
+                )
+            ],
+            **kwargs
+        )
+
+    def text(
+        self,
+        text: str,
+        background: Colors,
+        foreground: Colors,
+        round_corner: Round,
+        fontsize: int = 22,
+    ):
+
+        return modify(
+            _TextBox,
+            text=text,
+            fontsize=fontsize,
+            foreground=foreground.value if foreground else None,
+            decorations=[
+                RectDecoration(
+                    colour=background.value,
+                    radius=round_corner.value,
+                    filled=True,
+                    padding_y=self.padding,
+                )
+            ],
+        )
+
+
+custom_widgets = CustomWidgets()
 screens = [
     Screen(
         top=bar.Bar(
-            [   
+            [
                 widget.TextBox(
                     text="",
-                    foreground = "#ff005f",
+                    foreground="#ff005f",
                     background=colors[0],
                     font="Font Awesome 5 Free Solid",
                     fontsize=22,
                     padding=20,
                 ),
-
+                custom_widgets.text(
+                    text="  ",
+                    background=Colors.background,
+                    foreground=Colors.orange,
+                    round_corner=Round.none
+                ),
                 widget.TextBox(
                     text="",
                     foreground=colors[14],
@@ -373,8 +505,7 @@ screens = [
                     padding=10,
                     size_percent=40,
                 ),
-
-                 # widget.TextBox(
+                # widget.TextBox(
                 #    text=" ",
                 #    foreground=colors[7],
                 #    background=colors[0],
@@ -397,7 +528,6 @@ screens = [
                     background=colors[14],
                     padding=-2,
                     scale=0.45,
-
                 ),
                 widget.TextBox(
                     text="",
@@ -419,7 +549,6 @@ screens = [
                     fontsize=22,
                     padding=0,
                 ),
-              
                 widget.GenPollText(
                     func=taskwarrior,
                     update_interval=5,
@@ -435,19 +564,13 @@ screens = [
                     padding=0,
                 ),
                 widget.Spacer(),
-                widget.Prompt(
-                        foreground = "#ff005f",
-                        background = colors[0],
-                        padding = 0
-                        ),
-
-                widget.TextBox(
+                widget.Prompt(foreground="#ff005f", background=colors[0], padding=0),
+                custom_widgets.text(
                     text=" ",
-                    foreground=colors[12],
-                    background=colors[0],
-                    # fontsize=38,
-                    fontsize=20,
-                    font="Font Awesome 5 Free Solid",
+                    background=Colors.background,
+                    foreground=Colors.cyan,
+                    round_corner=Round.none,
+                    fontsize=20
                 ),
                 widget.WindowName(
                     background=colors[0],
@@ -464,7 +587,6 @@ screens = [
                     execute=update,
                     padding=20,
                 ),
-                
                 widget.Spacer(),
                 widget.TextBox(
                     text="",
@@ -499,31 +621,18 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
+                custom_widgets.text(
+                    text=" ",
+                    background=Colors.dark_background,
+                    foreground=Colors.cyan,
+                    round_corner=Round.right,
                 ),
-                widget.TextBox(
-                    text=" ",
-                    foreground=colors[8],
-                    background=colors[14],
-                    font="Font Awesome 5 Free Solid",
-                    fontsize=20,
-                ),
-                widget.Volume(
-                    foreground=colors[8],
-                    background=colors[14],
+                custom_widgets.volume(
+                    background=Colors.dark_background,
+                    foreground=Colors.cyan,
+                    round_corner=Round.left,
                     mouse_callbacks={"Button3": open_alsa},
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
+                    fontsize=13
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -531,35 +640,22 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
+                custom_widgets.text(
+                    text="  ",
+                    background=Colors.dark_background,
+                    foreground=Colors.magenta,
+                    round_corner=Round.right,
                 ),
-                widget.TextBox(
-                    text=" ",
-                    font="Font Awesome 5 Free Solid",
-                    foreground=colors[7],  # fontsize=38
-                    background=colors[14],
 
-                    fontsize=20,
-                ),
-                widget.Net(
-                       interface = "wlp3s0",
-                       format = '{down} ↓↑ {up}',
-                       foreground=colors[7],
-                       background=colors[14],
-                       padding = 5
+                custom_widgets.net(
+                    interface="wlp3s0",
+                    format="{down} ↓↑ {up}",
+                    background=Colors.dark_background,
+                    foreground=Colors.magenta,
+                    padding=10,
+                    round_corner=Round.left,
+                    fontsize=13
                     #    mouse_callbacks={"Button1": open_nmtui},
-                       ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -579,7 +675,6 @@ screens = [
                     font="Font Awesome 5 Free Solid",
                     foreground=colors[5],  # fontsize=38
                     background=colors[14],
-
                     fontsize=20,
                 ),
                 widget.Clock(
@@ -604,7 +699,7 @@ screens = [
                     text="",
                     foreground=colors[14],
                     background=colors[0],
-                    fontsize=22,
+                    fontsize=26,
                     padding=0,
                 ),
                 widget.TextBox(
@@ -612,7 +707,6 @@ screens = [
                     font="Font Awesome 5 Free Solid",
                     foreground=colors[4],  # fontsize=38
                     background=colors[14],
-
                     fontsize=20,
                 ),
                 widget.Clock(
@@ -620,7 +714,6 @@ screens = [
                     foreground=colors[4],
                     background=colors[14],
                     # mouse_callbacks={"Button1": todays_date},
-
                 ),
                 widget.TextBox(
                     text="",
@@ -638,20 +731,30 @@ screens = [
                     mouse_callbacks={"Button1": open_powermenu},
                 ),
             ],
-            24,
-
+            30,
+            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            border_color=[
+                "2e3440",
+                "000000",
+                "2e3440",
+                "000000",
+            ],  # Borders are magenta
         ),
- 
     ),
 ]
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Drag(
+        [mod],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+    ),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
@@ -660,23 +763,24 @@ main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
-], **layout_theme)
+# floating_layout = layout.Floating( #float_rules=[
+# Run the utility of `xprop` to see the wm class and name of an X client.
+# {'wmclass': 'confirm'},
+# {'wmclass': 'dialog'},
+# {'wmclass': 'download'},
+# {'wmclass': 'error'},
+# {'wmclass': 'file_progress'},
+# {'wmclass': 'notification'},
+# {'wmclass': 'splash'},
+# {'wmclass': 'toolbar'},
+# {'wmclass': 'confirmreset'},  # gitk
+# {'wmclass': 'makebranch'},  # gitk
+# {'wmclass': 'maketag'},  # gitk
+# {'wname': 'branchdialog'},  # gitk
+# {'wname': 'pinentry'},  # GPG key password entry
+# {'wmclass': 'ssh-askpass'},  # ssh-askpass
+# ],
+# **layout_theme)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 

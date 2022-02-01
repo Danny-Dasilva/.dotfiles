@@ -55,6 +55,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Navigation
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
+    "Git
+    Plug 'tpope/vim-fugitive'
     "Theme
     Plug 'gkeep/iceberg-dark'
     Plug 'cocopon/iceberg.vim'                                               
@@ -162,9 +164,12 @@ tnoremap <Esc> <C-\><C-n>
 nmap <C-b> :CocCommand explorer<CR>
 
 "szf fuzzy finder 
-nmap <C-p> :Files<CR>           "search files in current dir 
-nnoremap <leader>g :Rg<CR>      "ripgrep
-map <C-f> :BLines<CR>           "search current files
+"search files in current dir 
+nmap <C-p> :Files<CR>
+"ripgrep
+nnoremap <leader>g :Rg<CR>      
+"search current files
+map <C-f> :BLines<CR>
 
 "Comment text lines
 map <C-_>   <Plug>NERDCommenterToggle
