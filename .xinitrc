@@ -1,2 +1,2 @@
 xrdb -merge ~/.Xresources
-exec qtile
+exec qtile start
