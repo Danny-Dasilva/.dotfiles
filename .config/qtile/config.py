@@ -356,7 +356,7 @@ group_box_settings = {
 }
 
 from libqtile.widget.base import _TextBox 
-from libqtile.widget import Volume, Net
+from libqtile.widget import Volume, Net, Clock
 from qtile_extras.bar import Bar
 from qtile_extras.widget import modify
 from qtile_extras.widget.decorations import RectDecoration, BorderDecoration
@@ -371,6 +371,30 @@ class CustomWidgets:
         self.padding = 2
         self.round_left = [13,0,0,13]
         self.round_right = [0,13,13,0]
+    def clock(
+        self,
+        background: Colors,
+        foreground: Colors,
+        round_corner: Round,
+        fontsize: int = 22,
+        **kwargs
+    ):
+
+        return modify(
+            Clock,
+            fontsize=fontsize,
+            foreground=foreground.value if foreground else None,
+            decorations=[
+                RectDecoration(
+                    colour=background.value,
+                    radius=round_corner.value,
+                    filled=True,
+                    padding_y=self.padding,
+                )
+            ],
+            **kwargs
+        )
+
     def volume(
         self,
         mouse_callbacks: dict,
@@ -457,12 +481,6 @@ screens = [
                     font="Font Awesome 5 Free Solid",
                     fontsize=22,
                     padding=20,
-                ),
-                custom_widgets.text(
-                    text="  ",
-                    background=Colors.background,
-                    foreground=Colors.orange,
-                    round_corner=Round.none
                 ),
                 widget.TextBox(
                     text="",
@@ -646,7 +664,6 @@ screens = [
                     foreground=Colors.magenta,
                     round_corner=Round.right,
                 ),
-
                 custom_widgets.net(
                     interface="wlp3s0",
                     format="{down} ↓↑ {up}",
@@ -654,7 +671,7 @@ screens = [
                     foreground=Colors.magenta,
                     padding=10,
                     round_corner=Round.left,
-                    fontsize=13
+                    fontsize=12
                     #    mouse_callbacks={"Button1": open_nmtui},
                 ),
                 widget.Sep(
@@ -663,31 +680,19 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
+                custom_widgets.text(
+                    text=" ",
+                    background=Colors.dark_background,
+                    foreground=Colors.yellow,
+                    round_corner=Round.right,
                 ),
-                widget.TextBox(
-                    text=" ",
-                    font="Font Awesome 5 Free Solid",
-                    foreground=colors[5],  # fontsize=38
-                    background=colors[14],
-                    fontsize=20,
-                ),
-                widget.Clock(
+                custom_widgets.clock(
                     format="%a, %b %d",
-                    background=colors[14],
-                    foreground=colors[5],
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
+                    background=Colors.dark_background,
+                    foreground=Colors.yellow,
+                    round_corner=Round.left,
+                    padding=10,
+                    fontsize=12
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -695,32 +700,19 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=26,
-                    padding=0,
+                custom_widgets.text(
+                    text=" ",
+                    background=Colors.dark_background,
+                    foreground=Colors.green,
+                    round_corner=Round.right,
                 ),
-                widget.TextBox(
-                    text=" ",
-                    font="Font Awesome 5 Free Solid",
-                    foreground=colors[4],  # fontsize=38
-                    background=colors[14],
-                    fontsize=20,
-                ),
-                widget.Clock(
-                    format="%I:%M %p",
-                    foreground=colors[4],
-                    background=colors[14],
-                    # mouse_callbacks={"Button1": todays_date},
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
+                custom_widgets.clock(
+                    format="%a, %b %d",
+                    background=Colors.dark_background,
+                    foreground=Colors.green,
+                    round_corner=Round.left,
+                    padding=10,
+                    fontsize=12
                 ),
                 widget.TextBox(
                     text="⏻",
