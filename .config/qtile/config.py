@@ -1,30 +1,22 @@
+import os
+import socket
+import subprocess
+from enum import Enum
+from pathlib import Path
+from time import time
 from typing import List  # noqa: F401
 
-# from typing import Enum
-
-from libqtile import bar, layout, hook, widget
-from libqtile.config import Click, Drag, Group, Key, Screen
+from custom.pomodoro import Pomodoro as CustomPomodoro
+from libqtile import bar, layout, qtile, widget
+from libqtile.config import (Click, Drag, DropDown, Group, Key, KeyChord,
+                             Match, ScratchPad, Screen)
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from libqtile.config import Match
-import os
-from libqtile import qtile
-from libqtile.config import (
-    KeyChord,
-    Key,
-    Screen,
-    Group,
-    Drag,
-    Click,
-    ScratchPad,
-    DropDown,
-    Match,
-)
-from custom.pomodoro import Pomodoro as CustomPomodoro
-import socket
-from pathlib import Path
-import subprocess
-from time import time
+from libqtile.widget import (Clock, CurrentLayout, CurrentLayoutIcon, GroupBox,
+                             Net, Volume)
+from libqtile.widget.base import _TextBox
+from qtile_extras.widget import modify
+from qtile_extras.widget.decorations import RectDecoration
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -292,7 +284,6 @@ layouts = [
     layout.Max(**layout_theme),
 ]
 
-from enum import Enum
 
 
 class Colors(Enum):
@@ -357,11 +348,6 @@ group_box_settings = {
     "fontsize": 22,
 }
 
-from libqtile.widget.base import _TextBox
-from libqtile.widget import Volume, Net, Clock, GroupBox, CurrentLayoutIcon, CurrentLayout
-from qtile_extras.bar import Bar
-from qtile_extras.widget import modify
-from qtile_extras.widget.decorations import RectDecoration, BorderDecoration
 
 
 class Round(Enum):
