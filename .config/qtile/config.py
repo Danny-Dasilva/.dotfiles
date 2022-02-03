@@ -355,33 +355,33 @@ group_box_settings = {
     "fontsize": 20,
 }
 
-from libqtile.widget.base import _TextBox 
+from libqtile.widget.base import _TextBox
 from libqtile.widget import Volume, Net, Clock
 from qtile_extras.bar import Bar
 from qtile_extras.widget import modify
 from qtile_extras.widget.decorations import RectDecoration, BorderDecoration
 
+
 class Round(Enum):
-    right = [13,0,0,13]
-    left =  [0,13,13,0]
+    right = [13, 0, 0, 13]
+    left = [0, 13, 13, 0]
     none = 13
-class CustomWidgets:
-    def __init__(self):
+
+
+class BaseCustomWidget:
+    def __init__(
+        self,
+        widget,
+        background: Colors,
+        foreground: Colors,
+        round_corner: Round,
+        fontsize: int = 22,
+        **kwargs,
+    ):
         self.radius = 13
         self.padding = 2
-        self.round_left = [13,0,0,13]
-        self.round_right = [0,13,13,0]
-    def clock(
-        self,
-        background: Colors,
-        foreground: Colors,
-        round_corner: Round,
-        fontsize: int = 22,
-        **kwargs
-    ):
-
         return modify(
-            Clock,
+            widget,
             fontsize=fontsize,
             foreground=foreground.value if foreground else None,
             decorations=[
@@ -392,45 +392,27 @@ class CustomWidgets:
                     padding_y=self.padding,
                 )
             ],
-            **kwargs
+            **kwargs,
         )
 
-    def volume(
-        self,
-        mouse_callbacks: dict,
-        background: Colors,
-        foreground: Colors,
-        round_corner: Round,
-        fontsize: int = 22,
-    ):
 
-        return modify(
-            Volume,
-            mouse_callbacks=mouse_callbacks,
-            fontsize=fontsize,
-            padding=13,
-            foreground=foreground.value if foreground else None,
-            decorations=[
-                RectDecoration(
-                    colour=background.value,
-                    radius=round_corner.value,
-                    filled=True,
-                    padding_y=self.padding,
-                    linewidth=20,
-                )
-            ],
-        )
-    def net(
-        self,
-        background: Colors,
-        foreground: Colors,
-        round_corner: Round,
-        fontsize: int = 22,
-        **kwargs
-    ):
+class CustomClock(BaseCustomWidget):
+    def __init__(self, **kwargs):
+        widget = Clock
+        return super().__init__(widget, **kwargs)
 
-        return modify(
-            Net,
+
+def custom_modify(
+    widget,
+    background: Colors,
+    foreground: Colors,
+    round_corner: Round,
+    fontsize: int = 22,
+    **kwargs,
+):
+    padding = 2
+    return modify(
+            widget,
             fontsize=fontsize,
             foreground=foreground.value if foreground else None,
             decorations=[
@@ -438,38 +420,12 @@ class CustomWidgets:
                     colour=background.value,
                     radius=round_corner.value,
                     filled=True,
-                    padding_y=self.padding,
+                    padding_y=padding,
                 )
             ],
-            **kwargs
+            **kwargs,
         )
 
-    def text(
-        self,
-        text: str,
-        background: Colors,
-        foreground: Colors,
-        round_corner: Round,
-        fontsize: int = 22,
-    ):
-
-        return modify(
-            _TextBox,
-            text=text,
-            fontsize=fontsize,
-            foreground=foreground.value if foreground else None,
-            decorations=[
-                RectDecoration(
-                    colour=background.value,
-                    radius=round_corner.value,
-                    filled=True,
-                    padding_y=self.padding,
-                )
-            ],
-        )
-
-
-custom_widgets = CustomWidgets()
 screens = [
     Screen(
         top=bar.Bar(
@@ -583,12 +539,13 @@ screens = [
                 ),
                 widget.Spacer(),
                 widget.Prompt(foreground="#ff005f", background=colors[0], padding=0),
-                custom_widgets.text(
+                custom_modify(
+                    widget=_TextBox,
                     text=" ",
                     background=Colors.background,
                     foreground=Colors.cyan,
                     round_corner=Round.none,
-                    fontsize=20
+                    fontsize=20,
                 ),
                 widget.WindowName(
                     background=colors[0],
@@ -639,18 +596,20 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                custom_widgets.text(
+                custom_modify(
+                    widget=_TextBox,
                     text=" ",
                     background=Colors.dark_background,
                     foreground=Colors.cyan,
                     round_corner=Round.right,
                 ),
-                custom_widgets.volume(
+                custom_modify(
+                    widget=Volume,
                     background=Colors.dark_background,
                     foreground=Colors.cyan,
                     round_corner=Round.left,
                     mouse_callbacks={"Button3": open_alsa},
-                    fontsize=13
+                    fontsize=13,
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -658,13 +617,15 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                custom_widgets.text(
+                custom_modify(
+                    widget=_TextBox,
                     text="  ",
                     background=Colors.dark_background,
                     foreground=Colors.magenta,
                     round_corner=Round.right,
                 ),
-                custom_widgets.net(
+                custom_modify(
+                    widget=Net,
                     interface="wlp3s0",
                     format="{down} ↓↑ {up}",
                     background=Colors.dark_background,
@@ -680,19 +641,21 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                custom_widgets.text(
+                custom_modify(
+                    widget=_TextBox,
                     text=" ",
                     background=Colors.dark_background,
                     foreground=Colors.yellow,
                     round_corner=Round.right,
                 ),
-                custom_widgets.clock(
+                custom_modify(
+                    widget=Clock,
                     format="%a, %b %d",
                     background=Colors.dark_background,
                     foreground=Colors.yellow,
                     round_corner=Round.left,
                     padding=10,
-                    fontsize=12
+                    fontsize=12,
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -700,24 +663,25 @@ screens = [
                     padding=10,
                     size_percent=50,
                 ),
-                custom_widgets.text(
+                custom_modify(
+                    widget=_TextBox,
                     text=" ",
                     background=Colors.dark_background,
                     foreground=Colors.green,
                     round_corner=Round.right,
                 ),
-                custom_widgets.clock(
+                custom_modify(
+                    widget=Clock,
                     format="%a, %b %d",
                     background=Colors.dark_background,
                     foreground=Colors.green,
                     round_corner=Round.left,
                     padding=10,
-                    fontsize=12
+                    fontsize=12,
                 ),
                 widget.TextBox(
                     text="⏻",
                     foreground=colors[13],
-                    font="Font Awesome 5 Free Solid",
                     fontsize=20,
                     padding=20,
                     mouse_callbacks={"Button1": open_powermenu},
