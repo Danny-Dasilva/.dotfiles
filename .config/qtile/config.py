@@ -310,7 +310,8 @@ class Colors(Enum):
     orange = "#d08770"  # orange
     super_cyan = "#8fbcbb"  # super cyan
     super_blue = "#5e81ac"  # super blue
-    dark_background = "#242831"  # super dark background
+    dark_background = "#242831"  # dark background
+    pink = "#ff005f" # pink
 
 
 colors = [
@@ -337,69 +338,38 @@ extension_defaults = widget_defaults.copy()
 
 group_box_settings = {
     "padding": 5,
-    "borderwidth": 4,
+    "borderwidth": 2,
     "active": colors[9],
     "inactive": colors[10],
     "disable_drag": True,
     "rounded": True,
-    "highlight_color": colors[2],
+    "highlight_color": Colors.dark_background.value,
     "block_highlight_text_color": colors[6],
-    "highlight_method": "block",
-    "this_current_screen_border": colors[14],
-    "this_screen_border": colors[7],
+    "highlight_method": "line",
+    "this_current_screen_border": Colors.pink.value,
+    "this_screen_border": Colors.pink.value,
     "other_current_screen_border": colors[14],
     "other_screen_border": colors[14],
-    "foreground": colors[1],
-    "background": colors[14],
+    "foreground": Colors.cyan,
+    "background": Colors.dark_background,
     "urgent_border": colors[3],
-    "fontsize": 20,
+    "margin_x": 6,
+    "fontsize": 22,
 }
 
 from libqtile.widget.base import _TextBox
-from libqtile.widget import Volume, Net, Clock
+from libqtile.widget import Volume, Net, Clock, GroupBox, CurrentLayoutIcon, CurrentLayout
 from qtile_extras.bar import Bar
 from qtile_extras.widget import modify
 from qtile_extras.widget.decorations import RectDecoration, BorderDecoration
 
 
 class Round(Enum):
-    right = [13, 0, 0, 13]
-    left = [0, 13, 13, 0]
-    none = 13
+    right = [0, 13, 13, 0]
+    left = [13, 0, 0, 13]
+    circle = 12
+    none = 0
 
-
-class BaseCustomWidget:
-    def __init__(
-        self,
-        widget,
-        background: Colors,
-        foreground: Colors,
-        round_corner: Round,
-        fontsize: int = 22,
-        **kwargs,
-    ):
-        self.radius = 13
-        self.padding = 2
-        return modify(
-            widget,
-            fontsize=fontsize,
-            foreground=foreground.value if foreground else None,
-            decorations=[
-                RectDecoration(
-                    colour=background.value,
-                    radius=round_corner.value,
-                    filled=True,
-                    padding_y=self.padding,
-                )
-            ],
-            **kwargs,
-        )
-
-
-class CustomClock(BaseCustomWidget):
-    def __init__(self, **kwargs):
-        widget = Clock
-        return super().__init__(widget, **kwargs)
 
 
 def custom_modify(
@@ -407,7 +377,7 @@ def custom_modify(
     background: Colors,
     foreground: Colors,
     round_corner: Round,
-    fontsize: int = 22,
+    fontsize: int = 24,
     **kwargs,
 ):
     padding = 2
@@ -438,39 +408,12 @@ screens = [
                     fontsize=22,
                     padding=20,
                 ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
-                ),
-                widget.GroupBox(
-                    font="Font Awesome 5 Brands",
-                    visible_groups=[""],
-                    **group_box_settings,
-                ),
-                widget.GroupBox(
+                custom_modify(
+                    widget=GroupBox,
+                    round_corner=Round.circle,
                     font="Font Awesome 5 Free Solid",
-                    visible_groups=["", "", "", "", ""],
+                    visible_groups=["", "", "", "", "", "", "", "", "", ""],
                     **group_box_settings,
-                ),
-                widget.GroupBox(
-                    font="Font Awesome 5 Brands",
-                    visible_groups=[""],
-                    **group_box_settings,
-                ),
-                widget.GroupBox(
-                    font="Font Awesome 5 Free Solid",
-                    visible_groups=["", "", ""],
-                    **group_box_settings,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -479,63 +422,37 @@ screens = [
                     padding=10,
                     size_percent=40,
                 ),
-                # widget.TextBox(
-                #    text=" ",
-                #    foreground=colors[7],
-                #    background=colors[0],
-                #    font="Font Awesome 5 Free Solid",
-                # ),
-                # widget.CurrentLayout(
-                #    background=colors[0],
-                #    foreground=colors[7],
-                # ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
+                custom_modify(
+                   widget=_TextBox,
+                   text=" ",
+                   foreground=Colors.magenta,
+                   background=Colors.dark_background,
+                   font="Font Awesome 5 Free Solid",
+                   round_corner=Round.left
+
                 ),
-                widget.CurrentLayoutIcon(
+                custom_modify(
+                   widget=CurrentLayout,
+                   foreground=Colors.magenta,
+                   background=Colors.dark_background,
+                   round_corner=Round.none,
+                   padding_x=10,
+                   fontsize=12,
+                ),
+                custom_modify(
+                   widget=CurrentLayoutIcon,
                     custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-                    foreground=colors[2],
-                    background=colors[14],
+                    foreground=Colors.magenta,
+                    background=Colors.dark_background,
+                    round_corner=Round.right,
                     padding=-2,
                     scale=0.45,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
                 ),
                 widget.Sep(
                     linewidth=0,
                     foreground=colors[2],
                     padding=10,
                     size_percent=50,
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
-                ),
-                widget.GenPollText(
-                    func=taskwarrior,
-                    update_interval=5,
-                    foreground=colors[11],
-                    background=colors[14],
-                    mouse_callbacks={"Button1": finish_task},
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
                 ),
                 widget.Spacer(),
                 widget.Prompt(foreground="#ff005f", background=colors[0], padding=0),
@@ -563,16 +480,13 @@ screens = [
                     padding=20,
                 ),
                 widget.Spacer(),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
-                ),
-                CustomPomodoro(
-                    background=colors[14],
+                custom_modify(
+                    widget=CustomPomodoro,
+                    round_corner=Round.circle,
+                    foreground=Colors.background,
+                    background=Colors.dark_background,
                     fontsize=24,
+                    padding=10,
                     color_active=colors[3],
                     color_break=colors[6],
                     color_inactive=colors[10],
@@ -582,13 +496,6 @@ screens = [
                     prefix_inactive="",
                     prefix_long_break="",
                     prefix_paused="",
-                ),
-                widget.TextBox(
-                    text="",
-                    foreground=colors[14],
-                    background=colors[0],
-                    fontsize=22,
-                    padding=0,
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -601,15 +508,16 @@ screens = [
                     text=" ",
                     background=Colors.dark_background,
                     foreground=Colors.cyan,
-                    round_corner=Round.right,
+                    round_corner=Round.left,
                 ),
                 custom_modify(
                     widget=Volume,
                     background=Colors.dark_background,
                     foreground=Colors.cyan,
-                    round_corner=Round.left,
+                    round_corner=Round.right,
                     mouse_callbacks={"Button3": open_alsa},
                     fontsize=13,
+                    padding=10,
                 ),
                 widget.Sep(
                     linewidth=0,
@@ -619,10 +527,10 @@ screens = [
                 ),
                 custom_modify(
                     widget=_TextBox,
-                    text="  ",
+                    text=" ",
                     background=Colors.dark_background,
                     foreground=Colors.magenta,
-                    round_corner=Round.right,
+                    round_corner=Round.left,
                 ),
                 custom_modify(
                     widget=Net,
@@ -631,7 +539,7 @@ screens = [
                     background=Colors.dark_background,
                     foreground=Colors.magenta,
                     padding=10,
-                    round_corner=Round.left,
+                    round_corner=Round.right,
                     fontsize=12
                     #    mouse_callbacks={"Button1": open_nmtui},
                 ),
@@ -646,14 +554,14 @@ screens = [
                     text=" ",
                     background=Colors.dark_background,
                     foreground=Colors.yellow,
-                    round_corner=Round.right,
+                    round_corner=Round.left,
                 ),
                 custom_modify(
                     widget=Clock,
                     format="%a, %b %d",
                     background=Colors.dark_background,
                     foreground=Colors.yellow,
-                    round_corner=Round.left,
+                    round_corner=Round.right,
                     padding=10,
                     fontsize=12,
                 ),
@@ -668,14 +576,14 @@ screens = [
                     text=" ",
                     background=Colors.dark_background,
                     foreground=Colors.green,
-                    round_corner=Round.right,
+                    round_corner=Round.left,
                 ),
                 custom_modify(
                     widget=Clock,
                     format="%a, %b %d",
                     background=Colors.dark_background,
                     foreground=Colors.green,
-                    round_corner=Round.left,
+                    round_corner=Round.right,
                     padding=10,
                     fontsize=12,
                 ),
