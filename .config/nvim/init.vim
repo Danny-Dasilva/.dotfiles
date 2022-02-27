@@ -251,7 +251,10 @@ nmap <leader>rn <Plug>(coc-rename)
 
 "use system keyboard
 set clipboard+=unnamedplus
-
+"Copy to system register
+vnoremap <C-c> "*y :let @+=@*<CR>
+"Paste from system register
+map <C-v> "+P<CR>
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -270,8 +273,11 @@ inoremap <A-l> <C-o>A
 "CTRL A for select all
 nnoremap <C-A> ggVG
 
+vnoremap <leader>y :call functions#CompleteYank()<CR>
 
-function! Devicons_Filetype()"{{{
-  " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction"}}}
+"highlight on yank
+augroup highlight_yank
+autocmd!
+au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200})
+augroup END
+

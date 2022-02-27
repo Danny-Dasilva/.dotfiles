@@ -3,7 +3,14 @@ function! Devicons_Filetype()"{{{
   " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction"}}}
+"function Gitbranch()
+    "return trim(system("git -C " . expand("%:p") . " branch --show-current 2>/dev/null"))
+"endfunction
 
+"augroup Gitget
+    "autocmd!
+    "autocmd BufEnter * let b:git_branch = Gitbranch()
+"augroup END
 set laststatus=2  " Basic
 set noshowmode  " Disable show mode info
 let g:lightline = {
@@ -12,7 +19,7 @@ let g:lightline = {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified'  ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
-      \              [ 'fileformat', 'fileencoding', 'devicons_filetype', 'charvaluehex' ] ]
+      \              [ 'fileformat', 'fileencoding', 'devicons_filetype', 'git_branch' ] ]
       \ },
       \ 'tabline': {
       \   'left': [ ['buffers'] ],
@@ -30,6 +37,7 @@ let g:lightline.separator  = { 'left': "\ue0b8\ue0be\ue0b8", 'right': "\ue0ba\ue
 let g:lightline.subseparator         = { 'left': "\ue0b9", 'right': "\ue0bb" }
 let g:lightline.component_function = {
       \ 'devicons_filetype': 'Devicons_Filetype',
+      \ 'git_branch': 'Gitbranch',
       \ }
 "let g:lightline.subseparator         = { 'left': "\ue0b9", 'right': "\ue0b9" }
 "let g:lightline.active = {
