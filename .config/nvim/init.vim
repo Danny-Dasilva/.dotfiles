@@ -181,7 +181,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent>  K :call <SID>show_documentation()<CR>
+nnoremap <silent>  <C-k><C-i> :call <SID>show_documentation()<CR>
 
 
 function! s:show_documentation()
@@ -273,6 +273,7 @@ inoremap <A-l> <C-o>A
 "CTRL A for select all
 nnoremap <C-A> ggVG
 
+"copy visual text and values into buffer
 vnoremap <leader>y :call functions#CompleteYank()<CR>
 
 "highlight on yank
@@ -281,3 +282,16 @@ autocmd!
 au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200})
 augroup END
 
+" smarter indenting
+vnoremap < <gv
+vnoremap > >gv
+nnoremap > >>
+nnoremap < <<
+" close all splits/windows except the one in focus
+nnoremap <leader>q <C-w>o
+" replace a word with yanked text
+nnoremap rw viwpyiw
+" replace till the end of line with yanked text
+nnoremap rl Pl"_D
+" copy file name to the clipboard
+nnoremap yf :let @+=expand("%")<CR>
