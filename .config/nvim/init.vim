@@ -120,22 +120,6 @@ nnoremap <S-Tab> :bprevious<CR>
 " ==============================================================================
 " 4. COLORS AND STATUS LINE
 " ==============================================================================
-let g:lightline = {
-      \ 'colorscheme': 'icebergDark',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'tabline': {
-      \   'left': [ ['buffers'] ],
-      \   'right': [ ['close'] ]
-      \ },
-      \ 'component_expand': {
-      \   'buffers': 'lightline#bufferline#buffers'
-      \ },
-      \ 'component_type': {
-      \   'buffers': 'tabsel'
-      \ }
-      \ }
 set bg=dark
 colorscheme iceberg 
 
@@ -286,3 +270,8 @@ inoremap <A-l> <C-o>A
 "CTRL A for select all
 nnoremap <C-A> ggVG
 
+
+function! Devicons_Filetype()"{{{
+  " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction"}}}
