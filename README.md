@@ -12,6 +12,8 @@ Personal dotfiles
 
 `dotfiles checkout --force`
 
+`fc-cache -rv` to update fonts
+
 
 ### How to commit or add changes
 
