@@ -1,4 +1,5 @@
 
+
 # My bash config configured for xterm and x11 
 # PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
 
@@ -19,10 +20,12 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+PROMPT_COMMAND="history -a; ${PROMPT_COMMAND:-}"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=50000
+HISTFILESIZE=100000
+HISTTIMEFORMAT="%F %T  "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -30,7 +33,11 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar   # ** matches recursively
+shopt -s cdspell    # Autocorrect minor cd typos
+shopt -s dirspell   # Autocorrect directory typos in completion
+shopt -s autocd     # Type directory name to cd into it
+shopt -s nocaseglob # Case-insensitive globbing
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -129,22 +136,22 @@ fi
 # usage: ex <file>
 ex ()
 {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   unzstd $1    ;;      
+  if [ -f "$1" ] ; then
+    case "$1" in
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"   ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
+      *.deb)       ar x "$1"      ;;
+      *.tar.xz)    tar xf "$1"    ;;
+      *.tar.zst)   unzstd "$1"    ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
@@ -170,24 +177,60 @@ alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
 
-# Colorize grep output (good for log files)
-alias grep='grep --color=auto'
+# grep alias already defined above in dircolors block
 
 # confirm before overwriting something
 alias cp="cp -i"
 alias mv='mv -i'
 
-alias vim=nvim
+
+alias aptup='sudo apt update && sudo apt upgrade'
+alias docker-compose="docker compose"
+alias vim=lvim
 alias pip=pip3
 #set faster speed for  scroll
-xset r rate 300 50 
+[[ -n "$DISPLAY" ]] && xset r rate 300 50 
 export TERM=xterm-256color
 #source dotfiles
-source ~/.dotfiles 
+[[ -f ~/.dotfiles ]] && source ~/.dotfiles 
 export LS_COLORS='di=0;36:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=0;32:*.rpm=0:*.tar=0;31'
 #curl -u 'USER' https://api.github.com/user/repos -d '{"name":"REPO"}'
-source "$HOME/.cargo/env"
 
+# NVM setup - loads Node 22 (default) automatically
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+force_color_prompt=yes
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+command -v pyenv &>/dev/null && eval "$(pyenv init -)"
+. "$HOME/.cargo/env"
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# <<< conda initialize <<<
+
+
+# pnpm
+export PNPM_HOME="/home/danny/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+
+export ENCORE_INSTALL="/home/danny/.encore"
+export PATH="$ENCORE_INSTALL/bin:$PATH"
+export PATH=$PATH:$(go env GOPATH)/bin
+. "$HOME/.local/bin/env"
+
+
+# This alias runs the Cursor Setup Wizard, simplifying installation and configuration.
+# For more details, visit: https://github.com/jorcelinojunior/cursor-setup-wizard
+alias cursor-setup="/home/danny/cursor-setup-wizard/cursor_setup.sh"
+export PATH="$HOME/.local/bin:$PATH"

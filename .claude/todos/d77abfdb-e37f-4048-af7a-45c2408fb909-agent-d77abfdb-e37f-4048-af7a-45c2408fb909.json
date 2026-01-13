@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Examine sendContentMetrics mutation implementation",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Check useFullscreenContentMetrics hook to see how it's used",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update hook to use anonymous user system like favorites",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add userId parameter to sendContentMetrics mutation",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Update hook calls to pass userId",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Fix userId type conversion",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  }
+]

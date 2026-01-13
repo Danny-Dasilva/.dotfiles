@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Fix GraphQL schema errors for customer queries",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create iframed customer portal component",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Implement customer portal route and page",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add customer portal documentation",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  }
+]

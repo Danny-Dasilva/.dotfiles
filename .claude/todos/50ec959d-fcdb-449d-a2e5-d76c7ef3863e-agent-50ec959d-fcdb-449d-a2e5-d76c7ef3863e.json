@@ -1,0 +1,68 @@
+[
+  {
+    "content": "Verify BigCommerce store requirements and access GraphQL Storefront API playground",
+    "status": "pending",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Install required tools (Node.js, Vercel CLI, Git)",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Clone bigcommerce/nextjs-commerce repository and install dependencies",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Create .env.local with BigCommerce environment variables template",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Set up API authentication and generate GraphQL Storefront API token",
+    "status": "pending",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Configure GraphQL client and test API connectivity",
+    "status": "pending",
+    "priority": "medium",
+    "id": "6"
+  },
+  {
+    "content": "Implement core commerce features (products, cart, checkout)",
+    "status": "pending",
+    "priority": "medium",
+    "id": "7"
+  },
+  {
+    "content": "Configure performance optimizations and SEO settings",
+    "status": "pending",
+    "priority": "medium",
+    "id": "8"
+  },
+  {
+    "content": "Test local development and all commerce flows",
+    "status": "pending",
+    "priority": "medium",
+    "id": "9"
+  },
+  {
+    "content": "Set up Vercel deployment and production environment",
+    "status": "pending",
+    "priority": "low",
+    "id": "10"
+  },
+  {
+    "content": "Create documentation (setup, environment, API, deployment guides)",
+    "status": "completed",
+    "priority": "low",
+    "id": "11"
+  }
+]

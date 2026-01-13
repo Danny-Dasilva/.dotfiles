@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Fix web app dashboard: Add onSelectDashboard callback",
+    "status": "completed",
+    "activeForm": "Fixing web app dashboard callback"
+  },
+  {
+    "content": "Add DashboardView conditional rendering to page.tsx",
+    "status": "completed",
+    "activeForm": "Adding DashboardView to page.tsx"
+  },
+  {
+    "content": "Test dashboard navigation in web app",
+    "status": "completed",
+    "activeForm": "Testing dashboard navigation in web app"
+  },
+  {
+    "content": "Fix AI chat visualization (null checks)",
+    "status": "in_progress",
+    "activeForm": "Fixing AI chat visualization"
+  }
+]

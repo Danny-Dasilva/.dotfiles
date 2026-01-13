@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Fix fixRecentVideosDates to only process videos without hosted_url",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Create method to revert incorrectly updated dates from 2023-07-24",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Add date validation to prevent obviously wrong date updates",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  }
+]

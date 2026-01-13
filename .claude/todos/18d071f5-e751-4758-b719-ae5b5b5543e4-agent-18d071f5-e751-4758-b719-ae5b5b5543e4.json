@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Verify how charge totals are calculated from line items",
+    "status": "completed",
+    "activeForm": "Verifying how charge totals are calculated from line items"
+  },
+  {
+    "content": "Check if current prepaid charges are actually broken",
+    "status": "in_progress",
+    "activeForm": "Checking if current prepaid charges are actually broken"
+  },
+  {
+    "content": "Find proof of what recurring_price actually contains",
+    "status": "pending",
+    "activeForm": "Finding proof of what recurring_price actually contains"
+  }
+]

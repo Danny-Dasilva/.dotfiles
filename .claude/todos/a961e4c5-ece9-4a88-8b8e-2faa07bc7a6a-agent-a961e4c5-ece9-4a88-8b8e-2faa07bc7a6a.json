@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Fix the truncate_to_fit function to properly validate final text length",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Add robust error handling in get_embedding function for token length issues",
+    "status": "completed",
+    "id": "2"
+  }
+]

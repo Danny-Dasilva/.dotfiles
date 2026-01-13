@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create QUICStringToSpec function in cycletls/utils.go",
+    "status": "completed",
+    "priority": "high",
+    "id": "15"
+  },
+  {
+    "content": "Update roundtripper.go to handle QUIC fingerprint",
+    "status": "completed",
+    "priority": "high",
+    "id": "16"
+  },
+  {
+    "content": "Create integration test for QUIC fingerprint (quic_test.go)",
+    "status": "completed",
+    "priority": "high",
+    "id": "17"
+  },
+  {
+    "content": "Create unit test for QUICStringToSpec function",
+    "status": "completed",
+    "priority": "medium",
+    "id": "18"
+  },
+  {
+    "content": "Verify HTTP/3 transport QUIC fingerprint integration",
+    "status": "completed",
+    "priority": "medium",
+    "id": "19"
+  }
+]

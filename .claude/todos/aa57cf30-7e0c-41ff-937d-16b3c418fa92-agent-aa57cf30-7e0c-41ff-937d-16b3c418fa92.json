@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Add sync check and call syncVideosUserIdDataV2 when channel has no videos in processChannelBatch",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Add logic to wait for sync to complete before attempting to download videos",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Test the implementation with a channel that has no videos",
+    "status": "pending",
+    "priority": "medium",
+    "id": "3"
+  }
+]

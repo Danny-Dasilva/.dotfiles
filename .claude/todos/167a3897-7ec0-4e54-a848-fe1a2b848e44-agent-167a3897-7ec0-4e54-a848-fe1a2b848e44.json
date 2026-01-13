@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Create RedditDatabaseManager class in worker.py to connect to reddit database",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Add get_reddit_content_weeks() method to query reddit_posts table",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Create get_missing_reddit_weeks() comparison method",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add /queue/reddit_missing API endpoint",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Add /subreddits/reddit_coverage API endpoint",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Test the new endpoints",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  }
+]

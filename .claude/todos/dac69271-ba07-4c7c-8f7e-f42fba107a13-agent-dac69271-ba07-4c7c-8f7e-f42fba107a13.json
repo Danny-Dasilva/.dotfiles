@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Test shorts playlist extraction with different options",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Check if extractor args are needed for shorts",
+    "status": "completed",
+    "id": "2"
+  }
+]

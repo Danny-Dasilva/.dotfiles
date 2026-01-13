@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create new script based on working single-thread patterns + hash partitioning",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Copy exact cursor pagination from working script",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Use same autocommit and connection settings as working script",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Implement hash-based worker assignment (no SKIP LOCKED)",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Test the new approach",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  }
+]

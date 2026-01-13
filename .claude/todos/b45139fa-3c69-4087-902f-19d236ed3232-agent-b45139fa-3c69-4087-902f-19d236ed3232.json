@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Step 1: Remove torch.no_grad() from heads.py:916",
+    "status": "completed",
+    "activeForm": "Fixing gradient flow"
+  },
+  {
+    "content": "Step 2: Create and run annotation generation script",
+    "status": "completed",
+    "activeForm": "Generating annotations"
+  },
+  {
+    "content": "Step 3: Re-train Phase 2 (Detection) with gradient flow",
+    "status": "completed",
+    "activeForm": "Training Phase 2"
+  },
+  {
+    "content": "Step 4: Re-train Phase 3 (Block) with new annotations",
+    "status": "in_progress",
+    "activeForm": "Training Phase 3"
+  },
+  {
+    "content": "Step 5: Export V5 model and validate",
+    "status": "pending",
+    "activeForm": "Exporting and validating"
+  }
+]

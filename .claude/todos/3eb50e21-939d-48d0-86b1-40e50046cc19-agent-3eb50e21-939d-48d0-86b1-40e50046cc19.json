@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create UV project for TwinFlow",
+    "status": "completed",
+    "activeForm": "Creating UV project for TwinFlow"
+  },
+  {
+    "content": "Clone TwinFlow repository from GitHub",
+    "status": "completed",
+    "activeForm": "Cloning TwinFlow repository"
+  },
+  {
+    "content": "Install PyTorch 2.7+ with CUDA 12.8",
+    "status": "completed",
+    "activeForm": "Installing PyTorch with CUDA 12.8"
+  },
+  {
+    "content": "Install diffusers and other dependencies",
+    "status": "completed",
+    "activeForm": "Installing diffusers and dependencies"
+  },
+  {
+    "content": "Create inference script",
+    "status": "completed",
+    "activeForm": "Creating inference script"
+  },
+  {
+    "content": "Run inference and generate image",
+    "status": "in_progress",
+    "activeForm": "Running inference to generate image"
+  }
+]

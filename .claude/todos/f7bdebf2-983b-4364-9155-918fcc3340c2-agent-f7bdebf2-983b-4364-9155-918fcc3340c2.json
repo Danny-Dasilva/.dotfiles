@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Fix cookie date format in integration.test.ts",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Fix cookie date format in multipleRequests.test.js",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Fix cookie date format in request-types.ts",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Fix cookie date format in main.ts",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Add try-finally blocks to ensure cleanup in failing tests",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Run tests to verify fixes",
+    "status": "in_progress",
+    "id": "6"
+  }
+]

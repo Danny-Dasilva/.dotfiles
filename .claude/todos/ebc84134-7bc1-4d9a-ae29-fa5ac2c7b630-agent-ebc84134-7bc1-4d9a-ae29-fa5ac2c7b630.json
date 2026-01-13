@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Examine project structure to understand current setup",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Check for existing MCP configuration files",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Initialize Serena MCP configuration",
+    "status": "pending",
+    "priority": "high",
+    "id": "3"
+  }
+]

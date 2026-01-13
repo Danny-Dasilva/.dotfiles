@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Research repository structure and understand codebase",
+    "status": "completed",
+    "activeForm": "Researching repository structure and understanding codebase"
+  },
+  {
+    "content": "Connect to database and analyze table structure",
+    "status": "in_progress",
+    "activeForm": "Connecting to database and analyzing table structure"
+  },
+  {
+    "content": "Examine current query performance bottlenecks",
+    "status": "pending",
+    "activeForm": "Examining current query performance bottlenecks"
+  },
+  {
+    "content": "Check for existing indexes on content_watch_time_v2",
+    "status": "pending",
+    "activeForm": "Checking for existing indexes on content_watch_time_v2"
+  },
+  {
+    "content": "Test query execution plan and timing",
+    "status": "pending",
+    "activeForm": "Testing query execution plan and timing"
+  },
+  {
+    "content": "Propose optimized query alternatives",
+    "status": "pending",
+    "activeForm": "Proposing optimized query alternatives"
+  }
+]

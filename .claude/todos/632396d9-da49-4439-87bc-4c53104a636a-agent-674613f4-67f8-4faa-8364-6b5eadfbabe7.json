@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Analyze README Go examples against actual API structure",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Check struct field names and method signatures",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Validate import statements and package usage",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Compare examples with integration test patterns",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Document specific corrections needed",
+    "status": "completed",
+    "id": "5"
+  }
+]

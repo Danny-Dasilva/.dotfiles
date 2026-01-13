@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Remove embedding_pipeline.log from last commit",
+    "status": "in_progress",
+    "activeForm": "Removing embedding_pipeline.log from last commit"
+  },
+  {
+    "content": "Push the updated commit",
+    "status": "pending",
+    "activeForm": "Pushing the updated commit"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Write implementation status markdown",
+    "status": "completed",
+    "activeForm": "Writing implementation status markdown"
+  },
+  {
+    "content": "Install dependencies and validate imports",
+    "status": "pending",
+    "activeForm": "Installing dependencies and validating imports"
+  },
+  {
+    "content": "Test training pipeline",
+    "status": "pending",
+    "activeForm": "Testing training pipeline"
+  },
+  {
+    "content": "Test ONNX export functionality",
+    "status": "pending",
+    "activeForm": "Testing ONNX export"
+  },
+  {
+    "content": "Cleanup legacy files after validation",
+    "status": "pending",
+    "activeForm": "Cleaning up legacy files"
+  }
+]

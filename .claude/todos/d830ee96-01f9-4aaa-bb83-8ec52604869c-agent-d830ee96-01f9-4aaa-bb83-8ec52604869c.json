@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Examine Go SSE and WebSocket tests to understand working implementation",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Check TypeScript API for SSE and WebSocket support",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Update SSE test to remove skip and use correct API",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Update WebSocket test to remove skip and use correct API",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Run tests to verify they pass",
+    "status": "completed",
+    "id": "5"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Check current package versions (numpy, transformers, onnxruntime)",
+    "status": "completed",
+    "activeForm": "Checking current package versions"
+  },
+  {
+    "content": "Install correct numpy version (<1.24)",
+    "status": "completed",
+    "activeForm": "Installing correct numpy version"
+  },
+  {
+    "content": "Install correct transformers version (<4.50)",
+    "status": "completed",
+    "activeForm": "Installing correct transformers version"
+  },
+  {
+    "content": "Install ONNX Runtime GPU with CUDA 12.8 support",
+    "status": "in_progress",
+    "activeForm": "Installing ONNX Runtime GPU with CUDA 12.8"
+  },
+  {
+    "content": "Revert predictor.py to use GPU execution provider",
+    "status": "pending",
+    "activeForm": "Reverting predictor.py to use GPU"
+  },
+  {
+    "content": "Test GPU execution with demo",
+    "status": "pending",
+    "activeForm": "Testing GPU execution with demo"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Add DeduplicationCache class to queue_service.py",
+    "status": "completed",
+    "activeForm": "Adding DeduplicationCache class to queue_service.py"
+  },
+  {
+    "content": "Modify publish() method to add message_id and custom headers",
+    "status": "completed",
+    "activeForm": "Modifying publish() method to add message_id and custom headers"
+  },
+  {
+    "content": "Update QueueConsumer to use deduplication cache",
+    "status": "completed",
+    "activeForm": "Updating QueueConsumer to use deduplication cache"
+  },
+  {
+    "content": "Add early idempotency check in consumer before semaphore",
+    "status": "completed",
+    "activeForm": "Adding early idempotency check in consumer before semaphore"
+  },
+  {
+    "content": "Enhance logging in task_executor.py for duplicate detection",
+    "status": "completed",
+    "activeForm": "Enhancing logging in task_executor.py for duplicate detection"
+  },
+  {
+    "content": "Test duplicate prevention for video downloads",
+    "status": "in_progress",
+    "activeForm": "Testing duplicate prevention for video downloads"
+  }
+]

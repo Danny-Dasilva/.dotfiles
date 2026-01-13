@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Fix TestJA4StringToSpec to use 3-part JA4 format",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Remove console.log statements from JavaScript tests",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Add JA4H (HTTP Client) fingerprint parsing support",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Add JA4H request parameter support in TypeScript/JS",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Add tests for JA4H functionality",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Run all tests to verify they pass",
+    "status": "completed",
+    "id": "6"
+  }
+]

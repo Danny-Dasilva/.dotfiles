@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Understand why 421 Misdirected Request error occurs in connection reuse test",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Compare local changes with main branch to identify what broke the test",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Found root cause: HTTP/1.1 being negotiated instead of HTTP/2",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Fix ALPN negotiation to enable HTTP/2",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Test server is negotiating HTTP/1.1 instead of HTTP/2 - need to investigate httptest.StartTLS ALPN configuration",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "HTTP/2 is now negotiating but getting 495 status and TLS errors - HTTP/2 transport creating new connections instead of reusing",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "495 status comes from TLS certificate errors in dialTLSHTTP2 - need to prevent new connection creation when connection reuse is enabled",
+    "status": "in_progress",
+    "id": "7"
+  }
+]

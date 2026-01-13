@@ -1,0 +1,38 @@
+{
+  "session_id": "e29eea65-c4e5-4a90-af23-81ff6c982a1e",
+  "transcript_path": "/home/danny/.claude/projects/-home-danny-Downloads-statusline-package/e29eea65-c4e5-4a90-af23-81ff6c982a1e.jsonl",
+  "cwd": "/home/danny/Downloads/statusline-package",
+  "model": {
+    "id": "claude-opus-4-5-20251101",
+    "display_name": "Opus 4.5"
+  },
+  "workspace": {
+    "current_dir": "/home/danny/Downloads/statusline-package",
+    "project_dir": "/home/danny/Downloads/statusline-package"
+  },
+  "version": "2.1.6",
+  "output_style": {
+    "name": "default"
+  },
+  "cost": {
+    "total_cost_usd": 6.499165499999997,
+    "total_duration_ms": 4640018,
+    "total_api_duration_ms": 794738,
+    "total_lines_added": 236,
+    "total_lines_removed": 20
+  },
+  "context_window": {
+    "total_input_tokens": 184436,
+    "total_output_tokens": 31864,
+    "context_window_size": 200000,
+    "current_usage": {
+      "input_tokens": 7,
+      "output_tokens": 154,
+      "cache_creation_input_tokens": 197,
+      "cache_read_input_tokens": 43405
+    },
+    "used_percentage": 22,
+    "remaining_percentage": 78
+  },
+  "exceeds_200k_tokens": false
+}

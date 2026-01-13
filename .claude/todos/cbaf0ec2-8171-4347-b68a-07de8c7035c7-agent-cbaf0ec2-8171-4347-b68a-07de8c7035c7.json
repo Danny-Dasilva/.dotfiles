@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Find trigger node operator rendering component",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Investigate why trigger node shows NumberOperatorOptions instead of StringOperatorOptions for shipment status",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Find component that renders HTML select with options in trigger node",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Compare trigger vs branch node execution paths",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Fix the operator options mapping for shipment status in trigger node",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Update CustomerStreakCountAttribute to use styled dropdowns like ShipmentStatusAttribute",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "content": "Create standalone script file export_watch_time_2025.py",
+    "status": "completed"
+  },
+  {
+    "content": "Add database connection functions for both Analytics and Content DBs",
+    "status": "completed"
+  },
+  {
+    "content": "Implement watch time query with date filter (since 2025-01-01)",
+    "status": "completed"
+  },
+  {
+    "content": "Implement subreddit details fetching with batch processing",
+    "status": "completed"
+  },
+  {
+    "content": "Implement subreddit-level aggregation logic",
+    "status": "completed"
+  },
+  {
+    "content": "Add CSV export functionality with all required columns",
+    "status": "completed"
+  },
+  {
+    "content": "Add progress indicators and error handling",
+    "status": "completed"
+  },
+  {
+    "content": "Test the script with sample data",
+    "status": "in_progress"
+  }
+]

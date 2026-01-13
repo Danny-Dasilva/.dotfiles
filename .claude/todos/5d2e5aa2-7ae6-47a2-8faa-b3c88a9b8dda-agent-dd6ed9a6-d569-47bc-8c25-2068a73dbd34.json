@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Modify lines 250-293 to create two side-by-side boxes instead of single bordered box",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Remove tip text (lines 280-290) and tipStyle",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Reduce/eliminate MarginBottom(2) on line 260 for less spacing",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Calculate widths for two boxes that fit side-by-side (lines 251-254)",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Create left box for quickstart header, right box for curl command",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Use lipgloss.JoinHorizontal() to combine the two boxes",
+    "status": "completed",
+    "id": "6"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Examine current Next.js configuration to understand how headers are set up",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Add the two Recharge scripts to the Next.js headers configuration",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

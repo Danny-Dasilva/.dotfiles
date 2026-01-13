@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Fix cookie domain consistency between callback and redirect",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create development-specific authentication bypass",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Ensure redirect uses same domain as callback",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  }
+]

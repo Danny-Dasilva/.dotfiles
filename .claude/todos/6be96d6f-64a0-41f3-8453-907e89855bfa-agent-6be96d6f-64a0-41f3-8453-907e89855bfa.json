@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Create project structure and pyproject.toml",
+    "status": "completed",
+    "activeForm": "Creating project structure and pyproject.toml"
+  },
+  {
+    "content": "Implement schemas.py - Pydantic models for JSON output",
+    "status": "completed",
+    "activeForm": "Implementing Pydantic schemas"
+  },
+  {
+    "content": "Implement prompts.py - prompt templates and response parsing",
+    "status": "completed",
+    "activeForm": "Implementing prompt templates"
+  },
+  {
+    "content": "Implement model.py - model loading with RTX 5090 support",
+    "status": "completed",
+    "activeForm": "Implementing model loading"
+  },
+  {
+    "content": "Implement processor.py - image processing and batch inference",
+    "status": "completed",
+    "activeForm": "Implementing batch processing"
+  },
+  {
+    "content": "Implement cli.py - CLI interface",
+    "status": "completed",
+    "activeForm": "Implementing CLI interface"
+  },
+  {
+    "content": "Implement api.py - FastAPI service",
+    "status": "completed",
+    "activeForm": "Implementing FastAPI service"
+  },
+  {
+    "content": "Install dependencies and test model loading",
+    "status": "completed",
+    "activeForm": "Installing dependencies and testing"
+  },
+  {
+    "content": "Test with user-provided images",
+    "status": "pending",
+    "activeForm": "Testing with sample images"
+  }
+]

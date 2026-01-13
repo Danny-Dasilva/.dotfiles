@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Update CookieManager to read cookie files directly from the cookie path without database",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Remove time delays from yt-dlp commands in downloadVideosController.ts",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

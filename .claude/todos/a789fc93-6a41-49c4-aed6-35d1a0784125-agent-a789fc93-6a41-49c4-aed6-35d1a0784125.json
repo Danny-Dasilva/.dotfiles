@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Remove ja4 and ja4h fields from Go structs",
+    "status": "completed",
+    "id": "13"
+  },
+  {
+    "content": "Remove ja4 and ja4h fields from TypeScript interfaces",
+    "status": "completed",
+    "id": "14"
+  },
+  {
+    "content": "Fix HTTP idle channel error",
+    "status": "pending",
+    "id": "15"
+  },
+  {
+    "content": "Update tests to only use ja4r",
+    "status": "completed",
+    "id": "16"
+  },
+  {
+    "content": "Fix HTTP/2 protocol negotiation issue",
+    "status": "completed",
+    "id": "17"
+  },
+  {
+    "content": "Fix test timeouts",
+    "status": "completed",
+    "id": "18"
+  },
+  {
+    "content": "Remove automatic extension additions from JA4RStringToSpec",
+    "status": "completed",
+    "id": "19"
+  },
+  {
+    "content": "Fix JA4_r extension count accuracy",
+    "status": "completed",
+    "id": "20"
+  },
+  {
+    "content": "Update test data for proper HTTP/2 negotiation",
+    "status": "completed",
+    "id": "21"
+  },
+  {
+    "content": "Fix JA4_r response generation bug - missing extensions",
+    "status": "completed",
+    "id": "22"
+  }
+]

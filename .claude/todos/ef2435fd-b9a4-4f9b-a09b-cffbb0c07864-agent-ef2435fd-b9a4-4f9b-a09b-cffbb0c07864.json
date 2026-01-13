@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Implement Step 1: Query to get only IDs first",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Implement Step 3: Get full details only for filtered IDs",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Update total count query to match",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Test the new approach",
+    "status": "completed",
+    "id": "4"
+  }
+]

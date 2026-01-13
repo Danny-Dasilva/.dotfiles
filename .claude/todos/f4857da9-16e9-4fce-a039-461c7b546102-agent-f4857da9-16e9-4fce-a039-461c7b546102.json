@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Fix S3 key generation in migration script",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Remove S3 HeadObject check from migration script",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Test the updated migration script",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

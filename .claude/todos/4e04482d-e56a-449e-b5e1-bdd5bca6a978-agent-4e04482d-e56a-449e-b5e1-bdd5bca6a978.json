@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Add channel_id field to channel model in Prisma schema",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Create and run Prisma migration",
+    "status": "in_progress",
+    "id": "2"
+  },
+  {
+    "content": "Verify the migration was successful",
+    "status": "pending",
+    "id": "3"
+  }
+]

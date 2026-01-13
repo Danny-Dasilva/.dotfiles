@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Implement actual Recharge checkout import API call",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Build proper Recharge checkout payload structure",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Extract and format Stripe session data",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Test and log Recharge API response",
+    "status": "completed",
+    "id": "4"
+  }
+]

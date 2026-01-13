@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Fix PopulatedListItem height constraints for collapsible content",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Optimize TriggerConditionPreview for node context with compact styling",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Test the visual display fix and ensure proper functionality",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

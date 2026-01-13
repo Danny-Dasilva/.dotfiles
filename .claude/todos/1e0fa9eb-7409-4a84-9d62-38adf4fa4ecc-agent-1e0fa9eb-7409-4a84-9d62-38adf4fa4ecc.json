@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Install dependencies (pip install -e .)",
+    "status": "completed",
+    "activeForm": "Installing dependencies"
+  },
+  {
+    "content": "Validate module imports work",
+    "status": "completed",
+    "activeForm": "Validating module imports"
+  },
+  {
+    "content": "Set up directories (data/train/, data/val/, data/generated_annotations/)",
+    "status": "completed",
+    "activeForm": "Setting up directories"
+  },
+  {
+    "content": "Run model2annotations() on ALL dataset images (~4,000+)",
+    "status": "in_progress",
+    "activeForm": "Generating pseudo-labels"
+  },
+  {
+    "content": "Copy/symlink images to training directories",
+    "status": "pending",
+    "activeForm": "Organizing training images"
+  },
+  {
+    "content": "Split annotations into train/val (80/20)",
+    "status": "pending",
+    "activeForm": "Splitting train/val data"
+  },
+  {
+    "content": "Test training pipeline (5 epochs, batch_size=2)",
+    "status": "pending",
+    "activeForm": "Testing training pipeline"
+  },
+  {
+    "content": "Run full segmentation training (100 epochs)",
+    "status": "pending",
+    "activeForm": "Running segmentation training"
+  },
+  {
+    "content": "Run full detection training (160 epochs)",
+    "status": "pending",
+    "activeForm": "Running detection training"
+  },
+  {
+    "content": "Export to ONNX",
+    "status": "pending",
+    "activeForm": "Exporting to ONNX"
+  }
+]

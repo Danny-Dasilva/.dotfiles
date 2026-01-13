@@ -1,0 +1,62 @@
+[
+  {
+    "content": "Update TemplateProduct model - add style_type and priority fields",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update TemplateProductCreate schema to include new fields",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Fix TemplateUpdate model - add all updatable fields",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Fix PUT /templates/{id} endpoint",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Fix POST /templates/{id}/products endpoint",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Add GET /templates/by-sku/{sku} endpoint",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Update frontend Edit Contents UI",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Fix frontend data payload structure",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "Populate edit screen with existing contents",
+    "status": "completed",
+    "priority": "high",
+    "id": "9"
+  },
+  {
+    "content": "Test the implementation",
+    "status": "pending",
+    "priority": "medium",
+    "id": "10"
+  }
+]

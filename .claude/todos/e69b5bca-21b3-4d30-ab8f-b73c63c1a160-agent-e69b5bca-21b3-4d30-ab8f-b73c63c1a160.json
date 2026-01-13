@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Fix FailedVideosManager.isVideoFailed logic to properly handle retryable errors",
+    "status": "completed",
+    "activeForm": "Fixing FailedVideosManager.isVideoFailed logic to properly handle retryable errors"
+  },
+  {
+    "content": "Update log message in downloadVideosController.ts to accurately reflect skip reason",
+    "status": "completed",
+    "activeForm": "Updating log message in downloadVideosController.ts to accurately reflect skip reason"
+  },
+  {
+    "content": "Add cleanup logic to remove successfully downloaded videos from failed list",
+    "status": "completed",
+    "activeForm": "Adding cleanup logic to remove successfully downloaded videos from failed list"
+  },
+  {
+    "content": "Test the fixes to ensure retryable errors are properly retried",
+    "status": "in_progress",
+    "activeForm": "Testing the fixes to ensure retryable errors are properly retried"
+  }
+]

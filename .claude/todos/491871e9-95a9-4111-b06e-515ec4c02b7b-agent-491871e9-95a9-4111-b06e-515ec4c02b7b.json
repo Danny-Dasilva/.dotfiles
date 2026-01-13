@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Update release workflows to include direct executable downloads",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Modify artifact upload to include both executables and archives",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Test the updated release process",
+    "status": "completed",
+    "id": "3"
+  }
+]

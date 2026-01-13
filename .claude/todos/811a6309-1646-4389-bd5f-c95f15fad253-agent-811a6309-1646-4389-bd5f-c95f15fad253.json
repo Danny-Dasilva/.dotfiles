@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Find and analyze the TypeScript /targeted route implementation",
+    "status": "in_progress",
+    "activeForm": "Analyzing TypeScript /targeted route"
+  },
+  {
+    "content": "Find and analyze Python queue processing implementation",
+    "status": "pending",
+    "activeForm": "Analyzing Python queue processing"
+  },
+  {
+    "content": "Compare concurrency/worker configurations between both",
+    "status": "pending",
+    "activeForm": "Comparing concurrency configurations"
+  },
+  {
+    "content": "Identify bottlenecks and performance differences",
+    "status": "pending",
+    "activeForm": "Identifying bottlenecks"
+  }
+]

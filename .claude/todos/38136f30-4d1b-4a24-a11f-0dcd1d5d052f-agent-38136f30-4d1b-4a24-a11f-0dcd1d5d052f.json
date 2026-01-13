@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Research CycleTLS-Proxy API format and request structure",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Generate curl command for JA4/user-agent rotation testing",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Generate curl command for HTTP3 testing with validation",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Generate curl command for TLS 1.3 testing with validation",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Write all curl commands to a shell script file",
+    "status": "completed",
+    "id": "5"
+  }
+]

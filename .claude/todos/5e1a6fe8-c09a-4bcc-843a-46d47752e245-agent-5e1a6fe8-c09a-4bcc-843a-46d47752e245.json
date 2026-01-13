@@ -1,0 +1,62 @@
+[
+  {
+    "content": "Research and document additional GEO/LLM SEO optimizations needed",
+    "status": "completed",
+    "priority": "high",
+    "id": "research-geo-optimizations"
+  },
+  {
+    "content": "Fix TypeScript error - process is not defined in structuredDataHelpers.ts",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-typescript-error"
+  },
+  {
+    "content": "Add TL;DR sections to all main pages for LLM extraction",
+    "status": "completed",
+    "priority": "high",
+    "id": "add-tldr-sections"
+  },
+  {
+    "content": "Create original data/statistics about recovery success rates",
+    "status": "completed",
+    "priority": "high",
+    "id": "add-original-data"
+  },
+  {
+    "content": "Implement HowTo and Article schema for better structured data",
+    "status": "completed",
+    "priority": "medium",
+    "id": "expand-schema-types"
+  },
+  {
+    "content": "Add author/expert bios for E-E-A-T signals",
+    "status": "pending",
+    "priority": "medium",
+    "id": "add-author-bios"
+  },
+  {
+    "content": "Create testimonial/case study sections with semantic depth",
+    "status": "pending",
+    "priority": "medium",
+    "id": "add-testimonials"
+  },
+  {
+    "content": "Optimize content structure - front-load key information",
+    "status": "pending",
+    "priority": "low",
+    "id": "optimize-content-structure"
+  },
+  {
+    "content": "Create brand entity optimization strategy",
+    "status": "pending",
+    "priority": "low",
+    "id": "brand-entity-optimization"
+  },
+  {
+    "content": "Set up LLM visibility monitoring tools",
+    "status": "pending",
+    "priority": "low",
+    "id": "setup-monitoring"
+  }
+]

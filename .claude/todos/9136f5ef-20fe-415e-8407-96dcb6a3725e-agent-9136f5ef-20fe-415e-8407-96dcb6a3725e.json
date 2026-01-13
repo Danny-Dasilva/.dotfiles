@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Update go.mod dependencies to quic-go v0.53+",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Migrate http3.go from RoundTripper to Transport",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Migrate roundtripper.go from RoundTripper to Transport",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Update EarlyConnection usage if needed",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Run go mod tidy to resolve dependencies",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Test the build to verify fixes",
+    "status": "in_progress",
+    "id": "6"
+  }
+]

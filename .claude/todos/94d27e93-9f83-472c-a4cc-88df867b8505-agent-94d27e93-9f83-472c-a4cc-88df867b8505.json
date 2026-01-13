@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Agent 1: YOLOv10 Backbone - Replace backbone, update channels, add projection freezing",
+    "status": "in_progress",
+    "activeForm": "Implementing YOLOv10 backbone"
+  },
+  {
+    "content": "Agent 2: CIB & SCDown Modules - Implement CIB, C2fCIB, SCDown",
+    "status": "in_progress",
+    "activeForm": "Implementing CIB & SCDown modules"
+  },
+  {
+    "content": "Agent 3: PSA & Large Kernel - Implement PSA attention, large kernel convs",
+    "status": "in_progress",
+    "activeForm": "Implementing PSA & large kernel modules"
+  },
+  {
+    "content": "Agent 4: BlockDetector Head - YOLO-style block detection with one-to-one assignment",
+    "status": "in_progress",
+    "activeForm": "Implementing BlockDetector head"
+  },
+  {
+    "content": "Agent 5: BiFPN & Rank-Guided Decoder - EfficientBiFPN, rank-guided decoder",
+    "status": "in_progress",
+    "activeForm": "Implementing BiFPN & rank-guided decoder"
+  },
+  {
+    "content": "Agent 6: Loss Functions - DualAssignmentLoss, BlockDetectionLoss, fix DBLoss beta",
+    "status": "in_progress",
+    "activeForm": "Implementing loss functions"
+  },
+  {
+    "content": "Agent 7: Dataset & Normalization Fix - Fix norm bug, add block annotations",
+    "status": "in_progress",
+    "activeForm": "Fixing dataset normalization"
+  },
+  {
+    "content": "Agent 8: Training Infrastructure - 3-phase trainer, gradient checkpointing",
+    "status": "in_progress",
+    "activeForm": "Updating training infrastructure"
+  },
+  {
+    "content": "Agent 9: Export & ONNX Optimization - Update export, optimize_onnx.py, quantize.py",
+    "status": "in_progress",
+    "activeForm": "Implementing export & ONNX optimization"
+  },
+  {
+    "content": "Agent 10: Inference Pipeline - TensorRT, CUDA graphs, async pipeline",
+    "status": "in_progress",
+    "activeForm": "Implementing inference pipeline"
+  }
+]

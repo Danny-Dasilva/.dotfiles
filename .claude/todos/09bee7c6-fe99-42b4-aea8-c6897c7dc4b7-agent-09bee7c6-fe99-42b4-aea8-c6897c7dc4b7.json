@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Add Chrome 138 JA4_r constant to the test file",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Update user agent strings to Chrome 138.0.0.0",
+    "status": "completed",
+    "id": "2"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create new database table content_watch_time_v2 with the A/B test fields",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create /v2/watch-time route in pgvectorscale watch_time service",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Find and update scrolller-api to call the new /v2 endpoint",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Test backward compatibility with existing /watch-time endpoint",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Update frontend GraphQL mutation to include new A/B test fields",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  }
+]

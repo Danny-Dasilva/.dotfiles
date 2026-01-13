@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Update CycleTLSResponse interface to include json(), text(), arrayBuffer(), and blob() methods",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create helper functions to implement response parsing methods",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Modify response resolution logic to add parsing methods to response object",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Test the implementation with the failing test to ensure it passes",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Write comprehensive tests for new response methods (json, text, arrayBuffer, blob)",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Fix Jest open handle issue in HTTP server cleanup",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Create failed_tests.md with documentation of failing tests",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  }
+]

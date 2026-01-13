@@ -1,0 +1,80 @@
+[
+  {
+    "content": "Fix PHeaderOrderKey issue - only set for HTTP/2, not HTTP/3 in processRequest()",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Fix PHeaderOrderKey issue - only set for HTTP/2, not HTTP/3 in Do() function",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update dispatchHTTP3Request to avoid setting PHeaderOrderKey",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Test the fixes with local QUIC tests",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Research uquic integration patterns from gospider007/requests",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Analyze current CycleTLS HTTP/3 implementation and uquic usage",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Plan uquic transport integration implementation",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Enhance HTTP3Transport struct with UQuic fields",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "Create UQuicHTTP3Transport with proper uquic dialing",
+    "status": "completed",
+    "priority": "high",
+    "id": "9"
+  },
+  {
+    "content": "Integrate QUIC fingerprint processing with uquic",
+    "status": "completed",
+    "priority": "high",
+    "id": "10"
+  },
+  {
+    "content": "Update client creation logic for uquic support",
+    "status": "completed",
+    "priority": "high",
+    "id": "11"
+  },
+  {
+    "content": "Fix uquic API compatibility issues",
+    "status": "completed",
+    "priority": "high",
+    "id": "12"
+  },
+  {
+    "content": "Test uquic integration with QUIC fingerprints",
+    "status": "completed",
+    "priority": "medium",
+    "id": "13"
+  }
+]

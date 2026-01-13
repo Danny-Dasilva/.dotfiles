@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Add new 'Binary Data Handling (Issue #297 Fix)' section to README.md with JavaScript and Golang examples",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Create tests/binary-data-handling.test.js with comprehensive JavaScript binary data tests",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Add additional test cases to existing cycletls/tests/integration/binary_data_test.go for issue #297 scenarios",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Create examples/binary-data-handling.js example file",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Create examples/binary_data_handling.go example file",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Run tests to verify all examples and tests work correctly",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Update changelog to address issue #297 being fixed in 2.0.2 release",
+    "status": "completed",
+    "id": "7"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Fix JavaScript image examples to use arrayBuffer() instead of text()",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Add streaming bytes response example",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Validate all JavaScript code snippets for functionality",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Validate all Go code snippets for functionality",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Fix critical Go syntax errors and missing parameters",
+    "status": "completed",
+    "id": "5"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Create project directory structure",
+    "status": "completed",
+    "activeForm": "Creating project directory structure"
+  },
+  {
+    "content": "Clone TurboDiffusion repo with submodules",
+    "status": "completed",
+    "activeForm": "Cloning TurboDiffusion repo"
+  },
+  {
+    "content": "Install TurboDiffusion from source",
+    "status": "in_progress",
+    "activeForm": "Installing TurboDiffusion from source"
+  },
+  {
+    "content": "Download model weights (~46 GB)",
+    "status": "in_progress",
+    "activeForm": "Downloading model weights"
+  },
+  {
+    "content": "Run I2V inference generation",
+    "status": "pending",
+    "activeForm": "Running I2V inference generation"
+  }
+]

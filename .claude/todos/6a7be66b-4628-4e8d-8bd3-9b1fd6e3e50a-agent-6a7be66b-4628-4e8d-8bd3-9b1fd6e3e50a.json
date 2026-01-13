@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create project directory structure",
+    "status": "completed",
+    "activeForm": "Creating project directory structure"
+  },
+  {
+    "content": "Set up Python environment with uv",
+    "status": "in_progress",
+    "activeForm": "Setting up Python environment with uv"
+  },
+  {
+    "content": "Download TurboWan2.2 I2V models (quantized)",
+    "status": "pending",
+    "activeForm": "Downloading TurboWan2.2 I2V models"
+  },
+  {
+    "content": "Download VAE, T5, and CLIP models",
+    "status": "pending",
+    "activeForm": "Downloading VAE, T5, and CLIP models"
+  },
+  {
+    "content": "Download sample input image",
+    "status": "pending",
+    "activeForm": "Downloading sample input image"
+  },
+  {
+    "content": "Run I2V inference generation",
+    "status": "pending",
+    "activeForm": "Running I2V inference generation"
+  }
+]

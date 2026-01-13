@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Create new optimized embedding creation file",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Implement continuous pipeline with persistent workers",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Replace psycopg2 with asyncpg for async DB operations",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Add ID caching system for cross-database checks",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Optimize batch fetching strategy",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Implement larger write buffers and COPY operations",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Add concurrent batch processing",
+    "status": "completed",
+    "id": "7"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Review DBNet training pipeline",
+    "status": "completed",
+    "activeForm": "Reviewing DBNet training pipeline"
+  },
+  {
+    "content": "Identify issues in training code",
+    "status": "completed",
+    "activeForm": "Identifying training issues"
+  },
+  {
+    "content": "Fix training pipeline",
+    "status": "completed",
+    "activeForm": "Fixing training pipeline"
+  },
+  {
+    "content": "Retrain DBNet model",
+    "status": "in_progress",
+    "activeForm": "Retraining DBNet model"
+  },
+  {
+    "content": "Test and verify results",
+    "status": "pending",
+    "activeForm": "Testing and verifying results"
+  }
+]

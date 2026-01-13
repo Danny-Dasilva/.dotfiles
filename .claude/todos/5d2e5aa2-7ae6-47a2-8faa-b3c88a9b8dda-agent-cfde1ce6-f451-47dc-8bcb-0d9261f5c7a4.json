@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Add request logging infrastructure to InteractiveApp struct - log channel, buffer, and message types",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Modify InteractiveApp to handle RequestLogMsg messages and update log buffer",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Modify renderMenu() to use split layout with left panel (logo + status + quickstart + menu) and right panel (live request logs)",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Create renderRequestLogs() method to display recent requests with color-coded status",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Modify Handler to accept log channel and send request logs in real-time",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Update main.go to pass log channel from handler to InteractiveApp",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Add periodic tick command to InteractiveApp for log updates",
+    "status": "completed",
+    "id": "7"
+  }
+]

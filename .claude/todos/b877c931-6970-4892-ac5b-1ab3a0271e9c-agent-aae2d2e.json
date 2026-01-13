@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Extract duplicate baseUrl logic into shared utility",
+    "status": "in_progress",
+    "activeForm": "Extracting duplicate baseUrl logic into shared utility"
+  },
+  {
+    "content": "Consolidate duplicate WorkOS organization lookup pattern",
+    "status": "pending",
+    "activeForm": "Consolidating duplicate WorkOS organization lookup pattern"
+  },
+  {
+    "content": "Refactor button components to reduce duplication",
+    "status": "pending",
+    "activeForm": "Refactoring button components to reduce duplication"
+  },
+  {
+    "content": "Clean up unnecessary comments and improve consistency",
+    "status": "pending",
+    "activeForm": "Cleaning up unnecessary comments and improving consistency"
+  },
+  {
+    "content": "Review middleware for simplification opportunities",
+    "status": "pending",
+    "activeForm": "Reviewing middleware for simplification opportunities"
+  }
+]

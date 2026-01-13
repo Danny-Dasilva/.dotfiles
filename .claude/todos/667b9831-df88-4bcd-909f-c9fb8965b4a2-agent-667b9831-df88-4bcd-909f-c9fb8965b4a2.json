@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Fix argument order in buildYtDlpCommand - move playlist parameters before URL",
+    "status": "completed",
+    "id": "13"
+  },
+  {
+    "content": "Add cookie support for flat-playlist mode",
+    "status": "completed",
+    "id": "14"
+  },
+  {
+    "content": "Make sleep/retry parameters optional or move to end",
+    "status": "completed",
+    "id": "15"
+  }
+]

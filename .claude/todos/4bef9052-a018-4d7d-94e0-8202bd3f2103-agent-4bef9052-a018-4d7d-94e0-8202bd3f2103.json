@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Update Prisma schema to use default client output",
+    "status": "completed",
+    "activeForm": "Updating Prisma schema"
+  },
+  {
+    "content": "Update all @prisma/client_new imports to @prisma/client",
+    "status": "completed",
+    "activeForm": "Updating imports"
+  },
+  {
+    "content": "Regenerate Prisma client with npx prisma generate",
+    "status": "in_progress",
+    "activeForm": "Regenerating Prisma client"
+  },
+  {
+    "content": "Verify TSOA and dev server work correctly",
+    "status": "pending",
+    "activeForm": "Verifying TSOA and dev server"
+  }
+]

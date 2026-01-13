@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Identify why get_all_content_without_embeddings returns empty after offset 1000000",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Fix the main loop logic to skip empty batches",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Add tracking variables for consecutive empty batches",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Improve progress logging to show checked vs processed",
+    "status": "completed",
+    "id": "4"
+  }
+]

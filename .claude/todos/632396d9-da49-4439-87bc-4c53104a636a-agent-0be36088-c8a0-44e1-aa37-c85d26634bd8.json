@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Validate basic JavaScript examples in README against test files",
+    "status": "completed",
+    "id": "validate_basic_examples"
+  },
+  {
+    "content": "Check response method calls (json(), text(), arrayBuffer(), etc.) against actual implementation",
+    "status": "completed",
+    "id": "validate_response_methods"
+  },
+  {
+    "content": "Verify streaming response examples match actual streaming test implementations",
+    "status": "completed",
+    "id": "validate_streaming_examples"
+  },
+  {
+    "content": "Check JA4/JA4H/HTTP2 fingerprinting examples against test files",
+    "status": "completed",
+    "id": "validate_fingerprinting"
+  },
+  {
+    "content": "Verify timeout and proxy examples match actual usage patterns",
+    "status": "completed",
+    "id": "validate_timeout_proxy"
+  },
+  {
+    "content": "Check image/media download examples against test implementations",
+    "status": "completed",
+    "id": "validate_image_download"
+  },
+  {
+    "content": "Compile comprehensive validation report with specific corrections",
+    "status": "completed",
+    "id": "compile_final_report"
+  }
+]

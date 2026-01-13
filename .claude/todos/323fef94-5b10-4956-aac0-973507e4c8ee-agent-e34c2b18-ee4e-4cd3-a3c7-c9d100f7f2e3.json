@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Remove SoundTouch and AudioBufferSourceNode gapless code from AudioPlayer.ts",
+    "status": "completed",
+    "activeForm": "Removing SoundTouch and gapless code"
+  },
+  {
+    "content": "Implement dual HTMLAudioElement ping-pong strategy",
+    "status": "completed",
+    "activeForm": "Implementing dual-player strategy"
+  },
+  {
+    "content": "Update AudioSyncService for new playback approach",
+    "status": "completed",
+    "activeForm": "Updating AudioSyncService"
+  },
+  {
+    "content": "Clean up: delete soundtouch-worklet.js and remove npm dependency",
+    "status": "completed",
+    "activeForm": "Cleaning up SoundTouch files"
+  },
+  {
+    "content": "Fix playback rate preservation on player switch",
+    "status": "completed",
+    "activeForm": "Fixing playback rate bug"
+  },
+  {
+    "content": "Write documentation for Medium article",
+    "status": "completed",
+    "activeForm": "Writing documentation"
+  },
+  {
+    "content": "Test pitch preservation at variable speeds",
+    "status": "pending",
+    "activeForm": "Testing pitch preservation"
+  }
+]

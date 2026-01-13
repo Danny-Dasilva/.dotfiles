@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Remove the break statement that prevents filtered videos from being processed",
+    "status": "completed",
+    "activeForm": "Removing break statement"
+  },
+  {
+    "content": "Implement smart boundary detection with sample video date checking",
+    "status": "completed",
+    "activeForm": "Implementing boundary detection"
+  },
+  {
+    "content": "Update filtering logic to use accurate dates",
+    "status": "completed",
+    "activeForm": "Updating filtering logic"
+  },
+  {
+    "content": "Test the implementation",
+    "status": "in_progress",
+    "activeForm": "Testing implementation"
+  }
+]

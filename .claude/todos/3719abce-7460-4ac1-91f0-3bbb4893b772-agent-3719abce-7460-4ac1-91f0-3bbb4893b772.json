@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Test Training Pipeline (5 epochs)",
+    "status": "completed",
+    "activeForm": "Test training completed"
+  },
+  {
+    "content": "Full Segmentation Training (100 epochs)",
+    "status": "completed",
+    "activeForm": "Segmentation training completed"
+  },
+  {
+    "content": "Full Detection Training (160 epochs)",
+    "status": "pending",
+    "activeForm": "Training detection model"
+  },
+  {
+    "content": "Export to ONNX",
+    "status": "pending",
+    "activeForm": "Exporting model to ONNX"
+  }
+]

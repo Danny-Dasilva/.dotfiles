@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Add gradient checkpointing to trainer",
+    "status": "in_progress",
+    "activeForm": "Agent implementing gradient checkpointing"
+  },
+  {
+    "content": "Update trainer for 3-phase training",
+    "status": "in_progress",
+    "activeForm": "Agent implementing 3-phase training"
+  },
+  {
+    "content": "Update train.py CLI with new options",
+    "status": "in_progress",
+    "activeForm": "Agent updating train.py CLI"
+  },
+  {
+    "content": "Create TensorRT builder script",
+    "status": "in_progress",
+    "activeForm": "Agent creating TensorRT builder"
+  },
+  {
+    "content": "Update benchmark script for YOLOv10",
+    "status": "in_progress",
+    "activeForm": "Agent updating benchmark script"
+  },
+  {
+    "content": "Create Triton config",
+    "status": "completed",
+    "activeForm": "Creating Triton config"
+  },
+  {
+    "content": "Retrain Phase 1: Segmentation (100 epochs)",
+    "status": "pending",
+    "activeForm": "Retraining Phase 1: Segmentation"
+  },
+  {
+    "content": "Retrain Phase 2: Detection (100 epochs)",
+    "status": "pending",
+    "activeForm": "Retraining Phase 2: Detection"
+  },
+  {
+    "content": "Retrain Phase 3: Block detection (50 epochs)",
+    "status": "pending",
+    "activeForm": "Retraining Phase 3: Block detection"
+  },
+  {
+    "content": "Export final ONNX and run benchmarks",
+    "status": "pending",
+    "activeForm": "Exporting final ONNX and running benchmarks"
+  }
+]

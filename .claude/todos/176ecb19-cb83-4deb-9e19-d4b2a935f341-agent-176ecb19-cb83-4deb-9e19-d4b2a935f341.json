@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Update CORS configuration to allow web origins",
+    "status": "completed",
+    "activeForm": "Updating CORS configuration to allow web origins"
+  },
+  {
+    "content": "Update .env.example with new CORS configuration",
+    "status": "completed",
+    "activeForm": "Updating .env.example with new CORS configuration"
+  },
+  {
+    "content": "Test CORS with the provided curl command",
+    "status": "in_progress",
+    "activeForm": "Testing CORS with the provided curl command"
+  }
+]

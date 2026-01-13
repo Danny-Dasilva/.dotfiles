@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Add per-instance semaphore to translate_parallel()",
+    "status": "completed",
+    "activeForm": "Adding semaphore to translation pool"
+  },
+  {
+    "content": "Add per-instance semaphore to test_page _test_translate_parallel()",
+    "status": "completed",
+    "activeForm": "Adding semaphore to test page"
+  },
+  {
+    "content": "Remove debug logging after testing",
+    "status": "pending",
+    "activeForm": "Cleaning up debug logs"
+  },
+  {
+    "content": "Test full pipeline",
+    "status": "pending",
+    "activeForm": "Testing full pipeline"
+  }
+]

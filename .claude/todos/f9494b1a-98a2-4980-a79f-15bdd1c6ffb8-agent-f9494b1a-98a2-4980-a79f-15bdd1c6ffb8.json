@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Fix hosted_url bug in downloadVideosController.ts - remove /downloads from URL",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create migration script to fix existing hosted_urls with /downloads",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Create daily materialized view user_watch_metrics_v2_daily",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create hourly materialized view user_watch_metrics_v2_hourly",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Create TimescaleDB continuous aggregates (daily)",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Create TimescaleDB continuous aggregates (hourly)",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Create performance indexes",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Refresh materialized views with data",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  }
+]

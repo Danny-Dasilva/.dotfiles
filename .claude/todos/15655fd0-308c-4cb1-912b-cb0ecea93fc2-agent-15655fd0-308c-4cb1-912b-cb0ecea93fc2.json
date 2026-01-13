@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Find the BigcommerceOrderFromRechargeOrder class implementation",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Analyze the billing address mapping logic",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Implement fallback to use shipping address when billing address is null",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Test the fix with the provided order object",
+    "status": "completed",
+    "id": "4"
+  }
+]

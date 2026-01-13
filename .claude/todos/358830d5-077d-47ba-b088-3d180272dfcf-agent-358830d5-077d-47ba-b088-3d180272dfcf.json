@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Fix NEW sorting in getSubredditChildren to use posted_at instead of posted_by",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Check if there are other places in the codebase that might have the same sorting issue",
+    "status": "completed",
+    "priority": "medium",
+    "id": "2"
+  },
+  {
+    "content": "Test the fix with the provided curl command",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "3"
+  }
+]

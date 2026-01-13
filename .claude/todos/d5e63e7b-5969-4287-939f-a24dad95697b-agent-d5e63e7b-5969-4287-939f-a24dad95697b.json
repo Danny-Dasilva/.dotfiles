@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Phase 1: Foundation - package.json, vite.config.ts, tsconfig.json, index.html",
+    "status": "completed",
+    "activeForm": "Setting up project foundation"
+  },
+  {
+    "content": "Phase 1: Core systems - Engine.ts, EventBus.ts, main.ts",
+    "status": "completed",
+    "activeForm": "Creating core engine systems"
+  },
+  {
+    "content": "Phase 2: Physics - PhysicsWorld.ts, BeybladePhysics.ts, CollisionHandler.ts",
+    "status": "completed",
+    "activeForm": "Implementing Rapier.js physics"
+  },
+  {
+    "content": "Phase 3: Rendering - SceneManager.ts, PostProcessing.ts, CameraController.ts",
+    "status": "completed",
+    "activeForm": "Setting up Three.js rendering"
+  },
+  {
+    "content": "Phase 4: Entities - Beyblade.ts, Stadium.ts",
+    "status": "completed",
+    "activeForm": "Creating game entities"
+  },
+  {
+    "content": "Phase 5: Game Logic - GameState.ts, LaunchSystem.ts, BattleManager.ts",
+    "status": "completed",
+    "activeForm": "Implementing game logic"
+  },
+  {
+    "content": "Phase 6: Effects - SpinTrail.ts, SparkEffect.ts",
+    "status": "completed",
+    "activeForm": "Adding visual effects"
+  },
+  {
+    "content": "Phase 7: UI - Glassmorphism CSS, BattleHUD, BeybladeSelector, ResultsScreen",
+    "status": "completed",
+    "activeForm": "Building user interface"
+  },
+  {
+    "content": "Phase 8: Audio - AudioManager.ts",
+    "status": "completed",
+    "activeForm": "Implementing audio system"
+  },
+  {
+    "content": "Final: Install dependencies and test",
+    "status": "in_progress",
+    "activeForm": "Testing the game"
+  }
+]

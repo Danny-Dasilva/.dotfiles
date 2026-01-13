@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Add comictextdetector.onnx to .gitignore",
+    "status": "completed",
+    "activeForm": "Adding file to .gitignore"
+  },
+  {
+    "content": "Remove file from git history using filter-branch",
+    "status": "in_progress",
+    "activeForm": "Removing file from git history"
+  },
+  {
+    "content": "Force push cleaned history to remote",
+    "status": "pending",
+    "activeForm": "Force pushing to remote"
+  }
+]

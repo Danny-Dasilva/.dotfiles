@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Fix the downloadable calculation bug in getTargetedVideoCount (line ~2509)",
+    "status": "completed",
+    "activeForm": "Fixing the downloadable calculation bug in getTargetedVideoCount"
+  },
+  {
+    "content": "Fix duration filter inconsistency in downloadTargetedVideosV2 (line 2140)",
+    "status": "completed",
+    "activeForm": "Fixing duration filter inconsistency in downloadTargetedVideosV2"
+  },
+  {
+    "content": "Verify the fix with test query",
+    "status": "in_progress",
+    "activeForm": "Verifying the fix with test query"
+  }
+]

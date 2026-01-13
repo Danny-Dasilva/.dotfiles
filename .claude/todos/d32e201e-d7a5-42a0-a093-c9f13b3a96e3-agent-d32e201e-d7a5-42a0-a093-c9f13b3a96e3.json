@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Add isValidPlaylistId validation function to helpers.ts",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Create new route /create-channel-and-queue-with-playlist in channelsSlackController.ts",
+    "status": "completed",
+    "id": "2"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Unmount all partitions on /dev/sda",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Wipe the drive /dev/sda clean",
+    "status": "in_progress",
+    "id": "2"
+  },
+  {
+    "content": "Find and stop processes using /dev/sda",
+    "status": "in_progress",
+    "id": "3"
+  }
+]

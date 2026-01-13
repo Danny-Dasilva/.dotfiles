@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Create project directory",
+    "status": "completed",
+    "activeForm": "Creating project directory"
+  },
+  {
+    "content": "Initialize uv project with Python 3.11",
+    "status": "completed",
+    "activeForm": "Initializing uv project"
+  },
+  {
+    "content": "Clone FlashVSR repository",
+    "status": "completed",
+    "activeForm": "Cloning FlashVSR repository"
+  },
+  {
+    "content": "Configure pyproject.toml with dependencies",
+    "status": "completed",
+    "activeForm": "Configuring pyproject.toml"
+  },
+  {
+    "content": "Install FlashVSR package",
+    "status": "completed",
+    "activeForm": "Installing FlashVSR package"
+  },
+  {
+    "content": "Clone and build Block-Sparse-Attention",
+    "status": "in_progress",
+    "activeForm": "Building Block-Sparse-Attention"
+  },
+  {
+    "content": "Download model weights",
+    "status": "pending",
+    "activeForm": "Downloading model weights"
+  },
+  {
+    "content": "Create input/output directories",
+    "status": "pending",
+    "activeForm": "Creating directories"
+  },
+  {
+    "content": "Create upscale.py wrapper script",
+    "status": "pending",
+    "activeForm": "Creating wrapper script"
+  },
+  {
+    "content": "Create run.sh convenience script",
+    "status": "pending",
+    "activeForm": "Creating run script"
+  }
+]

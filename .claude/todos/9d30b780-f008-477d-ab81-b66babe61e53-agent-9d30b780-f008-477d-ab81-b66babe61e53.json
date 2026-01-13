@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Fix Kokoro ONNX WASM path error",
+    "status": "in_progress",
+    "activeForm": "Fixing Kokoro ONNX WASM path error"
+  },
+  {
+    "content": "Convert NovaSR PyTorch to ONNX",
+    "status": "pending",
+    "activeForm": "Converting NovaSR to ONNX"
+  },
+  {
+    "content": "Integrate NovaSR into benchmark page",
+    "status": "pending",
+    "activeForm": "Integrating NovaSR into benchmark"
+  }
+]

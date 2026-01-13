@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Understand the extension ordering issue",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Fix SNI extension insertion to maintain proper order",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Test the fix to ensure correct extension ordering",
+    "status": "completed",
+    "id": "3"
+  }
+]

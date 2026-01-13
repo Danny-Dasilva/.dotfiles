@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Add TTS engine selection to settings",
+    "status": "in_progress",
+    "activeForm": "Adding TTS engine selection to settings"
+  },
+  {
+    "content": "Research NovaSR audio super-resolution",
+    "status": "in_progress",
+    "activeForm": "Researching NovaSR audio super-resolution"
+  },
+  {
+    "content": "Convert NovaSR to ONNX if needed",
+    "status": "pending",
+    "activeForm": "Converting NovaSR to ONNX if needed"
+  },
+  {
+    "content": "Integrate NovaSR with Kokoro TTS",
+    "status": "pending",
+    "activeForm": "Integrating NovaSR with Kokoro TTS"
+  },
+  {
+    "content": "Update benchmark to compare Kokoro vs Kokoro+NovaSR",
+    "status": "pending",
+    "activeForm": "Updating benchmark to compare Kokoro vs Kokoro+NovaSR"
+  },
+  {
+    "content": "Run benchmark comparison",
+    "status": "pending",
+    "activeForm": "Running benchmark comparison"
+  }
+]

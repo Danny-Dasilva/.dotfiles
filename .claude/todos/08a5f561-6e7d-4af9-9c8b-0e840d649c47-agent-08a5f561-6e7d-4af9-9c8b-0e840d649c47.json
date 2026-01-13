@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Create new script create_all_embeddings.py",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Implement query function to get all content without embeddings",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Implement batch processing with pagination",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Add progress tracking and monitoring",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Test the script with a small batch",
+    "status": "in_progress",
+    "id": "5"
+  },
+  {
+    "content": "Fix PyTorch in poetry virtual environment",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Remove create_tables function - not needed",
+    "status": "completed",
+    "id": "7"
+  },
+  {
+    "content": "Fix get_total_content_count to use RECOMMENDATION_DB_PARAMS",
+    "status": "completed",
+    "id": "8"
+  },
+  {
+    "content": "Fix get_all_content_without_embeddings to use correct DB connections",
+    "status": "completed",
+    "id": "9"
+  },
+  {
+    "content": "Fix memory allocation error - use batch approach instead of loading all IDs",
+    "status": "completed",
+    "id": "10"
+  }
+]

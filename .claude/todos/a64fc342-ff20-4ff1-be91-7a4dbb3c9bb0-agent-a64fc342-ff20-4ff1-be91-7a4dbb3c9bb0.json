@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Add debug logging to JA4RStringToSpec to track ALPN extension creation",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Add debug logging to CreateExtensionFromID for 0x0010 case",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Check for any automatic ALPN handling conflicts",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Test with debug logs to identify the root cause",
+    "status": "completed",
+    "id": "4"
+  }
+]

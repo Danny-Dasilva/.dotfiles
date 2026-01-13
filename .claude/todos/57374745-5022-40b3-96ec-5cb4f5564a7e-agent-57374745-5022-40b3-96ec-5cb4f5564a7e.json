@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Inspect current database schema - check if user_watch_metrics_v2_daily and user_watch_metrics_v2_hourly tables exist",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Validate actual table structure and columns of existing materialized views",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Check current data in tables - confirm 8 AM vs 9 AM issue",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Verify content_watch_time_v2 source table has 9 AM data available",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Create continuous aggregates based on actual current table structure (not documentation)",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Set up automatic refresh policies for continuous aggregates",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Test continuous aggregates are working and compare with existing tables",
+    "status": "completed",
+    "id": "7"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Update translate_single() to use create_chat_completion()",
+    "status": "completed",
+    "activeForm": "Updating translate_single method"
+  },
+  {
+    "content": "Update translate_batch_concatenated() to use create_chat_completion()",
+    "status": "completed",
+    "activeForm": "Updating translate_batch_concatenated method"
+  },
+  {
+    "content": "Test translation works correctly",
+    "status": "in_progress",
+    "activeForm": "Testing translation"
+  }
+]

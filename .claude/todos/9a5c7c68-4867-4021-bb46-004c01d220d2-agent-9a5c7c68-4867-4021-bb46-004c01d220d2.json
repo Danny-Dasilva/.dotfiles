@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Add new types to GoShippo client (types.go)",
+    "status": "completed",
+    "activeForm": "Adding new types to GoShippo client"
+  },
+  {
+    "content": "Add new methods to GoShippo client (client.go)",
+    "status": "in_progress",
+    "activeForm": "Adding new methods to GoShippo client"
+  },
+  {
+    "content": "Create LabelUser Firestore model",
+    "status": "pending",
+    "activeForm": "Creating LabelUser Firestore model"
+  },
+  {
+    "content": "Create UserAddress Firestore model",
+    "status": "pending",
+    "activeForm": "Creating UserAddress Firestore model"
+  },
+  {
+    "content": "Create ShippingLabel Firestore model",
+    "status": "pending",
+    "activeForm": "Creating ShippingLabel Firestore model"
+  },
+  {
+    "content": "Create GCS client for label storage",
+    "status": "pending",
+    "activeForm": "Creating GCS client for label storage"
+  },
+  {
+    "content": "Create Stripe client for billing",
+    "status": "pending",
+    "activeForm": "Creating Stripe client for billing"
+  }
+]

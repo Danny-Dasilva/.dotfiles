@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Remove CSS animations for word highlighting and use transitions only",
+    "status": "in_progress",
+    "activeForm": "Removing CSS animations for word highlighting"
+  },
+  {
+    "content": "Add will-change hint for GPU acceleration on word elements",
+    "status": "pending",
+    "activeForm": "Adding will-change hint for GPU acceleration"
+  },
+  {
+    "content": "Test the fix to ensure smooth highlighting transitions",
+    "status": "pending",
+    "activeForm": "Testing smooth highlighting transitions"
+  }
+]

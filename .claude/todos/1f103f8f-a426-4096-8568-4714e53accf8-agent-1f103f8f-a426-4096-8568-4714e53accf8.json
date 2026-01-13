@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Fix regex_parsed_title not being set in downloadAndCreateVideo method",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Fix regex_parsed_title not being set in downloadAndProcessVideoV2 method",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Fix regex_parsed_title not being set in roundRobinDownloader service",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Create route to set regex_parsed_title for existing videos with hosted URLs",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  }
+]

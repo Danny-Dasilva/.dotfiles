@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Create get_subreddit_watch_analytics() function to aggregate watch time by content_id",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create batch content details lookup function for subreddit mappings",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Create export_subreddit_csv() function to generate CSV export",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add new route @rt('/watch-time/subreddits/export') to handle CSV export",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Update CSV export to match old spreadsheet format with all required columns",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Optimize queries to use user_watch_metrics materialized view",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Add month-based filtering for easier processing",
+    "status": "completed",
+    "priority": "medium",
+    "id": "7"
+  }
+]
