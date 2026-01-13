@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Fix Tailwind CSS compilation - install correct version and update PostCSS config",
+    "status": "completed",
+    "id": "fix1"
+  },
+  {
+    "content": "Optimize Stripe Link implementation with proper configuration",
+    "status": "completed",
+    "id": "fix2"
+  },
+  {
+    "content": "Fix image styling after Tailwind is working",
+    "status": "in_progress",
+    "id": "fix3"
+  },
+  {
+    "content": "Add loading states and error handling improvements",
+    "status": "pending",
+    "id": "fix4"
+  },
+  {
+    "content": "Test complete flow with actual configuration",
+    "status": "pending",
+    "id": "fix5"
+  }
+]

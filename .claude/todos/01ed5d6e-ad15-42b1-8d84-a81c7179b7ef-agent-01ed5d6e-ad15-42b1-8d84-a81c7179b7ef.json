@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Fix SNI addition logic to only add when extension count requires it",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Test the corrected logic with both test cases",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Fix SNI extension ordering to maintain original extension sequence",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Fix syntax errors in debug logging code",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Investigate if SNI-first ordering is a TLS protocol requirement",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Remove debug logging code",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Fix extension count logic to handle leading zero equivalence",
+    "status": "completed",
+    "id": "7"
+  }
+]

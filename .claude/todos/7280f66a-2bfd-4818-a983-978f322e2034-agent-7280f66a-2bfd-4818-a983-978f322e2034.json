@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Create project directory and initialize uv project",
+    "status": "completed",
+    "activeForm": "Creating project directory and initializing uv project"
+  },
+  {
+    "content": "Install ComfyUI and dependencies",
+    "status": "completed",
+    "activeForm": "Installing ComfyUI and dependencies"
+  },
+  {
+    "content": "Download Phr00t WAN2.2-14B-Rapid-AllInOne model",
+    "status": "in_progress",
+    "activeForm": "Downloading Phr00t model from HuggingFace"
+  },
+  {
+    "content": "Create generation script with retry logic",
+    "status": "pending",
+    "activeForm": "Creating generation script"
+  },
+  {
+    "content": "Run video generation (at least 1)",
+    "status": "pending",
+    "activeForm": "Running video generation"
+  }
+]

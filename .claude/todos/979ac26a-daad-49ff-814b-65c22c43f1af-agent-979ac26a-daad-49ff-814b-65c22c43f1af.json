@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Add debug logging to verify header order is being set correctly",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Check for other code that might override pseudo header order",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Run the failing test to see current behavior",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Fix the pseudo header order issue",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Verify fix by running the test again",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  }
+]

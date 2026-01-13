@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Analyze CI proxy test failure pattern",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Check proxy test timing and timeout handling",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Investigate Docker torproxy startup timing in CI",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Add wait/health check for proxy readiness",
+    "status": "completed",
+    "id": "4"
+  }
+]

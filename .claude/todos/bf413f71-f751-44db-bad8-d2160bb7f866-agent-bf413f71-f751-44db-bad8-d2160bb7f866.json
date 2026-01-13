@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Move queueChannelVideosInternal and processQueuedVideo methods from DownloadsController to QueueController",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update QueueController base route from 'download/queue' to 'queue'",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Move queueChannelSlack method from ChannelsController to QueueController",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Update all queue route tags for consistency",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Update QUEUE_URLS constants and internal references to new paths",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Run tsoa to regenerate routes.ts and swagger.json",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Test that all routes work correctly after changes",
+    "status": "pending",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Remove queue methods from DownloadsController",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "Remove queueChannelSlack from ChannelsController",
+    "status": "completed",
+    "priority": "medium",
+    "id": "9"
+  }
+]

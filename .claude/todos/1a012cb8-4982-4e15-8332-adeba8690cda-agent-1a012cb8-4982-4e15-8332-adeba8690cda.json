@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Create project directory",
+    "status": "completed",
+    "activeForm": "Creating project directory"
+  },
+  {
+    "content": "Initialize uv environment",
+    "status": "completed",
+    "activeForm": "Initializing uv environment"
+  },
+  {
+    "content": "Install dependencies",
+    "status": "completed",
+    "activeForm": "Installing dependencies"
+  },
+  {
+    "content": "Create generation script",
+    "status": "completed",
+    "activeForm": "Creating generation script"
+  },
+  {
+    "content": "Run video generation",
+    "status": "in_progress",
+    "activeForm": "Running video generation"
+  }
+]

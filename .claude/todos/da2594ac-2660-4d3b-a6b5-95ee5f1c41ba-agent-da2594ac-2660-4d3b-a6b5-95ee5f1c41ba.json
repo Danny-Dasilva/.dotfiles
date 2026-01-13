@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Add filtering to exclude videos from channel 1031 newer than July 21, 2025",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Ensure the feed backwards cap per channel is respected",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

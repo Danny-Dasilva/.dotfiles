@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Create project directory structure",
+    "status": "completed",
+    "activeForm": "Creating project directory structure"
+  },
+  {
+    "content": "Initialize uv project with pyproject.toml",
+    "status": "completed",
+    "activeForm": "Initializing uv project"
+  },
+  {
+    "content": "Clone/setup ComfyUI within the project",
+    "status": "completed",
+    "activeForm": "Setting up ComfyUI"
+  },
+  {
+    "content": "Create model download script",
+    "status": "completed",
+    "activeForm": "Creating model download script"
+  },
+  {
+    "content": "Download the v10.4 NSFW model from HuggingFace",
+    "status": "completed",
+    "activeForm": "Downloading v10.4 NSFW model"
+  },
+  {
+    "content": "Download custom TextEncoder node",
+    "status": "completed",
+    "activeForm": "Downloading custom TextEncoder node"
+  },
+  {
+    "content": "Create ComfyUI workflow JSON files",
+    "status": "completed",
+    "activeForm": "Creating ComfyUI workflow files"
+  },
+  {
+    "content": "Create Python generation script",
+    "status": "completed",
+    "activeForm": "Creating Python generation script"
+  },
+  {
+    "content": "Create server launcher script",
+    "status": "completed",
+    "activeForm": "Creating server launcher script"
+  },
+  {
+    "content": "Test and generate at least 1 image",
+    "status": "in_progress",
+    "activeForm": "Testing image generation"
+  }
+]

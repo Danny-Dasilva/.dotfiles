@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Update database schema for A/B test tracking",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update watch_time microservice models and endpoints",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update scrolller-api recommendation endpoints with metadata",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Update scrolller-mono recommendation endpoints with metadata",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Create watch time tracking mutations in frontend",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Update frontend recommendation queries to pass metadata",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Implement A/B test assignment logic",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Add analytics queries and monitoring",
+    "status": "completed",
+    "priority": "medium",
+    "id": "8"
+  },
+  {
+    "content": "Update DiscoverFilteredSubredditsQuery to return recommendationType: 'regular'",
+    "status": "completed",
+    "priority": "high",
+    "id": "9"
+  },
+  {
+    "content": "Remove unnecessary frontend watch time tracking code since existing tracking is already in place",
+    "status": "completed",
+    "priority": "high",
+    "id": "10"
+  },
+  {
+    "content": "Update sendContentMetrics mutation to include recommendationType field",
+    "status": "completed",
+    "priority": "high",
+    "id": "11"
+  },
+  {
+    "content": "Research and implement user type flow from frontend to watch time API",
+    "status": "completed",
+    "priority": "high",
+    "id": "12"
+  }
+]

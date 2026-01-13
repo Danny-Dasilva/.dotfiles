@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Stop current overfitting training",
+    "status": "completed",
+    "activeForm": "Stopping overfitting training"
+  },
+  {
+    "content": "Fix BatchNorm mode in train_block() method",
+    "status": "completed",
+    "activeForm": "Fixing BatchNorm mode"
+  },
+  {
+    "content": "Rebalance o2m/o2o loss weights (0.25 → 1.0)",
+    "status": "completed",
+    "activeForm": "Rebalancing loss weights"
+  },
+  {
+    "content": "Restart training with fixes applied",
+    "status": "completed",
+    "activeForm": "Restarting training"
+  },
+  {
+    "content": "Monitor new training for overfitting",
+    "status": "in_progress",
+    "activeForm": "Monitoring new training"
+  }
+]

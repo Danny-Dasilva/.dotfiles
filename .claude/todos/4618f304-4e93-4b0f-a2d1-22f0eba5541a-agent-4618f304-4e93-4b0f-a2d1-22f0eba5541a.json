@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Analyze current script limitations with 50 product limit",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Remove hard-coded limit and add pagination to handle all products",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Enhance duplicate detection to skip already migrated products",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Test the updated script with dry-run mode",
+    "status": "pending",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Fix image handling to respect sort_order and use proper URLs",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Add inventory management to set all variants to 100 stock",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Create image download script based on migrate_products.py",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  }
+]

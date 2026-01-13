@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Install llm-tldr via pip",
+    "status": "completed",
+    "activeForm": "Installing llm-tldr via pip"
+  },
+  {
+    "content": "Clone Continuous-Claude-v3 repository",
+    "status": "completed",
+    "activeForm": "Cloning Continuous-Claude-v3 repository"
+  },
+  {
+    "content": "Run the interactive setup wizard",
+    "status": "completed",
+    "activeForm": "Running the interactive setup wizard"
+  },
+  {
+    "content": "Initialize TLDR for the project",
+    "status": "in_progress",
+    "activeForm": "Initializing TLDR for the project"
+  },
+  {
+    "content": "Verify installation",
+    "status": "pending",
+    "activeForm": "Verifying installation"
+  }
+]

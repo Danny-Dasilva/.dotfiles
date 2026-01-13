@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Generate annotations with GPU",
+    "status": "completed",
+    "activeForm": "Generating annotations with GPU"
+  },
+  {
+    "content": "Symlink images to training directories",
+    "status": "completed",
+    "activeForm": "Symlinking images to training directories"
+  },
+  {
+    "content": "Split data into train/val (80/20)",
+    "status": "completed",
+    "activeForm": "Splitting data into train/val"
+  },
+  {
+    "content": "Test training pipeline (5 epochs)",
+    "status": "in_progress",
+    "activeForm": "Testing training pipeline"
+  },
+  {
+    "content": "Full segmentation training (100 epochs)",
+    "status": "pending",
+    "activeForm": "Running segmentation training"
+  },
+  {
+    "content": "Full detection training (160 epochs)",
+    "status": "pending",
+    "activeForm": "Running detection training"
+  },
+  {
+    "content": "Export to ONNX",
+    "status": "pending",
+    "activeForm": "Exporting to ONNX"
+  }
+]

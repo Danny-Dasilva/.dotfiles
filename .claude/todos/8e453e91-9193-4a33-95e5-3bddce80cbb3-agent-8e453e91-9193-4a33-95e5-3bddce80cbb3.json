@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Implement modulo-based partitioning to ensure workers process different records",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create a modified script that accepts worker ID and total workers for modulo partitioning",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update bash script to use modulo-based approach",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Test the new modulo-based approach",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  }
+]

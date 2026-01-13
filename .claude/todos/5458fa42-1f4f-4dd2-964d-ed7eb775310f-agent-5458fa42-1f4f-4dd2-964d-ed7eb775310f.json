@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Identify why download workers start but don't process any items",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Check for missing dependencies or imports causing worker crashes",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Add error logging to worker startup to catch crashes",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Fix the worker issue and test again",
+    "status": "completed",
+    "id": "4"
+  }
+]

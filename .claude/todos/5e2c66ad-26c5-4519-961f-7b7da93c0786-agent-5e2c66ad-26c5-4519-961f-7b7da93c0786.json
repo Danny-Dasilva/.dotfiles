@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create Python script to merge ONNX models",
+    "status": "completed",
+    "activeForm": "Creating Python script to merge ONNX models"
+  },
+  {
+    "content": "Implement RoiAlign-based cropping in merged model",
+    "status": "completed",
+    "activeForm": "Implementing RoiAlign-based cropping in merged model"
+  },
+  {
+    "content": "Test merged model with ONNX Runtime (desktop)",
+    "status": "completed",
+    "activeForm": "Testing merged model with ONNX Runtime (desktop)"
+  },
+  {
+    "content": "Test merged model in browser with WASM backend",
+    "status": "completed",
+    "activeForm": "Testing merged model in browser with WASM backend"
+  },
+  {
+    "content": "Create TypeScript OCR wrapper class",
+    "status": "in_progress",
+    "activeForm": "Creating TypeScript OCR wrapper class"
+  },
+  {
+    "content": "Update extension code to use unified OCR API",
+    "status": "pending",
+    "activeForm": "Updating extension code to use unified OCR API"
+  }
+]

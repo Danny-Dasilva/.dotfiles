@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Create backup script for json_item table",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Provide commands to drop the json_item table",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

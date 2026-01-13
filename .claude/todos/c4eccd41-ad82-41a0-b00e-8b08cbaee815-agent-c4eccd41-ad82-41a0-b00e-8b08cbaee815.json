@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Optimize work partitioning to avoid slow sampling queries",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Implement cursor-based pagination instead of OFFSET",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Add proper indexing recommendations",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Increase batch size for better performance",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Add timeout handling and progress monitoring",
+    "status": "completed",
+    "priority": "low",
+    "id": "5"
+  }
+]

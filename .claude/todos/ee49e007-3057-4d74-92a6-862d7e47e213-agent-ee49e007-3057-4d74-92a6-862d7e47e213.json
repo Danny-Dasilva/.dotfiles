@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Find where connection re-use is currently configured and make it default to true",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update all tests that explicitly set connection re-use to true",
+    "status": "completed",
+    "priority": "medium",
+    "id": "2"
+  },
+  {
+    "content": "Update connection_reuse_test.go to test both enabled and disabled cases",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  }
+]

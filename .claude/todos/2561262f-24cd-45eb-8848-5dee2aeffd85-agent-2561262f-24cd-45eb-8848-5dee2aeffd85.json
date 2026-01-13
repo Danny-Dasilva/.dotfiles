@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Fix audio regeneration to properly overwrite existing files",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Ensure audio file paths are updated correctly after regeneration",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Test that regenerated audio plays correctly",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

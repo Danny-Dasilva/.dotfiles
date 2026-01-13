@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Identify the issue with is_whitelisted field",
+    "status": "completed",
+    "activeForm": "Identifying the issue with is_whitelisted field"
+  },
+  {
+    "content": "Update onlyfans.py to set is_whitelisted=true for virtual subreddits",
+    "status": "in_progress",
+    "activeForm": "Updating onlyfans.py to set is_whitelisted=true for virtual subreddits"
+  },
+  {
+    "content": "Add automatic count updates after post creation",
+    "status": "pending",
+    "activeForm": "Adding automatic count updates after post creation"
+  }
+]

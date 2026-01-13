@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Fix TLS configuration type mismatch - use crypto/tls for ghttp3Dial, utls for uhttp3Dial",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Implement proper HTTP3 RoundTripper instead of custom client",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Fix UDP context handling for HTTP/3 connections",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Remove connection interface mismatch issues",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Fix QUIC configuration setup to match reference implementation",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Fix compilation errors (unused variables)",
+    "status": "completed",
+    "id": "6"
+  }
+]

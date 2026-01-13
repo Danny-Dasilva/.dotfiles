@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Clone the TrackMe repository from GitHub",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Analyze the repository structure and dependencies",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Install dependencies and set up the project",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Run the application",
+    "status": "completed",
+    "id": "4"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "content": "Examine latest_fingerprint_test.go to understand failing test (Expected: 'm,p,a,s' Got: 'a,m,p,s')",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Find where AkamaiFingerprint is generated and MASP ordering logic",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Research HTTP2 fingerprint generation and JA4H2 function",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Identify parseUserAgent function determining Chrome vs Firefox MASP ordering",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Find critical bug in roundtripper.go - HTTP2 fingerprint not applied (TODO at line 218)",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Confirm PHeaderOrderKey is set in main dispatch but not used in HTTP2 transport",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Identify root cause: HTTP2 transport not using header order from parseUserAgent",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Provide specific code locations and fix needed",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  }
+]

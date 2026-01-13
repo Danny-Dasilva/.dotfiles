@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Debug Phase 3 training issue (block_det is None)",
+    "status": "completed",
+    "activeForm": "Debugging Phase 3 training issue"
+  },
+  {
+    "content": "Fix block detector initialization/freezing",
+    "status": "completed",
+    "activeForm": "Fixing block detector initialization"
+  },
+  {
+    "content": "Retrain Phase 3 with fix",
+    "status": "in_progress",
+    "activeForm": "Retraining Phase 3"
+  },
+  {
+    "content": "Write handoff documentation",
+    "status": "completed",
+    "activeForm": "Writing handoff documentation"
+  },
+  {
+    "content": "Re-export ONNX after training completes",
+    "status": "pending",
+    "activeForm": "Re-exporting ONNX"
+  },
+  {
+    "content": "Optimize ONNX graph (SiLU fusion)",
+    "status": "pending",
+    "activeForm": "Optimizing ONNX graph"
+  },
+  {
+    "content": "Quantize to FP16",
+    "status": "pending",
+    "activeForm": "Quantizing to FP16"
+  },
+  {
+    "content": "Quantize to INT8 (with calibration)",
+    "status": "pending",
+    "activeForm": "Quantizing to INT8"
+  },
+  {
+    "content": "Build TensorRT engines (FP16/INT8)",
+    "status": "pending",
+    "activeForm": "Building TensorRT engines"
+  },
+  {
+    "content": "Final benchmark comparison",
+    "status": "pending",
+    "activeForm": "Running final benchmark comparison"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Create error categories enum and categorization function",
+    "status": "completed",
+    "priority": "high",
+    "id": "error-categories"
+  },
+  {
+    "content": "Enhance QueueItem interface with permanent failure fields",
+    "status": "completed",
+    "priority": "high",
+    "id": "queue-item-interface"
+  },
+  {
+    "content": "Update downloadAndProcessVideoV2 methods with error categorization",
+    "status": "completed",
+    "priority": "high",
+    "id": "download-error-handling"
+  },
+  {
+    "content": "Enhance ChannelQueueManager with permanent failure handling",
+    "status": "completed",
+    "priority": "high",
+    "id": "queue-manager-enhancement"
+  },
+  {
+    "content": "Update RoundRobinDownloader to skip permanently failed videos",
+    "status": "completed",
+    "priority": "high",
+    "id": "downloader-updates"
+  },
+  {
+    "content": "Add enhanced status reporting with error categories",
+    "status": "completed",
+    "priority": "medium",
+    "id": "status-reporting"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Fix proxy to prioritize JA4R over JA3 in buildRequestOptions",
+    "status": "in_progress",
+    "id": "1"
+  },
+  {
+    "content": "Fix redundant EnableConnectionReuse logic",
+    "status": "pending",
+    "id": "2"
+  },
+  {
+    "content": "Test the fixes",
+    "status": "pending",
+    "id": "3"
+  }
+]

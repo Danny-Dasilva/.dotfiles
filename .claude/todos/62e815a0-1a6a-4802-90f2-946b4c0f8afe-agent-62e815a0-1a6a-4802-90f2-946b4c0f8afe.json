@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Import DownloaderCLI and helper functions from coomer.py into scrolller_processor.py",
+    "status": "completed",
+    "activeForm": "Importing DownloaderCLI and helper functions from coomer.py"
+  },
+  {
+    "content": "Create new CoomerScrolllerIntegration class combining download and processing",
+    "status": "completed",
+    "activeForm": "Creating CoomerScrolllerIntegration class"
+  },
+  {
+    "content": "Extend CONFIG dictionary with download options (URL, workers, rate limit, etc.)",
+    "status": "completed",
+    "activeForm": "Extending CONFIG dictionary with download options"
+  },
+  {
+    "content": "Implement download_and_process() method for unified workflow",
+    "status": "completed",
+    "activeForm": "Implementing download_and_process() method"
+  },
+  {
+    "content": "Create async/sync bridge using run_in_executor for download operations",
+    "status": "completed",
+    "activeForm": "Creating async/sync bridge for download operations"
+  },
+  {
+    "content": "Add callback system to process files immediately after download",
+    "status": "completed",
+    "activeForm": "Adding callback system for immediate processing"
+  },
+  {
+    "content": "Update main() function to use new integrated workflow",
+    "status": "completed",
+    "activeForm": "Updating main() function for integrated workflow"
+  },
+  {
+    "content": "Fix circular import issue with coomer.py imports",
+    "status": "completed",
+    "activeForm": "Fixing circular import issue with coomer.py imports"
+  },
+  {
+    "content": "Fix database connection parameters to use correct format",
+    "status": "in_progress",
+    "activeForm": "Fixing database connection parameters"
+  },
+  {
+    "content": "Test the integration with a simple download+process operation",
+    "status": "pending",
+    "activeForm": "Testing the integration"
+  }
+]

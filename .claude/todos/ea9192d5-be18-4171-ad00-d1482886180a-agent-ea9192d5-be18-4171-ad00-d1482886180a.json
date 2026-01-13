@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Analyze current streaming implementation in index.ts",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Design axios-compatible streaming response interface",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Implement streaming response functionality",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Update tests for streaming responses",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Add README example for streaming usage",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Fix stream end event not firing causing tests to hang",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  }
+]

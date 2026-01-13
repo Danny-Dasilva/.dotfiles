@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Create assets/images directory for documentation images",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Move landing.png to assets/images and center it below CycleTLS-Proxy title",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Move default_profiles.png to assets/images for browser profiles section",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Move documentation.png to assets/images for documentation section",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Move monitor.png to assets/images for monitoring section",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Read current README to understand structure and content",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Update README with proper image references and current repo features",
+    "status": "completed",
+    "id": "7"
+  }
+]

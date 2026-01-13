@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create CSV reading function to parse the prioritized subreddits from subreddit_export_last_5_months_2025-01_to_2025-07.csv",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Add new API endpoint `/queue/csv_prioritized` with proper parameters and documentation",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Implement core logic for processing subreddits in priority order from CSV",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add parallel processing support using existing ThreadPoolExecutor pattern",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Test the implementation with sample data",
+    "status": "completed",
+    "priority": "low",
+    "id": "5"
+  }
+]

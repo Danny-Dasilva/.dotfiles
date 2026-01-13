@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Modify CookieManager.recordFailure() to test cookies before final ban",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Add HTTP client (axios) import to cookieManager.ts",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Implement cookie test call logic when fail_count reaches 4",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Add proper error handling for the test HTTP call",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Test the implementation to ensure it works correctly",
+    "status": "in_progress",
+    "id": "5"
+  }
+]

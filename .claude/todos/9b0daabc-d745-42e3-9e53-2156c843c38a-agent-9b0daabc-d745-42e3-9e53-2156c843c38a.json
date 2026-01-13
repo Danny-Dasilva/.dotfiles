@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Check available integration tests",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Run all non-proxy integration tests",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Fix failing binary data tests",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Run all integration tests to verify everything passes",
+    "status": "completed",
+    "id": "4"
+  }
+]

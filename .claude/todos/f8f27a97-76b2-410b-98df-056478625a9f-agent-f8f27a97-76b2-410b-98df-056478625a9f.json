@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Update Dockerfile to use Python 3.14",
+    "status": "completed",
+    "activeForm": "Updating Dockerfile to use Python 3.14"
+  },
+  {
+    "content": "Update requirements.txt with latest package versions",
+    "status": "completed",
+    "activeForm": "Updating requirements.txt with latest package versions"
+  },
+  {
+    "content": "Build Docker image to verify all packages install",
+    "status": "in_progress",
+    "activeForm": "Building Docker image to verify all packages install"
+  },
+  {
+    "content": "Run container and test FastAPI application starts",
+    "status": "pending",
+    "activeForm": "Running container and testing FastAPI application starts"
+  }
+]

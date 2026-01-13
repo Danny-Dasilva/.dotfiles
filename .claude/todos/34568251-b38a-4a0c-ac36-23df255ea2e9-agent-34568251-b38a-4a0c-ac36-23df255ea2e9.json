@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Fix compilation errors in utils.go and http3.go",
+    "status": "completed",
+    "id": "8"
+  },
+  {
+    "content": "Fix ALPN extension handling - remove 0x0010 when ALPN in header",
+    "status": "completed",
+    "id": "12"
+  },
+  {
+    "content": "Find where response JA4R is generated from TLS connection state",
+    "status": "completed",
+    "id": "15"
+  },
+  {
+    "content": "Update extension count in response JA4R header when ALPN is removed",
+    "status": "completed",
+    "id": "13"
+  },
+  {
+    "content": "Test Firefox JA4R exact match after fix",
+    "status": "completed",
+    "id": "14"
+  }
+]

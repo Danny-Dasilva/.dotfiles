@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Fix TestHTTP2 test by adding defer client.Close()",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Fix main_ja3_test.go - Add client cleanup",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Fix connection_reuse_test.go - Add client cleanup",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Fix decoding_test.go - Add client cleanup to all 3 tests",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Fix proxy_test.go - Add client cleanup to all 3 tests",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Fix remaining test files with missing client cleanup",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  },
+  {
+    "content": "Test individual TestHTTP2 to confirm it still passes",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Run full test suite to confirm interference is resolved",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "Fix global connection pool interference",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "9"
+  },
+  {
+    "content": "Add clearAllConnections function to client.go",
+    "status": "completed",
+    "priority": "high",
+    "id": "10"
+  },
+  {
+    "content": "Update Close() method to clear connection pool",
+    "status": "completed",
+    "priority": "high",
+    "id": "11"
+  },
+  {
+    "content": "Test the fix with full test suite",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "12"
+  }
+]

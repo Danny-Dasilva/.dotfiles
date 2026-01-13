@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Read through all test files in tests/ directory to understand the new API patterns",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Update README.md examples to use new npm syntax based on test patterns",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Fetch the master branch README from GitHub to compare breaking changes",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Create a breaking changes document comparing old vs new API",
+    "status": "completed",
+    "id": "4"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Check current Go module version in cycletls/go.mod",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Create git tag cycletls/v2.0.3 for the Go module",
+    "status": "in_progress",
+    "id": "2"
+  },
+  {
+    "content": "Push the tag to GitHub",
+    "status": "pending",
+    "id": "3"
+  }
+]

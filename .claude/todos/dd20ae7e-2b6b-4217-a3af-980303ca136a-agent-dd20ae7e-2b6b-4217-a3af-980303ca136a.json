@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Analyze how axios handles FormData and multipart/form-data",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Update TypeScript FormData handling to properly format multipart data",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Check if Go backend needs updates for multipart parsing",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Run the multipart form data tests to verify the fix",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Update test if needed to match axios behavior",
+    "status": "completed",
+    "id": "5"
+  }
+]

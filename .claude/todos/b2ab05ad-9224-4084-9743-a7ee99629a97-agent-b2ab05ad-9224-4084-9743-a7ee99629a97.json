@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Fix bbox normalization + add geometric augmentations",
+    "status": "completed",
+    "activeForm": "Fixing dataset.py augmentations"
+  },
+  {
+    "content": "Rebalance loss weights + add FocalLoss for hard negatives",
+    "status": "completed",
+    "activeForm": "Fixing losses.py"
+  },
+  {
+    "content": "Fix training hyperparameters (LR, EMA) + enable BiFPN",
+    "status": "completed",
+    "activeForm": "Fixing training config"
+  },
+  {
+    "content": "Training block_v6 with batch 16, no-compile",
+    "status": "in_progress",
+    "activeForm": "Training block_v6"
+  },
+  {
+    "content": "Fix inference: EMA doesn't include frozen backbone weights",
+    "status": "completed",
+    "activeForm": "Fixed pretrained_backbone=True in inference"
+  },
+  {
+    "content": "Validate and compare results after training completes",
+    "status": "pending",
+    "activeForm": "Validating model quality"
+  }
+]

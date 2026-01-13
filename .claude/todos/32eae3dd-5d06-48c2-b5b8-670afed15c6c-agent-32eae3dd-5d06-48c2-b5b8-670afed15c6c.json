@@ -1,0 +1,12 @@
+[
+  {
+    "content": "User must HARD RESTART server (kill process completely and restart)",
+    "status": "in_progress",
+    "activeForm": "Waiting for hard server restart"
+  },
+  {
+    "content": "Verify coordinates are correct after restart",
+    "status": "pending",
+    "activeForm": "Verifying coordinates"
+  }
+]

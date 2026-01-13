@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Add product type detection functions (bundle vs regular)",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update template creation to show only bundle products",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update edit contents to show only regular products",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Update search functions to respect product type filtering",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Add visual indicators and update UI text",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Update empty states with context-appropriate messages",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  }
+]

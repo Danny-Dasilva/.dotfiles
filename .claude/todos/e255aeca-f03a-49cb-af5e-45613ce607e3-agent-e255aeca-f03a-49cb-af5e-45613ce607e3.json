@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Check port 3002 for any conflicts",
+    "status": "completed",
+    "activeForm": "Checking port 3002 for any conflicts"
+  },
+  {
+    "content": "Kill the orphaned ts-node-dev process (PID 465925)",
+    "status": "completed",
+    "activeForm": "Killing the orphaned ts-node-dev process"
+  },
+  {
+    "content": "Verify no other node processes are running",
+    "status": "completed",
+    "activeForm": "Verifying no other node processes are running"
+  },
+  {
+    "content": "Test dev server startup to confirm fix",
+    "status": "in_progress",
+    "activeForm": "Testing dev server startup"
+  },
+  {
+    "content": "Fix error handling in index.ts to prevent shutdown on startup failures",
+    "status": "pending",
+    "activeForm": "Fixing error handling in index.ts"
+  },
+  {
+    "content": "Add startup port check and process ID tracking",
+    "status": "pending",
+    "activeForm": "Adding startup port check and process ID tracking"
+  },
+  {
+    "content": "Improve dev script with pre-dev cleanup",
+    "status": "pending",
+    "activeForm": "Improving dev script with pre-dev cleanup"
+  }
+]

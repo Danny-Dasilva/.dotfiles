@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Create project directory",
+    "status": "completed",
+    "activeForm": "Creating project directory"
+  },
+  {
+    "content": "Initialize uv project with dependencies",
+    "status": "completed",
+    "activeForm": "Initializing uv project"
+  },
+  {
+    "content": "Download the 29GB model from Hugging Face",
+    "status": "completed",
+    "activeForm": "Downloading model"
+  },
+  {
+    "content": "Set up ComfyUI for programmatic use",
+    "status": "completed",
+    "activeForm": "Setting up ComfyUI"
+  },
+  {
+    "content": "Create inference script with retry logic",
+    "status": "completed",
+    "activeForm": "Creating inference script"
+  },
+  {
+    "content": "Download test input image",
+    "status": "completed",
+    "activeForm": "Downloading test image"
+  },
+  {
+    "content": "Run image generation",
+    "status": "in_progress",
+    "activeForm": "Running generation"
+  }
+]

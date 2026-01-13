@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Analyze existing cookie jar implementation and identify gaps",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Design automatic cookie jar with complex case handling",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Implement automatic cookie jar in Go (cycletls package)",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Create comprehensive integration tests for Go implementation",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Update TypeScript implementation for automatic cookie handling",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Update README documentation with automatic cookie jar examples",
+    "status": "completed",
+    "id": "6"
+  }
+]

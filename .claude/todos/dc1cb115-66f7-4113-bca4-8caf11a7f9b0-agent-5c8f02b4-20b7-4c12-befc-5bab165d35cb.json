@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Analyze all GitHub issues in CycleTLS repository for comprehensive feature mapping",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Categorize issues by type (bug, feature request, question) and 2.0.0 feature relevance",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Focus on WebSocket, SSE, HTTP/3, JA4, binary, connection reuse, HTTP/2 fingerprinting issues",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Compile final comprehensive analysis report",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  }
+]

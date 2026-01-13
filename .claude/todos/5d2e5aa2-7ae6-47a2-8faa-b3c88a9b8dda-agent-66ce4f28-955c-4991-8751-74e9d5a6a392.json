@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Create directory structure for CycleTLS-Proxy project",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Create go.mod file with proper dependencies",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Create main.go entry point in cmd/proxy/",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Create internal package files (handler.go, profiles.go, client.go)",
+    "status": "in_progress",
+    "id": "4"
+  },
+  {
+    "content": "Create .github/workflows directory and files",
+    "status": "pending",
+    "id": "5"
+  },
+  {
+    "content": "Create examples directory with sample files",
+    "status": "pending",
+    "id": "6"
+  }
+]

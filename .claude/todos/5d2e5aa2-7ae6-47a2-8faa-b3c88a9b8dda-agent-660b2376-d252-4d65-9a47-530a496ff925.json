@@ -1,0 +1,42 @@
+[
+  {
+    "content": "Examine current monitor model and identify mock data usage",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Analyze proxy handler structure and available metrics",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Review interactive.go and main.go for current integration",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Design metrics collection system in proxy handler",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Implement real-time event system for server activity",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Replace mock data in MonitorModel with real server metrics",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Connect handler to monitor with proper reference passing",
+    "status": "completed",
+    "id": "7"
+  },
+  {
+    "content": "Test the complete live monitoring system",
+    "status": "completed",
+    "id": "8"
+  }
+]

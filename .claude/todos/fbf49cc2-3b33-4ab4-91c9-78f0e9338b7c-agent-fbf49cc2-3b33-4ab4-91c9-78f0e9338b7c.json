@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Keep current SNI addition logic (it's correct)",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Verify JA4 hash calculation is working correctly",
+    "status": "in_progress",
+    "id": "2"
+  },
+  {
+    "content": "Test the current implementation",
+    "status": "pending",
+    "id": "3"
+  },
+  {
+    "content": "Ensure extension order matches expected pattern",
+    "status": "pending",
+    "id": "4"
+  }
+]

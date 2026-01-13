@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Fix the ForceHTTP3 option in proxy handler",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Build the proxy with the fix",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Test the proxy HTTP/3 fix with curl command",
+    "status": "in_progress",
+    "id": "3"
+  }
+]

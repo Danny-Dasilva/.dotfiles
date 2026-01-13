@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Remove LinkAuthenticationElement and AddressElement",
+    "status": "completed",
+    "id": "fix1"
+  },
+  {
+    "content": "Configure PaymentElement with email defaultValues",
+    "status": "completed",
+    "id": "fix2"
+  },
+  {
+    "content": "Simplify form to only have PaymentElement",
+    "status": "completed",
+    "id": "fix3"
+  },
+  {
+    "content": "Test Link integration",
+    "status": "completed",
+    "id": "fix4"
+  }
+]

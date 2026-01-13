@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Fix ONNX export - handle shared UNet layers in detection checkpoint",
+    "status": "completed",
+    "activeForm": "Fixed ONNX export"
+  },
+  {
+    "content": "Export models to ONNX (segmentation + detection combined)",
+    "status": "completed",
+    "activeForm": "Exported models"
+  },
+  {
+    "content": "Validate ONNX models with sample inference",
+    "status": "completed",
+    "activeForm": "Validated ONNX models"
+  },
+  {
+    "content": "Check exported model file size and compare with original",
+    "status": "in_progress",
+    "activeForm": "Checking model sizes"
+  },
+  {
+    "content": "Update TRAINING_PROGRESS.md with export completion",
+    "status": "pending",
+    "activeForm": "Updating documentation"
+  },
+  {
+    "content": "Integrate new models with backend",
+    "status": "pending",
+    "activeForm": "Integrating with backend"
+  }
+]

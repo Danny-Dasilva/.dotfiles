@@ -1,0 +1,86 @@
+[
+  {
+    "content": "Fix cookiejar.test.js - Change response.body to response.data and add missing await",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Fix multipleImports.test.ts - Fix multiple connection issues",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Fix multipartFormData.test.ts - Debug first test timeout",
+    "status": "pending",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Fix integration.test.ts - Handle HTML vs JSON responses properly",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Fix images.test.ts - Replace response.stream with response.arrayBuffer()",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Make request IDs globally unique across instances",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Isolate event emitters between instances",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Fix shared global variables (child, lastRequestID, isShuttingDown)",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "Implement Shared Instance Manager architecture",
+    "status": "completed",
+    "priority": "high",
+    "id": "9"
+  },
+  {
+    "content": "Create InstanceManager class for tracking instances by port",
+    "status": "completed",
+    "priority": "high",
+    "id": "10"
+  },
+  {
+    "content": "Create SharedInstance class for managing Go server and clients",
+    "status": "completed",
+    "priority": "high",
+    "id": "11"
+  },
+  {
+    "content": "Refactor initCycleTLS to use shared instance manager",
+    "status": "completed",
+    "priority": "high",
+    "id": "12"
+  },
+  {
+    "content": "Test multiple connection fix with debug test",
+    "status": "completed",
+    "priority": "high",
+    "id": "13"
+  },
+  {
+    "content": "Test that existing functionality still works with new architecture",
+    "status": "completed",
+    "priority": "medium",
+    "id": "14"
+  }
+]

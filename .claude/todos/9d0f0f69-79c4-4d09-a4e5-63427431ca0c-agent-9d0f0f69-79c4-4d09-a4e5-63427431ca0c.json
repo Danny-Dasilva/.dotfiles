@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Update deploy.yml pm2 command to use pnpm run dev",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Update deploy.sh pm2 command to use pnpm run dev",
+    "status": "completed",
+    "id": "2"
+  }
+]

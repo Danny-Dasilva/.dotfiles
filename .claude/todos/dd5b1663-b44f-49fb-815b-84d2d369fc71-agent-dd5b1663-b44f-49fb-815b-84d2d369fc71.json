@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Fix GraphQL schema errors for productImageCreate mutation",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Fix GraphQL schema errors for productOptionsCreate mutation",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Test corrected GraphQL mutations with dry-run",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Fix productOptions creation using productSet or proper mutation",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Test productSet mutation with complete product creation",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Fix ProductVariantSetInput and ProductSetInput field structure",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "6"
+  }
+]

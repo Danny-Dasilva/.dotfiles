@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Fix missing space between gear emoji and 'Configure' text",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Remove extra space in 'Configure settings' that's causing width issues",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Fix gray line extending beyond container border - revert width calculation",
+    "status": "completed",
+    "id": "3"
+  }
+]

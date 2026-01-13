@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Remove the replace directive from go.mod",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Update CycleTLS to version 2.0.3",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Update all Go packages to latest versions",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Verify the changes with go mod tidy",
+    "status": "completed",
+    "id": "4"
+  }
+]

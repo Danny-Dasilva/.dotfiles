@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Analyze current query pattern and identify inefficiencies",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Design optimized query strategy for cross-database scenario",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Create a local tracking table for processed ranges",
+    "status": "pending",
+    "id": "3"
+  },
+  {
+    "content": "Implement intelligent offset jumping based on processed density",
+    "status": "pending",
+    "id": "4"
+  },
+  {
+    "content": "Add batch pre-checking before full query",
+    "status": "pending",
+    "id": "5"
+  },
+  {
+    "content": "Implement parallel range scanning",
+    "status": "pending",
+    "id": "6"
+  },
+  {
+    "content": "Add adaptive batch sizing based on hit rate",
+    "status": "pending",
+    "id": "7"
+  }
+]

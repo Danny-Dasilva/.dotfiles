@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Download GGUF model and mmproj files",
+    "status": "in_progress",
+    "activeForm": "Downloading GGUF model files"
+  },
+  {
+    "content": "Build llama.cpp with CUDA support",
+    "status": "pending",
+    "activeForm": "Building llama.cpp"
+  },
+  {
+    "content": "Create gguf_model.py inference wrapper",
+    "status": "pending",
+    "activeForm": "Creating GGUF inference wrapper"
+  },
+  {
+    "content": "Update model.py with GGUF backend option",
+    "status": "pending",
+    "activeForm": "Updating model.py"
+  },
+  {
+    "content": "Test GGUF inference speed",
+    "status": "pending",
+    "activeForm": "Testing GGUF inference"
+  },
+  {
+    "content": "Run batch processing with GGUF",
+    "status": "pending",
+    "activeForm": "Running batch processing"
+  }
+]

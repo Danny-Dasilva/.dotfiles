@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Clean uninstall all PyTorch packages",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Install PyTorch nightly with CUDA 12.8",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Verify GPU and sm_120 support",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Test Higgs Audio with GPU",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Create installation script",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  }
+]

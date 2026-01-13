@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Create migrate_products.py script with basic structure and imports",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Implement RechargeClient class for product search",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Implement ShopifyClient class with GraphQL operations",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Create ProductMigrator class with main migration logic",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Add CLI interface with dry-run option",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Add comprehensive error handling and logging",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  },
+  {
+    "content": "Test script with example data",
+    "status": "in_progress",
+    "priority": "low",
+    "id": "7"
+  }
+]

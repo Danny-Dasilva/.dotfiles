@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Try different client parameters with newer YouTube API versions",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Test with a smaller public playlist to verify approach",
+    "status": "in_progress",
+    "id": "2"
+  },
+  {
+    "content": "Create hybrid approach using youtube-dl-exec as fallback",
+    "status": "pending",
+    "id": "3"
+  },
+  {
+    "content": "Build working example with all approaches",
+    "status": "pending",
+    "id": "4"
+  }
+]

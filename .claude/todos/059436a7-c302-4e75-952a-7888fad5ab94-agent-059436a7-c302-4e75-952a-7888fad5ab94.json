@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Fix ForceHTTP1_test.go - Add missing FullResp type definition",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-forcehhttp1"
+  },
+  {
+    "content": "Fix websocket_test.go - Update to wss://, add headers, use CycleTLS client",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-websocket"
+  },
+  {
+    "content": "Fix sse_test.go - Add event counter and timeout protection to prevent infinite loop",
+    "status": "completed",
+    "priority": "medium",
+    "id": "fix-sse-timeout"
+  },
+  {
+    "content": "Fix http3_test.go - Add optimal QUIC config and document buffer settings",
+    "status": "completed",
+    "priority": "medium",
+    "id": "fix-http3-buffers"
+  },
+  {
+    "content": "Fix latest_fingerprint_test.go - Research and fix HTTP2 pseudo-header ordering for Firefox",
+    "status": "completed",
+    "priority": "low",
+    "id": "fix-masp-ordering"
+  },
+  {
+    "content": "Fix WebSocket test to handle echo.websocket.org non-echo response",
+    "status": "completed",
+    "priority": "medium",
+    "id": "fix-websocket-echo"
+  },
+  {
+    "content": "Fix FullResp redeclaration between ForceHTTP1_test.go and InsecureSkipVerify_test.go",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-fullresp-redeclaration"
+  },
+  {
+    "content": "Fix 'use of closed network connection' error in TestHTTP2 - investigation shows separation of regular vs pseudo headers needed",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-network-connection-error"
+  },
+  {
+    "content": "Header order functionality restored - regular headers vs pseudo-headers properly separated",
+    "status": "completed",
+    "priority": "high",
+    "id": "fix-header-order"
+  }
+]

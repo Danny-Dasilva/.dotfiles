@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Update video_gui_app.py to generate videos with embedded subtitles",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Modify video_generator.py to always include subtitles in video",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update speed_up_video function to preserve embedded subtitles",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add subtitles to the existing 1.2x speed video",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  }
+]

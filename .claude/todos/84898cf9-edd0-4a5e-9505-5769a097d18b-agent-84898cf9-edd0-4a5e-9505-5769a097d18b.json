@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Update checkout flow to use line item properties with underscore naming",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Correct data storage strategy from subscription to line item properties",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update API integration to read from order line items instead of subscriptions",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Fix middleware flow to extract sizing from order line item properties",
+    "status": "pending",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Update implementation workflow to use correct property format",
+    "status": "pending",
+    "priority": "high",
+    "id": "5"
+  }
+]

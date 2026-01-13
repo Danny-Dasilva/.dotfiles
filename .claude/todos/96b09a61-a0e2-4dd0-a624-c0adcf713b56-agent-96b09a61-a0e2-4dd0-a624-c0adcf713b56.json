@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Create optimized backup script with parallel processing",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Add progress monitoring to the backup script",
+    "status": "completed",
+    "priority": "medium",
+    "id": "2"
+  },
+  {
+    "content": "Test the optimized script",
+    "status": "pending",
+    "priority": "medium",
+    "id": "3"
+  }
+]

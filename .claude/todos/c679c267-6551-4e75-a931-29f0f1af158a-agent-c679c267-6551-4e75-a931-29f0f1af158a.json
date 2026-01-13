@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Create backup script for json_item table data",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Replace queryJsonItemByUrl function with direct table queries",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Replace item type resolution in itemType module",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Update affiliate module to use direct subreddit queries for NSFW check",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Remove json_item operations from post module",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Remove json_item operations from subreddit module",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Remove json_item operations from collection module",
+    "status": "completed",
+    "priority": "medium",
+    "id": "7"
+  },
+  {
+    "content": "Remove json_item from Prisma schema",
+    "status": "completed",
+    "priority": "medium",
+    "id": "8"
+  },
+  {
+    "content": "Run tests to validate functionality",
+    "status": "in_progress",
+    "priority": "medium",
+    "id": "9"
+  }
+]

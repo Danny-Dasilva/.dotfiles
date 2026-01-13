@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Read the full VideosController to understand the complete structure",
+    "status": "completed",
+    "activeForm": "Reading the full VideosController to understand the complete structure"
+  },
+  {
+    "content": "Add new resetIngestion method to VideosController",
+    "status": "completed",
+    "activeForm": "Adding new resetIngestion method to VideosController"
+  },
+  {
+    "content": "Run tsoa spec-and-routes to regenerate routes and swagger",
+    "status": "in_progress",
+    "activeForm": "Running tsoa spec-and-routes to regenerate routes and swagger"
+  },
+  {
+    "content": "Test the new endpoint to verify it works correctly",
+    "status": "pending",
+    "activeForm": "Testing the new endpoint to verify it works correctly"
+  }
+]

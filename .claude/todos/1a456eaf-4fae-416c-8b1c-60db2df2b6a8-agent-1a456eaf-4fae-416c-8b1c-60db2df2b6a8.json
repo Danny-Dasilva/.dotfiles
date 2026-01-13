@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Read and analyze week_migration.py to understand the current implementation",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create the recommended database index to improve query performance",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Reduce batch sizes and optimize query strategy",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Reduce number of workers to avoid database contention",
+    "status": "pending",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Test the optimized migration with smaller batches",
+    "status": "pending",
+    "priority": "medium",
+    "id": "5"
+  }
+]

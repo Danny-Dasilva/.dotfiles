@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Enhance error logging in QUIC test to get more detailed error information",
+    "status": "completed",
+    "id": "8"
+  },
+  {
+    "content": "Fix UDP buffer size issue by configuring QUIC connection properly",
+    "status": "in_progress",
+    "id": "9"
+  },
+  {
+    "content": "Compare our QUIC implementation with working gospider007/requests example",
+    "status": "pending",
+    "id": "10"
+  },
+  {
+    "content": "Address H3_REQUEST_CANCELLED error root cause",
+    "status": "pending",
+    "id": "11"
+  }
+]

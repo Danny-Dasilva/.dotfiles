@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Update the implementation guide to remove adapter backend dependency",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Remove Python implementation section",
+    "status": "completed",
+    "priority": "medium",
+    "id": "2"
+  },
+  {
+    "content": "Remove frontend usage section",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Add direct ReCharge API integration",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Check uploads folder for speaker assignments",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Investigate subtitle timing alignment issues",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Fix audio cutting off in sped up version",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Update video generation to preserve speaker assignments",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Fix duration mismatch in background audio mixing",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  }
+]

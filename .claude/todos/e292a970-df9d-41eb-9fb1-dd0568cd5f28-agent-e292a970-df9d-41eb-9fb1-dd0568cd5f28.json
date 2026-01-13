@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Search for and document all parameters in generation.py",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Search for and document parameters in serve_engine.py",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Search for additional parameters in other files",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Create comprehensive parameter documentation",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  }
+]

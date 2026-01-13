@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Investigate database schema and understand data relationships",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Analyze how reddit database stores date information",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Identify records with NULL posted_at and NULL user_account_id",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Create script to update records with date information from reddit database",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  }
+]

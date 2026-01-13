@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Remove static import of p-limit",
+    "status": "completed",
+    "activeForm": "Removing static import of p-limit"
+  },
+  {
+    "content": "Add dynamic import initialization",
+    "status": "completed",
+    "activeForm": "Adding dynamic import initialization"
+  },
+  {
+    "content": "Update usage in uploadChunkV2 method",
+    "status": "completed",
+    "activeForm": "Updating usage in uploadChunkV2 method"
+  },
+  {
+    "content": "Test the fix",
+    "status": "in_progress",
+    "activeForm": "Testing the fix"
+  }
+]

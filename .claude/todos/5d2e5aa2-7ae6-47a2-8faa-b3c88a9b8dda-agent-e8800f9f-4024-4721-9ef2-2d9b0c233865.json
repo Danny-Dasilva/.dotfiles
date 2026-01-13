@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Add Complexity and ComplexityLevel fields to Parameter struct",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Update parameter definitions (lines 62-182) with complexity levels based on technical difficulty",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Update header display (line 396) to show complexity indicators below main title",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Modify Title() method (line 34) to show complexity colors with improved emojis",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Remove Category from Description() method (line 42) and clean up display",
+    "status": "completed",
+    "id": "5"
+  },
+  {
+    "content": "Update detail view to show complexity indicator in parameter details",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Update usage notes to mention complexity levels and improve emoji choices throughout",
+    "status": "completed",
+    "id": "7"
+  }
+]

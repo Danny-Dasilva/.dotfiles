@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Analyze current JWT token size and structure",
+    "status": "completed",
+    "activeForm": "Analyzing current JWT token size and structure"
+  },
+  {
+    "content": "Modify JWT callback to exclude access/refresh tokens",
+    "status": "completed",
+    "activeForm": "Modifying JWT callback to exclude access/refresh tokens"
+  },
+  {
+    "content": "Create API endpoint for fetching channel tokens",
+    "status": "completed",
+    "activeForm": "Creating API endpoint for fetching channel tokens"
+  },
+  {
+    "content": "Update middleware to work with lighter JWT",
+    "status": "in_progress",
+    "activeForm": "Updating middleware to work with lighter JWT"
+  },
+  {
+    "content": "Test cookie size reduction with multiple channels",
+    "status": "pending",
+    "activeForm": "Testing cookie size reduction with multiple channels"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "content": "Create the TypeScript reset script file",
+    "status": "completed",
+    "activeForm": "Creating the TypeScript reset script file"
+  },
+  {
+    "content": "Implement command-line argument parsing",
+    "status": "completed",
+    "activeForm": "Implementing command-line argument parsing"
+  },
+  {
+    "content": "Add Prisma client initialization and database connection",
+    "status": "completed",
+    "activeForm": "Adding Prisma client initialization and database connection"
+  },
+  {
+    "content": "Implement channel lookup by YouTube ID",
+    "status": "completed",
+    "activeForm": "Implementing channel lookup by YouTube ID"
+  },
+  {
+    "content": "Add dry-run mode and confirmation prompts",
+    "status": "completed",
+    "activeForm": "Adding dry-run mode and confirmation prompts"
+  },
+  {
+    "content": "Implement the database update operation with transaction",
+    "status": "completed",
+    "activeForm": "Implementing the database update operation with transaction"
+  },
+  {
+    "content": "Add error handling and progress reporting",
+    "status": "completed",
+    "activeForm": "Adding error handling and progress reporting"
+  },
+  {
+    "content": "Test the script and verify functionality",
+    "status": "in_progress",
+    "activeForm": "Testing the script and verifying functionality"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "plugins": {
+    "frontend-design@claude-code-plugins": [
+      {
+        "scope": "user",
+        "installPath": "/home/danny/.claude/plugins/cache/claude-code-plugins/frontend-design/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-12T15:50:19.622Z",
+        "lastUpdated": "2026-01-12T15:50:19.622Z"
+      }
+    ],
+    "code-simplifier@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/danny/.claude/plugins/cache/claude-plugins-official/code-simplifier/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-12T15:52:25.657Z",
+        "lastUpdated": "2026-01-12T15:52:25.657Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Initialize git repository if needed",
+    "status": "completed",
+    "activeForm": "Initializing git repository"
+  },
+  {
+    "content": "Set git remote upstream to git@github.com-Danny-Dasilva:Danny-Dasilva/translation_extension.git",
+    "status": "completed",
+    "activeForm": "Setting git remote upstream"
+  },
+  {
+    "content": "Add backend/.env to .gitignore",
+    "status": "completed",
+    "activeForm": "Adding backend/.env to .gitignore"
+  },
+  {
+    "content": "Commit the .gitignore changes",
+    "status": "in_progress",
+    "activeForm": "Committing .gitignore changes"
+  },
+  {
+    "content": "Push to remote repository",
+    "status": "pending",
+    "activeForm": "Pushing to remote repository"
+  }
+]

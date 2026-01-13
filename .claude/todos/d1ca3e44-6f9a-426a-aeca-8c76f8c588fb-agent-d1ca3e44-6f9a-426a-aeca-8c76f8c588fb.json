@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Create new script create_all_embeddings.py",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Implement query function to get all content without embeddings",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Implement batch processing with pagination",
+    "status": "completed",
+    "id": "3"
+  },
+  {
+    "content": "Add progress tracking and monitoring",
+    "status": "completed",
+    "id": "4"
+  },
+  {
+    "content": "Test the script with a small batch",
+    "status": "in_progress",
+    "id": "5"
+  },
+  {
+    "content": "Fix PyTorch in poetry virtual environment",
+    "status": "completed",
+    "id": "6"
+  },
+  {
+    "content": "Fix database schema query - json_item table issue",
+    "status": "pending",
+    "id": "7"
+  }
+]

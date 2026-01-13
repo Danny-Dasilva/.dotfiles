@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Create helper method for getting targeted channels based on subscription criteria",
+    "status": "completed",
+    "activeForm": "Creating helper method for getting targeted channels"
+  },
+  {
+    "content": "Implement syncTargetedChannelsV2 method in syncVideosController.ts",
+    "status": "completed",
+    "activeForm": "Implementing syncTargetedChannelsV2 method"
+  },
+  {
+    "content": "Implement downloadTargetedVideosV2 method in downloadVideosController.ts",
+    "status": "completed",
+    "activeForm": "Implementing downloadTargetedVideosV2 method"
+  },
+  {
+    "content": "Design and implement count route for targeted channels",
+    "status": "in_progress",
+    "activeForm": "Designing and implementing count route for targeted channels"
+  },
+  {
+    "content": "Test and verify all methods work correctly",
+    "status": "pending",
+    "activeForm": "Testing and verifying all methods"
+  }
+]

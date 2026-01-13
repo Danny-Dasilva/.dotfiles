@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Fix TestTimeoutError - Update synchronous Do method to use parseError() for proper 408 status code",
+    "status": "completed",
+    "priority": "medium",
+    "id": "1"
+  },
+  {
+    "content": "Fix TestLatestVersions - Akamai fingerprint mismatch (header order differs: Got a,m,p,s instead of m,p,a,s)",
+    "status": "pending",
+    "priority": "medium",
+    "id": "2"
+  },
+  {
+    "content": "Fix TestHTTP2 - Test is failing (need to investigate specific error)",
+    "status": "pending",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Fix TestProxySuccess - Proxy test failing",
+    "status": "pending",
+    "priority": "low",
+    "id": "4"
+  },
+  {
+    "content": "Fix TestSocks4Proxy - SOCKS4 proxy test failing",
+    "status": "pending",
+    "priority": "low",
+    "id": "5"
+  },
+  {
+    "content": "Fix TestSocks5hProxy - SOCKS5h proxy test failing",
+    "status": "pending",
+    "priority": "low",
+    "id": "6"
+  },
+  {
+    "content": "Fix TestCookies - cookies not being sent properly, getting empty cookies map",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Set git remote origin to git@github.com:Danny-Cameo/Vercel-Headless-BC.git",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Push changes to the new remote repository",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

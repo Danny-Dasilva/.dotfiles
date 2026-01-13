@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Clear Slack cache directories",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Set up gnome-keyring for password storage",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Fix permissions on Slack config directory",
+    "status": "in_progress",
+    "id": "3"
+  }
+]

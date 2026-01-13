@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Terminate blocking query (pid 31586)",
+    "status": "completed",
+    "activeForm": "Terminating blocking query"
+  },
+  {
+    "content": "Run ALTER TABLE to add priority_download column",
+    "status": "completed",
+    "activeForm": "Adding priority_download column"
+  },
+  {
+    "content": "Add column without DEFAULT (non-blocking)",
+    "status": "in_progress",
+    "activeForm": "Adding column without DEFAULT"
+  },
+  {
+    "content": "Set DEFAULT for future inserts",
+    "status": "pending",
+    "activeForm": "Setting DEFAULT value"
+  },
+  {
+    "content": "Backfill existing rows with false",
+    "status": "pending",
+    "activeForm": "Backfilling existing rows"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Analyze current TLS/certificate error handling in Go",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Add proper status code mapping for certificate errors",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  },
+  {
+    "content": "Enhance error detection for TLS/certificate errors",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "Create test for insecure skip verify error handling",
+    "status": "completed",
+    "priority": "high",
+    "id": "9"
+  },
+  {
+    "content": "Review and enhance error handling for other error types",
+    "status": "in_progress",
+    "priority": "medium",
+    "id": "10"
+  }
+]

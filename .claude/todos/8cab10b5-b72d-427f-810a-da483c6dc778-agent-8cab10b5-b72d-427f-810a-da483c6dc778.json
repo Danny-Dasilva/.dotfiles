@@ -1,0 +1,62 @@
+[
+  {
+    "content": "Create Watch History GraphQL resolver in scrolller-api",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Create input/output types for Watch History query",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Implement queryWatchHistory utility function",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Register WatchHistoryResolver in schema.ts",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Add WATCH_HISTORY to MyCollectionsPageTab enum",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  },
+  {
+    "content": "Create WatchHistoryPageState",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  },
+  {
+    "content": "Create watchHistoryQueries GraphQL query",
+    "status": "completed",
+    "priority": "medium",
+    "id": "7"
+  },
+  {
+    "content": "Create WatchHistoryPage component",
+    "status": "completed",
+    "priority": "medium",
+    "id": "8"
+  },
+  {
+    "content": "Add watch-history route",
+    "status": "completed",
+    "priority": "medium",
+    "id": "9"
+  },
+  {
+    "content": "Update MyCollectionsSidebar to include Watch History tab",
+    "status": "completed",
+    "priority": "low",
+    "id": "10"
+  }
+]

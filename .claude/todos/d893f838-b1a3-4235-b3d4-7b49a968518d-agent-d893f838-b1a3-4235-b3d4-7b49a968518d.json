@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Remove content_type_lookup table from migration 004",
+    "status": "completed",
+    "activeForm": "Removing content_type_lookup table from migration 004"
+  },
+  {
+    "content": "Remove cagg_global_watch_stats continuous aggregate",
+    "status": "completed",
+    "activeForm": "Removing cagg_global_watch_stats continuous aggregate"
+  },
+  {
+    "content": "Simplify v_latest_content_percentiles view",
+    "status": "completed",
+    "activeForm": "Simplifying v_latest_content_percentiles view"
+  },
+  {
+    "content": "Remove v_latest_global_picture_median view",
+    "status": "completed",
+    "activeForm": "Removing v_latest_global_picture_median view"
+  },
+  {
+    "content": "Update initial data population in migration",
+    "status": "completed",
+    "activeForm": "Updating initial data population in migration"
+  },
+  {
+    "content": "Update update_user_embedding() UPDATE query in main.py",
+    "status": "completed",
+    "activeForm": "Updating update_user_embedding() UPDATE query in main.py"
+  },
+  {
+    "content": "Update update_user_embedding() INSERT query in main.py",
+    "status": "completed",
+    "activeForm": "Updating update_user_embedding() INSERT query in main.py"
+  },
+  {
+    "content": "Update update_anonymous_user_embedding() UPDATE query in main.py",
+    "status": "completed",
+    "activeForm": "Updating update_anonymous_user_embedding() UPDATE query in main.py"
+  },
+  {
+    "content": "Update update_anonymous_user_embedding() INSERT query in main.py",
+    "status": "completed",
+    "activeForm": "Updating update_anonymous_user_embedding() INSERT query in main.py"
+  },
+  {
+    "content": "Update docstrings for both embedding functions",
+    "status": "in_progress",
+    "activeForm": "Updating docstrings for both embedding functions"
+  }
+]

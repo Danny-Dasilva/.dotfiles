@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Remove capacity limitations from template product addition",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Fix visual position number updates after reordering",
+    "status": "in_progress",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Allow duplicate products in templates for fallbacks",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Update UI language to clarify template vs. box capacity",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Test position display and reordering functionality",
+    "status": "pending",
+    "priority": "medium",
+    "id": "5"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Find API calls that create/set gift offers",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Trace ExperiencesService gift offer methods",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Identify the actual gift creation endpoints",
+    "status": "completed",
+    "id": "3"
+  }
+]

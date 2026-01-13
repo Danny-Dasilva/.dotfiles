@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Fix rotation header to appear on all profile model views",
+    "status": "completed",
+    "id": "1"
+  },
+  {
+    "content": "Fix Enter key behavior in add new profile form",
+    "status": "completed",
+    "id": "2"
+  },
+  {
+    "content": "Test the fixes",
+    "status": "completed",
+    "id": "3"
+  }
+]

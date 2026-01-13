@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Fix TestWebSocketResponse URL from ws:// to wss:// since echo.websocket.org redirects HTTP to HTTPS",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Examine WebSocket dialer configuration to ensure proper HTTP/1.1 protocol version is forced for WebSocket handshake",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Add proper WebSocket headers and User-Agent to match working TestWebSocketClient pattern",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Research and implement gospider007/requests WebSocket patterns for better compatibility",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Test the fixed implementation against echo.websocket.org and local server",
+    "status": "completed",
+    "priority": "low",
+    "id": "5"
+  }
+]

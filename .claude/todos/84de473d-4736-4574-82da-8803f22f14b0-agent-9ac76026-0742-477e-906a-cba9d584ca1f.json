@@ -1,0 +1,37 @@
+[
+  {
+    "content": "Create the main cleanup_subreddit.py script",
+    "status": "completed",
+    "activeForm": "Creating the main cleanup_subreddit.py script"
+  },
+  {
+    "content": "Implement database connection and configuration",
+    "status": "completed",
+    "activeForm": "Implementing database connection and configuration"
+  },
+  {
+    "content": "Add comprehensive deletion functions for all tables",
+    "status": "completed",
+    "activeForm": "Adding comprehensive deletion functions for all tables"
+  },
+  {
+    "content": "Implement S3 file cleanup functionality",
+    "status": "completed",
+    "activeForm": "Implementing S3 file cleanup functionality"
+  },
+  {
+    "content": "Add dry-run mode and detailed logging",
+    "status": "completed",
+    "activeForm": "Adding dry-run mode and detailed logging"
+  },
+  {
+    "content": "Create CLI interface with argument parsing",
+    "status": "completed",
+    "activeForm": "Creating CLI interface with argument parsing"
+  },
+  {
+    "content": "Test script with dry-run mode",
+    "status": "in_progress",
+    "activeForm": "Testing script with dry-run mode"
+  }
+]

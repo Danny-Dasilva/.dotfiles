@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Add new features section to README after the existing features list",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update Go examples with new parameters (connection reuse, JA4, etc)",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Add HTTP/3 and QUIC examples for Go only",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add WebSocket support examples for Go only",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Add Server-Sent Events (SSE) examples for Go only",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Update the CycleTLS Request Config section with new parameters",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  },
+  {
+    "content": "Add JA4 fingerprinting examples",
+    "status": "completed",
+    "priority": "medium",
+    "id": "7"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Download YouTube video audio as MP3",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Run transcribe_and_prepare.py to convert to WAV with transcript",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

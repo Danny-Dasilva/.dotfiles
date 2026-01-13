@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Create UV virtual environment",
+    "status": "completed",
+    "activeForm": "Creating UV virtual environment"
+  },
+  {
+    "content": "Add UV environment documentation to README",
+    "status": "in_progress",
+    "activeForm": "Adding UV environment documentation to README"
+  }
+]

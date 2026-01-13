@@ -1,0 +1,8 @@
+[
+  {
+    "content": "Create batched DELETE SQL command for reddit_posts where is_content = false",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  }
+]

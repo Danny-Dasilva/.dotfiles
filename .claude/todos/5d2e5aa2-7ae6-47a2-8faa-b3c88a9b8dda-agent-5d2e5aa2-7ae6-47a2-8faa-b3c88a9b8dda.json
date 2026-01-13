@@ -1,0 +1,72 @@
+[
+  {
+    "content": "Fix menu layout: combine quickstart example and curl command on same line, remove tip text and extra spacing",
+    "status": "completed",
+    "id": "menu-layout"
+  },
+  {
+    "content": "Modify settings layout to arrange 4 settings in 2x2 grid instead of vertical stacking",
+    "status": "completed",
+    "id": "settings-2x2"
+  },
+  {
+    "content": "Add live request logs to main page on right side of logo, similar to charmbracelet/crush style",
+    "status": "completed",
+    "id": "request-logs-main"
+  },
+  {
+    "content": "Fix live monitoring to show real server data instead of mock data, implement real-time updates",
+    "status": "completed",
+    "id": "live-monitoring"
+  },
+  {
+    "content": "Replace text categories with green/yellow/blue complexity indicators and improve emojis in parameter browser",
+    "status": "completed",
+    "id": "parameter-complexity"
+  },
+  {
+    "content": "Fix parameter browser: move complexity emoji to end of description, fix header layout with complexity legend at top",
+    "status": "completed",
+    "id": "fix-param-display"
+  },
+  {
+    "content": "Fix parameter browser header legend not appearing and panel border alignment issues",
+    "status": "completed",
+    "id": "fix-param-header-alignment"
+  },
+  {
+    "content": "Fix missing top border squares and legend visibility in parameters and configuration sections",
+    "status": "completed",
+    "id": "fix-panel-enclosure"
+  },
+  {
+    "content": "Fix parameter browser height calculations to show complexity legend and complete panel borders",
+    "status": "completed",
+    "id": "fix-param-height-calc"
+  },
+  {
+    "content": "Integrate complexity legend into list title and fix deprecated .Copy() API usage",
+    "status": "completed",
+    "id": "fix-legend-and-copy-deprecation"
+  },
+  {
+    "content": "Fix list content visibility and border alignment by giving list more space and fixing width calculations",
+    "status": "completed",
+    "id": "fix-list-space-and-borders"
+  },
+  {
+    "content": "Revert to simple height calculations and find sweet spot for legend visibility and border display",
+    "status": "completed",
+    "id": "simple-height-fix"
+  },
+  {
+    "content": "Add complexity legend as first list item instead of multi-line title to avoid truncation",
+    "status": "completed",
+    "id": "legend-as-list-item"
+  },
+  {
+    "content": "Make legend item non-selectable and start selection on first real parameter",
+    "status": "completed",
+    "id": "legend-non-selectable"
+  }
+]

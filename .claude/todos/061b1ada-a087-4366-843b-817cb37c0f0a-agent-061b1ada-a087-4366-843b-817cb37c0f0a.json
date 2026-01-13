@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Update channel URL generation to use uploads playlist (UU prefix)",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Modify buildYtDlpCommand to use playlist URL instead of channel URL",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

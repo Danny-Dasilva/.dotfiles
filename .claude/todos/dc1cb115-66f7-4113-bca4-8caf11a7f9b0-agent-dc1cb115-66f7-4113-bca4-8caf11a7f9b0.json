@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Use sub-agents to analyze all GitHub issues in the repository",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Identify WebSocket-related feature requests",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Find other feature requests covered by 2.0.0 changes",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  },
+  {
+    "content": "Run validation step to categorize issues",
+    "status": "completed",
+    "priority": "medium",
+    "id": "4"
+  },
+  {
+    "content": "Update changelog with missing issue references",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "content": "Phase 1: Foundation & Core Infrastructure",
+    "status": "completed",
+    "activeForm": "Completing Phase 1"
+  },
+  {
+    "content": "Phase 2: Port Zustand stores",
+    "status": "completed",
+    "activeForm": "Completing stores"
+  },
+  {
+    "content": "Phase 2: Port Monaco SQL editor component",
+    "status": "pending",
+    "activeForm": "Porting Monaco editor"
+  },
+  {
+    "content": "Phase 2: Port TanStack data-table component",
+    "status": "pending",
+    "activeForm": "Porting data table"
+  },
+  {
+    "content": "Phase 2: Port schema-explorer component",
+    "status": "pending",
+    "activeForm": "Porting schema explorer"
+  },
+  {
+    "content": "Phase 2: Port tab-container/tab-bar components",
+    "status": "pending",
+    "activeForm": "Porting tab components"
+  },
+  {
+    "content": "Phase 3: Connection management UI",
+    "status": "pending",
+    "activeForm": "Adding connection management"
+  },
+  {
+    "content": "Phase 4: Table designer & ERD",
+    "status": "pending",
+    "activeForm": "Adding table designer"
+  },
+  {
+    "content": "Phase 5: Query history & saved queries",
+    "status": "pending",
+    "activeForm": "Adding query features"
+  },
+  {
+    "content": "Phase 6: AI assistant",
+    "status": "pending",
+    "activeForm": "Adding AI assistant"
+  }
+]

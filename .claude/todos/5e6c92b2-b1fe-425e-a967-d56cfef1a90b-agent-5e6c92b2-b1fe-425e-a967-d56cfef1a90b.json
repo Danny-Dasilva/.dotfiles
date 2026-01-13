@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Remove all cache/context reuse between generations",
+    "status": "completed",
+    "priority": "high",
+    "id": "26"
+  },
+  {
+    "content": "Optimize for highest quality generation",
+    "status": "completed",
+    "priority": "high",
+    "id": "27"
+  },
+  {
+    "content": "Remove pauses between audio chunks",
+    "status": "completed",
+    "priority": "medium",
+    "id": "28"
+  }
+]

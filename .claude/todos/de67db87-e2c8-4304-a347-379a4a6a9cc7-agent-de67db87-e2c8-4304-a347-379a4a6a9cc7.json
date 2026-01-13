@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Add EnableConnectionReuse field to Options struct",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Implement global client pool with thread-safe access",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Create client key generation based on browser configuration",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Modify processRequest() to use shared clients instead of creating new ones",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Update connection reuse test to expect 1 handshake instead of 4",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Add client cleanup and expiration logic",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  },
+  {
+    "content": "Ensure WebSocket, SSE, and HTTP/3 requests also benefit from connection reuse",
+    "status": "in_progress",
+    "priority": "medium",
+    "id": "7"
+  }
+]
