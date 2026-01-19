@@ -36,17 +36,19 @@ $CLAUDE_PROJECT_DIR = /path/to/project
 
 ## Step 2: Quick Analysis
 
-Use fast tools to understand the context:
+### TLDR CLI (PREFERRED - Token-Efficient)
 
+**Use `tldr` for fast code analysis.** See `.claude/rules/tldr-cli.md` for full command reference.
+
+**Key commands for quick fixes:**
+- `tldr search "pattern" .` - Find patterns fast
+- `tldr impact func .` - Check what calls this before changing
+- `tldr diagnostics file.py` - Quick syntax/type check
+
+### Alternative: rp-cli (fallback)
 ```bash
-# Fast codebase search
 rp-cli -e 'search "pattern" --max-results 10'
-
-# Find file quickly
 rp-cli -e 'structure src/'
-
-# Check existing patterns
-grep -r "pattern" src/ --include="*.ts" | head -5
 ```
 
 ## Step 3: Make Changes

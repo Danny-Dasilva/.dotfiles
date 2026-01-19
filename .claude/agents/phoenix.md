@@ -36,18 +36,21 @@ $CLAUDE_PROJECT_DIR = /path/to/project
 
 ## Step 2: Analyze Current State
 
+### TLDR CLI (PREFERRED - Token-Efficient)
+
+**Use `tldr` for all code analysis.** See `.claude/rules/tldr-cli.md` for full command reference.
+
+**Key commands for refactoring:**
+- `tldr impact FunctionToRefactor .` - Who calls this? (CRITICAL before refactoring)
+- `tldr calls .` and `tldr importers module .` - Understand dependencies
+- `tldr dead src/` - Find unused code to remove
+- `tldr cfg/dfg src/file.py func` - Analyze complexity and data flow
+- `tldr diagnostics .` - Quality baseline before/after
+
+### Alternative: rp-cli (fallback)
 ```bash
-# Understand the code to refactor
-rp-cli -e 'read path/to/file.ts'
-
-# Find all usages
 rp-cli -e 'search "FunctionToRefactor" --max-results 50'
-
-# Check dependencies
 rp-cli -e 'search "import.*from.*target-module"'
-
-# Find tests
-rp-cli -e 'search "describe.*TargetClass|test.*TargetFunction"'
 ```
 
 ## Step 3: Identify Code Smells
@@ -62,14 +65,14 @@ Look for:
 - Missing abstractions
 
 ```bash
+# Find dead code
+tldr dead src/                       # Unused functions
+
 # Find long files
 wc -l src/**/*.ts | sort -n -r | head -10
 
-# Find complex functions
-rp-cli -e 'search "function.*{" --context-lines 50' | grep -c "}"
-
 # Find duplicated patterns
-rp-cli -e 'search "pattern-to-check"'
+tldr search "pattern-to-check" .
 ```
 
 ## Step 4: Design Safe Transformations

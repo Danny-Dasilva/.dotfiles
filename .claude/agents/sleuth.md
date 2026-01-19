@@ -38,19 +38,23 @@ $CLAUDE_PROJECT_DIR = /path/to/project
 
 Before diving in, list 2-3 possible causes based on the symptom. This guides investigation order.
 
-## Step 3: Investigate with MCP Tools
+## Step 3: Investigate with TLDR CLI
 
-### Codebase Exploration
+### TLDR CLI (PREFERRED - Token-Efficient)
+
+**Use `tldr` for all code analysis.** See `.claude/rules/tldr-cli.md` for full command reference.
+
+**Key commands for debugging:**
+- `tldr search "error message" .` - Find error origin
+- `tldr slice src/file.py func 42` - What affects line 42?
+- `tldr cfg/dfg src/file.py func` - Control/data flow graphs
+- `tldr calls .` and `tldr impact func .` - Trace call relationships
+- `tldr diagnostics .` - Type errors and lint issues
+
+### Alternative: rp-cli (fallback)
 ```bash
-# Find error origin
-rp-cli -e 'search "exact error message" --context-lines 5'
-
-# Trace code flow
+rp-cli -e 'search "error message" --context-lines 5'
 rp-cli -e 'structure src/'
-rp-cli -e 'search "functionName(" --max-results 20'
-
-# Fast pattern search
-uv run python -m runtime.harness scripts/morph_search.py --query "function_name" --path "."
 ```
 
 ### Git History
