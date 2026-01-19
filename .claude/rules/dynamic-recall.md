@@ -2,6 +2,21 @@
 
 You have access to a semantic memory system that stores learnings, decisions, and patterns from past sessions.
 
+## Agent Pre-Task Check
+
+Before starting implementation tasks, agents (kraken, architect, phoenix, spark) should check for relevant learnings:
+
+```bash
+cd $CLAUDE_PROJECT_DIR/opc && PYTHONPATH=. uv run python scripts/core/recall_learnings.py --query "<task keywords>" --k 3 --text-only
+```
+
+This is especially useful when:
+- Implementing features similar to past work
+- Working with hooks, skills, or wizard code
+- Debugging errors that may have been solved before
+
+If the memory-awareness hook showed a MEMORY MATCH in context, the learning is likely relevant.
+
 ## When to Use Recall
 
 Query memory proactively when:

@@ -1,213 +1,292 @@
 ---
 name: research
-description: Document codebase as-is with thoughts directory for historical context
+description: Research codebase (internal) or external sources (docs, web, APIs)
 model: claude-opus-4-5-20251101
-user-invocable: false
+user-invocable: true
 ---
 
-# Research Codebase
+# Research Skill
 
-You are tasked with conducting comprehensive research across the codebase to answer user questions by spawning parallel sub-agents and synthesizing their findings.
+Unified research workflow for both internal codebase exploration and external sources.
 
-## CRITICAL: YOUR ONLY JOB IS TO DOCUMENT AND EXPLAIN THE CODEBASE AS IT EXISTS TODAY
-- DO NOT suggest improvements or changes unless the user explicitly asks for them
-- DO NOT perform root cause analysis unless the user explicitly asks for them
-- DO NOT propose future enhancements unless the user explicitly asks for them
-- DO NOT critique the implementation or identify problems
-- DO NOT recommend refactoring, optimization, or architectural changes
-- ONLY describe what exists, where it exists, how it works, and how components interact
-- You are creating a technical map/documentation of the existing system
+## Invocation
 
-## Initial Setup:
-
-When this command is invoked, respond with:
 ```
-I'm ready to research the codebase. Please provide your research question or area of interest, and I'll analyze it thoroughly by exploring relevant components and connections.
+/research [mode] [options]
 ```
 
-Then wait for the user's research query.
+## Modes
 
-## Steps to follow after receiving the research query:
+| Mode | Purpose | Tools Used |
+|------|---------|------------|
+| `internal` | Document codebase as-is | scout, thoughts-locator, thoughts-analyzer |
+| `external` | Docs, web, APIs | nia-docs, perplexity, firecrawl |
+| `hybrid` | Both internal and external | All tools |
 
-1. **Read any directly mentioned files first:**
-   - If the user mentions specific files (tickets, docs, JSON), read them FULLY first
-   - **IMPORTANT**: Use the Read tool WITHOUT limit/offset parameters to read entire files
-   - **CRITICAL**: Read these files yourself in the main context before spawning any sub-tasks
-   - This ensures you have full context before decomposing the research
+**Default:** If no mode specified, ask the user.
 
-2. **Analyze and decompose the research question:**
-   - Break down the user's query into composable research areas
-   - Take time to ultrathink about the underlying patterns, connections, and architectural implications the user might be seeking
-   - Identify specific components, patterns, or concepts to investigate
-   - Create a research plan using TodoWrite to track all subtasks
-   - Consider which directories, files, or architectural patterns are relevant
+## Question Flow (No Arguments)
 
-3. **Spawn parallel sub-agent tasks for comprehensive research:**
-   - Create multiple Task agents to research different aspects concurrently
-   - We now have specialized agents that know how to do specific research tasks:
+### Phase 1: Research Mode
 
-   **For codebase research:**
-   - Use the **scout** agent for comprehensive codebase exploration (combines locating, analyzing, and pattern finding)
+```yaml
+question: "What kind of research do you need?"
+header: "Mode"
+options:
+  - label: "Internal (codebase)"
+    description: "Explore and document existing code"
+  - label: "External (docs/web)"
+    description: "Library docs, best practices, APIs"
+  - label: "Hybrid (both)"
+    description: "Cross-reference codebase with external resources"
+```
 
-   **IMPORTANT**: All agents are documentarians, not critics. They will describe what exists without suggesting improvements or identifying issues.
+### Phase 2: Topic
 
-   **For thoughts directory:**
-   - Use the **thoughts-locator** agent to discover what documents exist about the topic
-   - Use the **thoughts-analyzer** agent to extract key insights from specific documents (only the most relevant ones)
+```yaml
+question: "What do you want to research?"
+header: "Topic"
+options: []  # Free text
+```
 
-   **For web research (only if user explicitly asks):**
-   - Use the **web-search-researcher** agent for external documentation and resources
-   - IF you use web-research agents, instruct them to return LINKS with their findings, and please INCLUDE those links in your final report
+### Phase 3: External Focus (if external or hybrid mode)
 
-   **For Linear tickets (if relevant):**
-   - Use the **linear-ticket-reader** agent to get full details of a specific ticket
-   - Use the **linear-searcher** agent to find related tickets or historical context
+```yaml
+question: "What kind of external information?"
+header: "Focus"
+options:
+  - label: "Library/package docs"
+    description: "API docs, examples, patterns"
+  - label: "Best practices"
+    description: "Recommended approaches, patterns"
+  - label: "General topic"
+    description: "Comprehensive multi-source search"
+```
 
-   The key is to use these agents intelligently:
-   - Start with locator agents to find what exists
-   - Then use analyzer agents on the most promising findings to document how they work
-   - Run multiple agents in parallel when they're searching for different things
-   - Each agent knows its job - just tell it what you're looking for
-   - Don't write detailed prompts about HOW to search - the agents already know
-   - Remind agents they are documenting, not evaluating or improving
+### Phase 4: Output
 
-4. **Wait for all sub-agents to complete and synthesize findings:**
-   - IMPORTANT: Wait for ALL sub-agent tasks to complete before proceeding
-   - Compile all sub-agent results (both codebase and thoughts findings)
-   - Prioritize live codebase findings as primary source of truth
-   - Use thoughts/ findings as supplementary historical context
-   - Connect findings across different components
-   - Include specific file paths and line numbers for reference
-   - Verify all thoughts/ paths are correct (e.g., thoughts/allison/ not thoughts/shared/ for personal files)
-   - Highlight patterns, connections, and architectural decisions
-   - Answer the user's specific questions with concrete evidence
+```yaml
+question: "What should I produce?"
+header: "Output"
+options:
+  - label: "Summary in chat"
+    description: "Tell me what you found"
+  - label: "Research document"
+    description: "Write to thoughts/shared/research/"
+  - label: "Handoff for implementation"
+    description: "Prepare context for coding"
+```
 
-5. **Gather metadata for the research document:**
-   - Run the `hack/spec_metadata.sh` script to generate all relevant metadata
-   - Filename: `thoughts/shared/research/YYYY-MM-DD-ENG-XXXX-description.md`
-     - Format: `YYYY-MM-DD-ENG-XXXX-description.md` where:
-       - YYYY-MM-DD is today's date
-       - ENG-XXXX is the ticket number (omit if no ticket)
-       - description is a brief kebab-case description of the research topic
-     - Examples:
-       - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
-       - Without ticket: `2025-01-08-authentication-flow.md`
+---
 
-6. **Generate research document:**
-   - Ensure directory exists: `mkdir -p thoughts/shared/research`
-   - Use the metadata gathered in step 4
-   - Structure the document with YAML frontmatter followed by content:
-     ```markdown
-     ---
-     date: [Current date and time with timezone in ISO format]
-     researcher: [Researcher name from thoughts status]
-     git_commit: [Current commit hash]
-     branch: [Current branch name]
-     repository: [Repository name]
-     topic: "[User's Question/Topic]"
-     tags: [research, codebase, relevant-component-names]
-     status: complete
-     last_updated: [Current date in YYYY-MM-DD format]
-     last_updated_by: [Researcher name]
-     ---
+## Mode: Internal
 
-     # Research: [User's Question/Topic]
+Document codebase as-is with thoughts directory for historical context.
 
-     **Date**: [Current date and time with timezone from step 4]
-     **Researcher**: [Researcher name from thoughts status]
-     **Git Commit**: [Current commit hash from step 4]
-     **Branch**: [Current branch name from step 4]
-     **Repository**: [Repository name]
+### CRITICAL PRINCIPLE
+- **ONLY** describe what exists, where it exists, how it works
+- **DO NOT** suggest improvements, critique, or recommend changes
+- You are creating a technical map of the existing system
 
-     ## Research Question
-     [Original user query]
+### Workflow
 
-     ## Summary
-     [High-level documentation of what was found, answering the user's question by describing what exists]
+1. **Read mentioned files first** - Use Read tool without limit/offset
+2. **Decompose research question** - Break into composable areas
+3. **Spawn parallel agents:**
+   - **scout** - Comprehensive codebase exploration
+   - **thoughts-locator** - Find relevant docs in thoughts/
+   - **thoughts-analyzer** - Extract insights from specific docs
+4. **Wait for all agents** - Synthesize findings
+5. **Write research document** to `thoughts/shared/research/YYYY-MM-DD-{topic}.md`
 
-     ## Detailed Findings
+### Output Format (Internal)
 
-     ### [Component/Area 1]
-     - Description of what exists ([file.ext:line](link))
-     - How it connects to other components
-     - Current implementation details (without evaluation)
+```markdown
+---
+date: {ISO timestamp}
+type: codebase-research
+topic: "{topic}"
+status: complete
+---
 
-     ### [Component/Area 2]
-     ...
+# Research: {Topic}
 
-     ## Code References
-     - `path/to/file.py:123` - Description of what's there
-     - `another/file.ts:45-67` - Description of the code block
+## Summary
+{What was found - no recommendations}
 
-     ## Architecture Documentation
-     [Current patterns, conventions, and design implementations found in the codebase]
+## Detailed Findings
+### {Component 1}
+- Location: `path/file.ts:123`
+- How it works: {description}
 
-     ## Historical Context (from thoughts/)
-     [Relevant insights from thoughts/ directory with references]
-     - `thoughts/shared/something.md` - Historical decision about X
-     - `thoughts/local/notes.md` - Past exploration of Y
-     Note: Paths exclude "searchable/" even if found there
+## Code References
+- `path/to/file.py:123` - Description
 
-     ## Related Research
-     [Links to other research documents in thoughts/shared/research/]
+## Historical Context (from thoughts/)
+- `thoughts/shared/doc.md` - Relevant past decision
+```
 
-     ## Open Questions
-     [Any areas that need further investigation]
-     ```
+---
 
-7. **Add GitHub permalinks (if applicable):**
-   - Check if on main branch or if commit is pushed: `git branch --show-current` and `git status`
-   - If on main/master or pushed, generate GitHub permalinks:
-     - Get repo info: `gh repo view --json owner,name`
-     - Create permalinks: `https://github.com/{owner}/{repo}/blob/{commit}/{file}#L{line}`
-   - Replace local file references with permalinks in the document
+## Mode: External
 
-8. **Present findings:**
-   - Present a concise summary of findings to the user
-   - Include key file references for easy navigation
-   - Ask if they have follow-up questions or need clarification
+Research external sources (documentation, web, APIs) for libraries, best practices.
 
-9. **Handle follow-up questions:**
-   - If the user has follow-up questions, append to the same research document
-   - Update the frontmatter fields `last_updated` and `last_updated_by` to reflect the update
-   - Add `last_updated_note: "Added follow-up research for [brief description]"` to frontmatter
-   - Add a new section: `## Follow-up Research [timestamp]`
-   - Spawn new sub-agents as needed for additional investigation
-   - Continue updating the document and syncing
+> **Note:** Current year is 2025. Use 2024-2025 as reference timeframe.
 
-## Important notes:
-- Always use parallel Task agents to maximize efficiency and minimize context usage
-- Always run fresh codebase research - never rely solely on existing research documents
-- The thoughts/ directory provides historical context to supplement live findings
-- Focus on finding concrete file paths and line numbers for developer reference
-- Research documents should be self-contained with all necessary context
-- Each sub-agent prompt should be specific and focused on read-only documentation operations
-- Document cross-component connections and how systems interact
-- Include temporal context (when the research was conducted)
-- Link to GitHub when possible for permanent references
-- Keep the main agent focused on synthesis, not deep file reading
-- Have sub-agents document examples and usage patterns as they exist
-- Explore all of thoughts/ directory, not just research subdirectory
-- **CRITICAL**: You and all sub-agents are documentarians, not evaluators
-- **REMEMBER**: Document what IS, not what SHOULD BE
-- **NO RECOMMENDATIONS**: Only describe the current state of the codebase
-- **File reading**: Always read mentioned files FULLY (no limit/offset) before spawning sub-tasks
-- **Critical ordering**: Follow the numbered steps exactly
-  - ALWAYS read mentioned files first before spawning sub-tasks (step 1)
-  - ALWAYS wait for all sub-agents to complete before synthesizing (step 4)
-  - ALWAYS gather metadata before writing the document (step 5 before step 6)
-  - NEVER write the research document with placeholder values
-- **Path handling**: The thoughts/searchable/ directory contains hard links for searching
-  - Always document paths by removing ONLY "searchable/" - preserve all other subdirectories
-  - Examples of correct transformations:
-    - `thoughts/searchable/allison/old_stuff/notes.md` → `thoughts/allison/old_stuff/notes.md`
-    - `thoughts/searchable/shared/prs/123.md` → `thoughts/shared/prs/123.md`
-    - `thoughts/searchable/global/shared/templates.md` → `thoughts/global/shared/templates.md`
-  - NEVER change allison/ to shared/ or vice versa - preserve the exact directory structure
-  - This ensures paths are correct for editing and navigation
-- **Frontmatter consistency**:
-  - Always include frontmatter at the beginning of research documents
-  - Keep frontmatter fields consistent across all research documents
-  - Update frontmatter when adding follow-up research
-  - Use snake_case for multi-word field names (e.g., `last_updated`, `git_commit`)
-  - Tags should be relevant to the research topic and components studied
+### Focus Types
+
+| Focus | Primary Tool | Purpose |
+|-------|--------------|---------|
+| `library` | nia-docs | API docs, usage patterns, code examples |
+| `best-practices` | perplexity-search | Recommended approaches, patterns |
+| `general` | All MCP tools | Comprehensive multi-source research |
+
+### Workflow
+
+#### Focus: library
+
+```bash
+# Semantic search in package
+(cd $CLAUDE_PROJECT_DIR/opc && uv run python -m runtime.harness scripts/nia_docs.py \
+  --package "$LIBRARY" --registry "$REGISTRY" --query "$TOPIC" --limit 10)
+```
+
+#### Focus: best-practices
+
+```bash
+# AI-synthesized research
+(cd $CLAUDE_PROJECT_DIR/opc && uv run python scripts/perplexity_search.py \
+  --research "$TOPIC best practices 2024 2025")
+
+# For thorough depth
+(cd $CLAUDE_PROJECT_DIR/opc && uv run python scripts/perplexity_search.py \
+  --deep "$TOPIC comprehensive guide 2025")
+```
+
+#### Focus: general
+
+Use ALL available MCP tools:
+1. **nia-docs** - Library documentation
+2. **perplexity** - Web research
+3. **firecrawl** - Scrape specific doc pages
+
+### Output Format (External)
+
+```markdown
+---
+date: {ISO timestamp}
+type: external-research
+topic: "{topic}"
+focus: {focus}
+sources: [nia, perplexity, firecrawl]
+status: complete
+---
+
+# Research: {Topic}
+
+## Summary
+{2-3 sentence summary}
+
+## Key Findings
+
+### Library Documentation
+{From nia-docs}
+
+### Best Practices (2024-2025)
+{From perplexity}
+
+### Code Examples
+```{language}
+// Working examples
+```
+
+## Recommendations
+- {Recommendation 1}
+
+## Pitfalls to Avoid
+- {Pitfall 1}
+
+## Sources
+- [{Source 1}]({url1})
+```
+
+---
+
+## Mode: Hybrid
+
+Run both internal and external research, then cross-reference.
+
+### Workflow
+
+1. **Spawn internal research** (scout + thoughts)
+2. **Spawn external research** (nia + perplexity + firecrawl)
+3. **Cross-reference findings:**
+   - How does our implementation compare to best practices?
+   - Are we using the library correctly?
+   - What patterns match/differ?
+
+### Output Format (Hybrid)
+
+```markdown
+---
+date: {ISO timestamp}
+type: hybrid-research
+topic: "{topic}"
+status: complete
+---
+
+# Research: {Topic}
+
+## Internal Findings
+{What exists in codebase}
+
+## External Findings
+{What docs/best practices say}
+
+## Cross-Reference Analysis
+| Aspect | Our Implementation | Best Practice | Notes |
+|--------|-------------------|---------------|-------|
+| {aspect} | {what we do} | {what's recommended} | {gap/match} |
+
+## Sources
+- Internal: `path/to/file.ts:123`
+- External: [{Source}]({url})
+```
+
+---
+
+## Options
+
+| Option | Values | Description |
+|--------|--------|-------------|
+| `--mode` | `internal`, `external`, `hybrid` | Research mode |
+| `--topic` | `"string"` | Topic to research |
+| `--focus` | `library`, `best-practices`, `general` | External focus type |
+| `--depth` | `shallow`, `thorough` | Search depth |
+| `--output` | `chat`, `doc`, `handoff` | Output format |
+| `--library` | `"name"` | Package name (for library focus) |
+| `--registry` | `npm`, `py_pi`, `crates`, `go` | Package registry |
+
+## Error Handling
+
+If an MCP tool fails:
+1. **Log the failure** - Note which tool failed
+2. **Continue with others** - Partial results are valuable
+3. **Set status:** `complete` / `partial` / `failed`
+4. **Note gaps** in findings
+
+## Integration
+
+| After Research | Next Skill | For |
+|----------------|------------|-----|
+| `--output handoff` | `plan-agent` | Create implementation plan |
+| Code examples | `implement_task` | Direct implementation |
+| Architecture decision | `create_plan` | Detailed planning |
+
+## Notes
+
+- **Internal mode:** Document what IS, not what SHOULD BE
+- **External mode:** Always cite sources with URLs
+- **Hybrid mode:** Best for "how should we implement X given our codebase"
+- **2024-2025 timeframe** for best practices

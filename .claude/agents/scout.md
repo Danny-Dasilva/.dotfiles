@@ -35,42 +35,31 @@ $CLAUDE_PROJECT_DIR = /path/to/project
 
 ## Step 2: Fast Codebase Search
 
-### Structure Discovery (rp-cli)
+### TLDR CLI (PREFERRED - Token-Efficient)
+
+**Use `tldr` for all code analysis.** See `.claude/rules/tldr-cli.md` for full command reference.
+
+**Key commands for exploration:**
+- `tldr tree .` - File structure
+- `tldr structure . --lang python` - Code structure (functions, classes)
+- `tldr search "pattern" .` - Find patterns
+- `tldr calls .` - Call graph analysis
+- `tldr impact <function> .` - Who calls this function?
+- `tldr arch src/` - Detect architectural layers
+
+### Alternative Tools (when tldr unavailable)
+
+#### Structure Discovery (rp-cli)
 ```bash
-# Understand project structure
 rp-cli -e 'structure src/'
-
-# List all modules
 rp-cli -e 'workspace list'
-
-# Find specific file types
-rp-cli -e 'structure src/ --include "*.ts"'
 ```
 
-### Pattern Search (Morph - fastest)
-```bash
-# Find text patterns fast
-uv run python -m runtime.harness scripts/morph_search.py \
-    --query "function_name" --path "src/"
-
-# Find import patterns
-uv run python -m runtime.harness scripts/morph_search.py \
-    --query "import.*from" --path "."
-```
-
-### Semantic Search (AST-grep)
+#### Semantic Search (AST-grep)
 ```bash
 # Find function definitions
 uv run python -m runtime.harness scripts/ast_grep_find.py \
     --pattern "function $NAME($_) { $$$BODY }"
-
-# Find class patterns
-uv run python -m runtime.harness scripts/ast_grep_find.py \
-    --pattern "class $NAME extends $BASE"
-
-# Find specific API usage
-uv run python -m runtime.harness scripts/ast_grep_find.py \
-    --pattern "useEffect($FN, [$DEPS])"
 ```
 
 ### Convention Detection

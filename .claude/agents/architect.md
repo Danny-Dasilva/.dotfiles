@@ -37,19 +37,24 @@ $CLAUDE_PROJECT_DIR = /path/to/project
 
 ## Step 2: Codebase Analysis
 
-Understand existing patterns before designing:
+### TLDR CLI (PREFERRED - Token-Efficient)
 
+**Use `tldr` for all code analysis.** See `.claude/rules/tldr-cli.md` for full command reference.
+
+**Key commands for planning:**
+- `tldr structure . --lang python` - Code structure
+- `tldr arch src/` - Architectural layers and patterns
+- `tldr calls .` and `tldr impact func .` - Understand relationships
+- `tldr search "pattern" .` - Find similar implementations
+
+### Alternative: rp-cli (fallback)
 ```bash
-# Understand structure
 rp-cli -e 'structure src/'
-
-# Find similar features
 rp-cli -e 'search "similar_feature"'
+```
 
-# Check existing interfaces
-rp-cli -e 'search "interface|type.*="'
-
-# Find dependencies
+### Dependency Files
+```bash
 cat package.json pyproject.toml 2>/dev/null | head -50
 ```
 

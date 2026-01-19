@@ -90,17 +90,21 @@ Once tests pass:
 
 ## Step 3: Code Search and Analysis
 
-Use these tools to understand existing code:
+### TLDR CLI (PREFERRED - Token-Efficient)
 
+**Use `tldr` for all code analysis.** See `.claude/rules/tldr-cli.md` for full command reference.
+
+**Key commands for implementation:**
+- `tldr structure . --lang python` - Code structure
+- `tldr search "pattern" .` - Find patterns to follow
+- `tldr impact func .` and `tldr calls .` - Understand dependencies
+- `tldr diagnostics .` - Type check before tests
+- `tldr change-impact` - Find affected tests
+
+### Alternative: rp-cli (fallback)
 ```bash
-# Search for patterns
 rp-cli -e 'search "pattern" --max-results 20'
-
-# Understand file structure
 rp-cli -e 'structure src/'
-
-# Fast text search
-uv run python -m runtime.harness scripts/morph_search.py --query "function_name" --path "."
 ```
 
 ## Step 4: Write Output
