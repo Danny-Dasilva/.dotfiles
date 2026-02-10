@@ -1,14 +1,16 @@
 /**
- * TLDR Read Enforcer Hook - BLOCKING VERSION
+ * TLDR Read Enforcer Hook - BLOCKING VERSION (DAEMON)
  *
  * Intercepts Read tool calls for code files and BLOCKS with TLDR context.
  * Instead of reading 1000+ line files, returns structured L1 AST context.
  *
+ * Uses TLDR daemon for fast cached responses (50ms vs 500ms CLI).
+ *
  * Result: 95% token savings (50-500 tokens vs 3000-20000 raw)
  */
-import { readFileSync, existsSync } from 'fs';
-import { execSync } from 'child_process';
+import { readFileSync, existsSync, statSync } from 'fs';
 import { basename, extname } from 'path';
+import { queryDaemonSync, trackHookActivitySync } from './daemon-client';
 const CONTEXT_DIR = '/tmp/claude-search-context';
 const CONTEXT_MAX_AGE_MS = 30000; // 30 seconds - context expires after this
 /**
@@ -30,81 +32,6 @@ function getSearchContext(sessionId) {
         return null;
     }
 }
-/**
- * Analyze recent transcript messages to infer intent
- */
-function analyzeTranscript(transcriptPath) {
-    try {
-        if (!existsSync(transcriptPath))
-            return null;
-        const content = readFileSync(transcriptPath, 'utf-8');
-        const lines = content.trim().split('\n').slice(-20); // Last 20 messages
-        // Combine recent text for analysis
-        let recentText = '';
-        for (const line of lines) {
-            try {
-                const msg = JSON.parse(line);
-                if (msg.type === 'human' || msg.type === 'assistant') {
-                    const text = typeof msg.message === 'string'
-                        ? msg.message
-                        : JSON.stringify(msg.message);
-                    recentText += ' ' + text;
-                }
-            }
-            catch { /* ignore parse errors */ }
-        }
-        recentText = recentText.toLowerCase();
-        // Intent detection patterns
-        const intentPatterns = [
-            {
-                patterns: [/debug/, /bug/, /fix\s+(the|this|a)?\s*(error|issue|problem)/, /investigate/, /broken/],
-                layers: ['ast', 'call_graph', 'cfg'],
-                name: 'debugging'
-            },
-            {
-                patterns: [/where\s+does/, /data\s*flow/, /variable/, /track\s+\w+/, /what\s+sets/],
-                layers: ['ast', 'dfg'],
-                name: 'data-flow'
-            },
-            {
-                patterns: [/complexity/, /how\s+complex/, /refactor/, /simplify/, /control\s+flow/],
-                layers: ['ast', 'call_graph', 'cfg'],
-                name: 'complexity'
-            },
-            {
-                patterns: [/what\s+depends/, /impact/, /affects/, /slice/],
-                layers: ['ast', 'call_graph', 'pdg'],
-                name: 'dependencies'
-            },
-            {
-                patterns: [/understand/, /how\s+does.*work/, /explain/],
-                layers: ['ast', 'call_graph', 'cfg'],
-                name: 'understanding'
-            }
-        ];
-        for (const intent of intentPatterns) {
-            if (intent.patterns.some(p => p.test(recentText))) {
-                // Try to extract a function/class name from recent text
-                const funcMatch = recentText.match(/(?:function|method|def|class)\s+(\w+)/);
-                const target = funcMatch ? funcMatch[1] : null;
-                return {
-                    layers: intent.layers,
-                    target,
-                    source: `transcript:${intent.name}`
-                };
-            }
-        }
-        return null;
-    }
-    catch {
-        return null;
-    }
-}
-// TLDR installation path
-const TLDR_PATH = process.env.CLAUDE_PROJECT_DIR
-    ? `${process.env.CLAUDE_PROJECT_DIR}/opc/packages/tldr-code`
-    : '/Users/cosimo/.opc-dev/opc/packages/tldr-code';
-const TLDR_VENV = `${TLDR_PATH}/.venv/bin/python`;
 // Code file extensions that should use TLDR
 const CODE_EXTENSIONS = new Set([
     '.py', '.ts', '.tsx', '.js', '.jsx',
@@ -145,120 +72,186 @@ function detectLanguage(filePath) {
     };
     return langMap[ext] || 'python';
 }
-function getTldrContext(filePath, language, layers = ['ast', 'call_graph'], target = null) {
-    if (!existsSync(TLDR_VENV))
-        return null;
-    // Build Python code based on requested layers
-    const layerCode = [];
+function chooseTldrMode(target, layers, contextSource) {
+    // Only trust targets from search-router (it actually searched for them)
+    // contextSource format: "function: func_name" or "class: ClassName"
+    const fromSearchRouter = contextSource.startsWith('function:') || contextSource.startsWith('class:');
+    if (target && fromSearchRouter) {
+        return { mode: 'context', reason: `search: ${target}` };
+    }
+    // If advanced layers explicitly requested (cfg, dfg, pdg), use extract
+    if (layers.some(l => ['cfg', 'dfg', 'pdg'].includes(l))) {
+        return { mode: 'extract', reason: 'flow analysis' };
+    }
+    // Default: structure for navigation (99% savings)
+    return { mode: 'structure', reason: 'navigation' };
+}
+function getTldrContext(filePath, language, layers = ['ast', 'call_graph'], target = null, sessionId = null, contextSource = 'default') {
+    const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
     const fileName = basename(filePath);
-    // Header
-    layerCode.push(`print(f'# ${fileName}')`);
-    layerCode.push(`print(f'Language: ${language}')`);
-    layerCode.push(`print()`);
-    // L1: AST (always included for structure)
-    if (layers.includes('ast') || layers.includes('call_graph')) {
-        layerCode.push(`
-from tldr.hybrid_extractor import HybridExtractor
-ext = HybridExtractor()
-info = ext.extract('${filePath}')
-if info.functions:
-    print('## Functions')
-    for fn in info.functions:
-        params = ', '.join(fn.params) if fn.params else ''
-        ret = f' -> {fn.return_type}' if fn.return_type else ''
-        print(f'  {fn.name}({params}){ret}  [line {fn.line_number}]')
-        if fn.docstring:
-            doc = fn.docstring[:100].replace('\\\\n', ' ')
-            print(f'    # {doc}')
-if info.classes:
-    print()
-    print('## Classes')
-    for cls in info.classes:
-        print(f'  class {cls.name}  [line {cls.line_number}]')
-        for m in cls.methods[:10]:
-            print(f'    .{m.name}()')
-`);
-    }
-    // L2: Call Graph
-    if (layers.includes('call_graph')) {
-        layerCode.push(`
-if info.call_graph and info.call_graph.calls:
-    print()
-    print('## Call Graph')
-    for caller, callees in list(info.call_graph.calls.items())[:15]:
-        print(f'  {caller} -> {callees}')
-`);
-    }
-    // L3: CFG (Control Flow Graph)
-    if (layers.includes('cfg')) {
-        const funcName = target || 'main';
-        layerCode.push(`
-try:
-    from tldr.cfg_extractor import extract_python_cfg
-    src = open('${filePath}').read()
-    cfg = extract_python_cfg(src, '${funcName}')
-    if cfg and cfg.blocks:
-        print()
-        print('## CFG: ${funcName}')
-        print(f'  Blocks: {len(cfg.blocks)}, Cyclomatic: {cfg.cyclomatic_complexity}')
-        for b in cfg.blocks[:8]:
-            print(f'    Block {b.id}: lines {b.start_line}-{b.end_line} ({b.block_type})')
-except Exception:
-    pass
-`);
-    }
-    // L4: DFG (Data Flow Graph)
-    if (layers.includes('dfg')) {
-        const funcName = target || 'main';
-        layerCode.push(`
-try:
-    from tldr.dfg_extractor import extract_python_dfg
-    src = open('${filePath}').read()
-    dfg = extract_python_dfg(src, '${funcName}')
-    if dfg and dfg.var_refs:
-        print()
-        print('## DFG: ${funcName}')
-        defs = [r for r in dfg.var_refs if r.category == 'def'][:10]
-        uses = [r for r in dfg.var_refs if r.category == 'use'][:10]
-        if defs:
-            print('  Definitions:')
-            for r in defs:
-                print(f'    {r.var_name} @ line {r.line}')
-        if uses:
-            print('  Uses:')
-            for r in uses[:8]:
-                print(f'    {r.var_name} @ line {r.line}')
-except Exception:
-    pass
-`);
-    }
-    // L5: PDG (Program Dependency Graph)
-    if (layers.includes('pdg')) {
-        const funcName = target || 'main';
-        layerCode.push(`
-try:
-    from tldr.pdg_extractor import extract_python_pdg
-    src = open('${filePath}').read()
-    pdg = extract_python_pdg(src, '${funcName}')
-    if pdg and pdg.nodes:
-        print()
-        print('## PDG: ${funcName}')
-        ctrl = len([e for e in pdg.edges if e.dep_type == 'control'])
-        data = len([e for e in pdg.edges if e.dep_type == 'data'])
-        print(f'  Nodes: {len(pdg.nodes)}, Control deps: {ctrl}, Data deps: {data}')
-        for n in pdg.nodes[:8]:
-            print(f'    Line {n.line}: {n.node_type}')
-except Exception:
-    pass
-`);
-    }
+    const results = [];
+    // Choose optimal TLDR mode
+    const { mode, reason } = chooseTldrMode(target, layers, contextSource);
     try {
-        const pythonCode = layerCode.join('\n');
-        const cmd = `cd "${TLDR_PATH}" && source .venv/bin/activate && python -c "
-${pythonCode}
-" 2>/dev/null`;
-        const output = execSync(cmd, { encoding: 'utf-8', timeout: 15000, shell: '/bin/bash' });
-        return output.trim();
+        // Header with mode indicator
+        results.push(`# ${fileName}`);
+        results.push(`Language: ${language}`);
+        results.push(`Mode: ${mode} (${reason})`);
+        results.push('');
+        // MODE: context - focused on target function (87% savings)
+        if (mode === 'context' && target) {
+            const contextResp = queryDaemonSync({ cmd: 'context', entry: target, language, depth: 2 }, projectDir);
+            if (contextResp.status === 'ok' && contextResp.result) {
+                results.push('## Focused Context');
+                results.push(typeof contextResp.result === 'string'
+                    ? contextResp.result
+                    : JSON.stringify(contextResp.result, null, 2));
+                results.push('');
+                results.push('---');
+                results.push('To see more: Read with offset/limit, or ask about specific functions');
+                return results.join('\n');
+            }
+            // Fall through to extract if context fails
+        }
+        // MODE: structure - just names (99% savings)
+        // Note: use 'extract' for single files (structure is for directories)
+        if (mode === 'structure') {
+            const extractResp = queryDaemonSync({ cmd: 'extract', file: filePath, session: sessionId || undefined }, projectDir);
+            if (extractResp.status === 'ok' && extractResp.result) {
+                results.push('## Structure (names only)');
+                const info = extractResp.result;
+                if (info.functions?.length > 0) {
+                    results.push('### Functions');
+                    for (const fn of info.functions.slice(0, 30)) {
+                        const params = fn.params ? `(${fn.params.slice(0, 3).join(', ')}${fn.params.length > 3 ? '...' : ''})` : '()';
+                        results.push(`  ${fn.name}${params}  [line ${fn.line_number || fn.line || '?'}]`);
+                        // Add first line of docstring for context (addresses premortem tiger)
+                        if (fn.docstring) {
+                            const firstLine = fn.docstring.split('\n')[0].trim().slice(0, 80);
+                            results.push(`    # ${firstLine}`);
+                        }
+                    }
+                }
+                if (info.classes?.length > 0) {
+                    results.push('### Classes');
+                    for (const cls of info.classes.slice(0, 20)) {
+                        const methods = cls.methods?.slice(0, 5).map((m) => m.name).join(', ') || '';
+                        results.push(`  ${cls.name}  [line ${cls.line_number || cls.line || '?'}]`);
+                        // Add first line of class docstring
+                        if (cls.docstring) {
+                            const firstLine = cls.docstring.split('\n')[0].trim().slice(0, 80);
+                            results.push(`    # ${firstLine}`);
+                        }
+                        if (methods)
+                            results.push(`    methods: ${methods}${cls.methods?.length > 5 ? '...' : ''}`);
+                    }
+                }
+                results.push('');
+                results.push('---');
+                results.push('To see full code: Read with limit=100 (or offset=N limit=M for specific lines)');
+                return results.join('\n');
+            }
+            // Fall through to extract if failed
+        }
+        // MODE: extract - full AST (26% savings) - fallback and for editing
+        // L1/L2: Extract file info (AST + Call Graph) using daemon
+        // Pass session ID for token tracking (P7)
+        if (layers.includes('ast') || layers.includes('call_graph') || mode === 'extract') {
+            const extractResp = queryDaemonSync({ cmd: 'extract', file: filePath, session: sessionId || undefined }, projectDir);
+            if (extractResp.status === 'ok' && extractResp.result) {
+                const info = extractResp.result;
+                // Functions
+                if (info.functions && info.functions.length > 0) {
+                    results.push('## Functions');
+                    for (const fn of info.functions) {
+                        const params = fn.params ? fn.params.join(', ') : '';
+                        const ret = fn.return_type ? ` -> ${fn.return_type}` : '';
+                        results.push(`  ${fn.name}(${params})${ret}  [line ${fn.line_number || fn.line}]`);
+                        if (fn.docstring) {
+                            const doc = fn.docstring.substring(0, 100).replace(/\n/g, ' ');
+                            results.push(`    # ${doc}`);
+                        }
+                    }
+                }
+                // Classes
+                if (info.classes && info.classes.length > 0) {
+                    results.push('');
+                    results.push('## Classes');
+                    for (const cls of info.classes) {
+                        results.push(`  class ${cls.name}  [line ${cls.line_number || cls.line}]`);
+                        if (cls.methods) {
+                            for (const m of cls.methods.slice(0, 10)) {
+                                results.push(`    .${m.name}()`);
+                            }
+                        }
+                    }
+                }
+                // Call Graph
+                if (layers.includes('call_graph') && info.call_graph && info.call_graph.calls) {
+                    results.push('');
+                    results.push('## Call Graph');
+                    const entries = Object.entries(info.call_graph.calls).slice(0, 15);
+                    for (const [caller, callees] of entries) {
+                        results.push(`  ${caller} -> ${callees}`);
+                    }
+                }
+            }
+        }
+        // L3: CFG (Control Flow Graph)
+        if (layers.includes('cfg')) {
+            const funcName = target || 'main';
+            const cfgResp = queryDaemonSync({ cmd: 'cfg', file: filePath, function: funcName, language }, projectDir);
+            if (cfgResp.status === 'ok' && cfgResp.result) {
+                const cfg = cfgResp.result;
+                results.push('');
+                results.push(`## CFG: ${funcName}`);
+                results.push(`  Blocks: ${cfg.num_blocks || 'N/A'}, Cyclomatic: ${cfg.cyclomatic_complexity || 'N/A'}`);
+                if (cfg.blocks && Array.isArray(cfg.blocks)) {
+                    for (const b of cfg.blocks.slice(0, 8)) {
+                        results.push(`    Block ${b.id}: lines ${b.start_line}-${b.end_line} (${b.block_type})`);
+                    }
+                }
+            }
+        }
+        // L4: DFG (Data Flow Graph)
+        if (layers.includes('dfg')) {
+            const funcName = target || 'main';
+            const dfgResp = queryDaemonSync({ cmd: 'dfg', file: filePath, function: funcName, language }, projectDir);
+            if (dfgResp.status === 'ok' && dfgResp.result) {
+                const dfg = dfgResp.result;
+                results.push('');
+                results.push(`## DFG: ${funcName}`);
+                if (dfg.definitions && dfg.definitions.length > 0) {
+                    results.push('  Definitions:');
+                    for (const d of dfg.definitions.slice(0, 10)) {
+                        results.push(`    ${d.var_name} @ line ${d.line}`);
+                    }
+                }
+                if (dfg.uses && dfg.uses.length > 0) {
+                    results.push('  Uses:');
+                    for (const u of dfg.uses.slice(0, 8)) {
+                        results.push(`    ${u.var_name} @ line ${u.line}`);
+                    }
+                }
+            }
+        }
+        // L5: PDG (Program Dependency Graph) via slice
+        if (layers.includes('pdg')) {
+            const funcName = target || 'main';
+            const sliceResp = queryDaemonSync({ cmd: 'slice', file: filePath, function: funcName, line: 10, direction: 'backward' }, projectDir);
+            if (sliceResp.status === 'ok' && sliceResp.result) {
+                const slice = sliceResp.result;
+                results.push('');
+                results.push(`## PDG: ${funcName}`);
+                if (slice.lines && slice.lines.length > 0) {
+                    results.push(`  Slice lines: ${slice.lines.length}`);
+                }
+                if (slice.variables && slice.variables.length > 0) {
+                    results.push(`  Variables: ${slice.variables.join(', ')}`);
+                }
+            }
+        }
+        return results.length > 3 ? results.join('\n') : null; // > 3 means we have more than just header
     }
     catch {
         return null;
@@ -289,29 +282,35 @@ async function main() {
         console.log('{}');
         return;
     }
+    // Small files: TLDR overhead not worth it, just read directly
+    try {
+        const stats = statSync(filePath);
+        if (stats.size < 3000) { // ~100 lines
+            console.log('{}');
+            return;
+        }
+    }
+    catch {
+        // File doesn't exist or can't stat, let Read handle the error
+        console.log('{}');
+        return;
+    }
     // Get TLDR context instead of raw file
     const language = detectLanguage(filePath);
     // Try to detect intent from multiple sources (in priority order)
     let layers = ['ast', 'call_graph']; // Default layers
     let target = null;
     let contextSource = 'default';
-    // 1. Check for search context from smart-search-router (highest priority)
+    // Check for search context from smart-search-router (Bayesian: P(intent | current action))
     const searchContext = getSearchContext(input.session_id);
     if (searchContext) {
         layers = searchContext.suggestedLayers;
         target = searchContext.target;
         contextSource = `${searchContext.targetType}: ${searchContext.target}`;
     }
-    // 2. Analyze transcript for intent (fallback when no search context)
-    else if (input.transcript_path) {
-        const transcriptIntent = analyzeTranscript(input.transcript_path);
-        if (transcriptIntent) {
-            layers = transcriptIntent.layers;
-            target = transcriptIntent.target;
-            contextSource = transcriptIntent.source;
-        }
-    }
-    const tldrContext = getTldrContext(filePath, language, layers, target);
+    // No transcript analysis - retrospective prediction is epistemically weak
+    // Default layers (ast, call_graph) used when no search context
+    const tldrContext = getTldrContext(filePath, language, layers, target, input.session_id, contextSource);
     if (!tldrContext) {
         // TLDR failed, allow normal read
         console.log('{}');
@@ -348,6 +347,12 @@ ${callerLines.join('\n')}${searchContext.callers.length > 10 ? `\n  ... and ${se
     if (searchContext?.definitionLocation && !searchContext.definitionLocation.includes(basename(filePath))) {
         definitionSection = `\n📍 Defined at: ${searchContext.definitionLocation}\n`;
     }
+    // Track hook activity (P8)
+    const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+    trackHookActivitySync('tldr-read-enforcer', projectDir, true, {
+        reads_intercepted: 1,
+        layers_returned: layers.length,
+    });
     // BLOCK the read and return TLDR context
     const output = {
         hookSpecificOutput: {

@@ -7,7 +7,7 @@
  * This helps developers identify cleanup opportunities at the start of work.
  */
 import { readFileSync, existsSync } from 'fs';
-import { queryDaemonSync } from './daemon-client.js';
+import { queryDaemonSync, trackHookActivitySync } from './daemon-client.js';
 function readStdin() {
     return readFileSync(0, 'utf-8');
 }
@@ -82,6 +82,13 @@ async function main() {
         console.log('{}');
         return;
     }
+    // Skip large directories that shouldn't be indexed (home, root, etc.)
+    const HOME = process.env.HOME || `/home/${process.env.USER}`;
+    const SKIP_DIRS = [HOME, '/', '/home', '/tmp', '/var'];
+    if (SKIP_DIRS.includes(projectDir)) {
+        console.log('{}');
+        return;
+    }
     // Get dead code
     const result = getDeadCode(projectDir);
     if (!result || result.count === 0) {
@@ -89,6 +96,11 @@ async function main() {
         console.log('{}');
         return;
     }
+    // Track hook activity for flush threshold
+    trackHookActivitySync('session-start-dead-code', projectDir, true, {
+        sessions_checked: 1,
+        dead_found: result.count,
+    });
     // Emit warning message
     const warning = formatWarning(result);
     console.log(warning);

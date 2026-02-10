@@ -5,15 +5,17 @@
  * Used by PostToolUse, UserPromptSubmit, and SubagentStop hooks.
  */
 import { spawnSync } from 'child_process';
-import { join } from 'path';
+import { getOpcDir } from './opc-path.js';
 /**
  * Store a learning to archival memory via store_learning.py
  */
 export async function storeLearning(learning, sessionId, projectDir) {
-    const opcDir = join(projectDir, 'opc');
+    const opcDir = getOpcDir();
+    if (!opcDir)
+        return false; // Graceful degradation
     // Build args based on outcome
     const args = [
-        'run', 'python', 'scripts/store_learning.py',
+        'run', 'python', 'scripts/core/store_learning.py',
         '--session-id', sessionId
     ];
     // Map learning to store_learning.py interface

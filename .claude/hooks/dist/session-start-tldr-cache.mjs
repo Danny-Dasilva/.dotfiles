@@ -300,7 +300,24 @@ async function main() {
     return;
   }
   const projectDir = process.env.CLAUDE_PROJECT_DIR || input.cwd;
+  const HOME = process.env.HOME || `/home/${process.env.USER}`;
+  const SKIP_DIRS = [HOME, "/", "/home", "/tmp", "/var"];
+  if (SKIP_DIRS.includes(projectDir)) {
+    console.log("{}");
+    return;
+  }
   const cache = getCacheStatus(projectDir);
+  const cacheAgeMinutes = cache.age_hours !== void 0 ? cache.age_hours * 60 : Infinity;
+  if (cache.exists && cacheAgeMinutes < 30) {
+    const available2 = [];
+    if (cache.files.arch) available2.push("arch");
+    if (cache.files.calls) available2.push("calls");
+    if (cache.files.dead) available2.push("dead");
+    const ageStr2 = cache.age_hours !== void 0 ? `${cache.age_hours}h old` : "fresh";
+    const message2 = `\u{1F4CA} TLDR cache (${ageStr2}): ${available2.join(", ")}`;
+    console.log(message2);
+    return;
+  }
   let daemonFiles = 0;
   try {
     const statusResp = queryDaemonSync({ cmd: "status" }, projectDir);

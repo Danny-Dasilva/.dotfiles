@@ -6,9 +6,10 @@
  */
 import { readFileSync, existsSync, unlinkSync } from 'fs';
 import { join } from 'path';
+import { tmpdir } from 'os';
 const STATE_DIR = process.env.CLAUDE_PROJECT_DIR
     ? join(process.env.CLAUDE_PROJECT_DIR, '.claude', 'cache', 'lean')
-    : '/tmp/claude-lean';
+    : join(tmpdir(), 'claude-lean');
 const STATE_FILE = join(STATE_DIR, 'compiler-state.json');
 // Max age for state (5 minutes) - ignore stale state
 const MAX_STATE_AGE_MS = 5 * 60 * 1000;

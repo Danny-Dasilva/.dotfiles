@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
+import { tmpdir } from 'os';
 // Import shared resource reader (Phase 4 module)
 import { readResourceState } from './shared/resource-reader.js';
 // Import validation module for false-positive reduction
@@ -23,6 +24,8 @@ const PATTERN_AGENT_MAP = {
 /**
  * Run pattern inference using the Python module.
  * Returns null if inference fails or module not available.
+ *
+ * Cross-platform: Uses spawnSync with cwd option (works on Windows/macOS/Linux).
  */
 function runPatternInference(prompt, projectDir) {
     try {
@@ -30,10 +33,8 @@ function runPatternInference(prompt, projectDir) {
         if (!existsSync(scriptPath)) {
             return null;
         }
-        // Escape prompt for shell
-        const escapedPrompt = prompt.replace(/'/g, "'\\''");
-        // Run the Python module with uv - using direct import to avoid __init__.py issues
-        const result = execSync(`cd "${projectDir}" && uv run python -c "
+        // Build Python code as a string (no shell escaping needed with spawnSync)
+        const pythonCode = `
 import sys
 import json
 import importlib.util
@@ -41,22 +42,28 @@ import importlib.util
 # Direct import bypassing __init__.py
 spec = importlib.util.spec_from_file_location(
     'pattern_inference',
-    '${scriptPath}'
+    ${JSON.stringify(scriptPath)}
 )
 pattern_mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pattern_mod)
 
-prompt = '''${escapedPrompt}'''
+prompt = ${JSON.stringify(prompt)}
 result = pattern_mod.infer_pattern(prompt)
 output = result.to_dict()
 output['work_breakdown_detailed'] = pattern_mod.generate_work_breakdown(result)
 print(json.dumps(output))
-"`, {
+`;
+        // Cross-platform: use spawnSync with cwd instead of shell cd && command
+        const result = spawnSync('uv', ['run', 'python', '-c', pythonCode], {
             encoding: 'utf-8',
-            timeout: 5000, // 5 second timeout
+            timeout: 5000,
+            cwd: projectDir,
             stdio: ['pipe', 'pipe', 'pipe'],
         });
-        return JSON.parse(result.trim());
+        if (result.status !== 0 || !result.stdout) {
+            return null;
+        }
+        return JSON.parse(result.stdout.trim());
     }
     catch (err) {
         // Pattern inference is optional - fail silently
@@ -104,15 +111,57 @@ function generateAgenticaOutput(inference, prompt) {
     output += '='.repeat(50) + '\n';
     return output;
 }
+/**
+ * Detect semantic/natural language queries that would benefit from TLDR semantic search.
+ * Pattern: Questions starting with how/what/where/why/when/which
+ */
+function detectSemanticQuery(prompt) {
+    // Question word patterns that indicate semantic queries
+    const semanticPatterns = [
+        /^(how|what|where|why|when|which)\s/i,
+        /\?$/,
+        /^(find|show|list|get|explain)\s+(all|the|every|any)/i,
+        /^.*\s+(implementation|architecture|flow|pattern|logic|system)$/i,
+    ];
+    const isSemanticQuery = semanticPatterns.some(p => p.test(prompt.trim()));
+    if (!isSemanticQuery) {
+        return { isSemanticQuery: false };
+    }
+    // Generate suggestion for semantic search
+    const shortPrompt = prompt.length > 50 ? prompt.slice(0, 50) + '...' : prompt;
+    const suggestion = `💡 **Semantic Query Detected**
+
+Your question "${shortPrompt}" may benefit from semantic code search.
+
+**Try:**
+\`\`\`bash
+tldr semantic search "${prompt.slice(0, 100)}" .
+\`\`\`
+
+Or use the /explore skill for guided exploration.
+`;
+    return { isSemanticQuery: true, suggestion };
+}
 async function main() {
     try {
         // Read input from stdin
         const input = readFileSync(0, 'utf-8');
-        const data = JSON.parse(input);
+        let data;
+        try {
+            data = JSON.parse(input);
+        }
+        catch {
+            // Malformed JSON - exit silently
+            process.exit(0);
+        }
+        // Early validation - prompt is required
+        if (!data.prompt || typeof data.prompt !== 'string') {
+            process.exit(0);
+        }
         const prompt = data.prompt.toLowerCase();
         // Load skill rules (try project first, then global)
         const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
-        const homeDir = process.env.HOME || '';
+        const homeDir = process.env.HOME || process.env.USERPROFILE || '';
         const projectRulesPath = join(projectDir, '.claude', 'skills', 'skill-rules.json');
         const globalRulesPath = join(homeDir, '.claude', 'skills', 'skill-rules.json');
         let rulesPath = '';
@@ -129,6 +178,8 @@ async function main() {
         const rules = JSON.parse(readFileSync(rulesPath, 'utf-8'));
         // CHANGE 1: Run pattern inference EARLY on all prompts
         const patternInference = runPatternInference(data.prompt, projectDir);
+        // CHANGE 3: Detect semantic queries and suggest TLDR semantic search
+        const semanticQuery = detectSemanticQuery(data.prompt);
         const matchedSkills = [];
         // Check each skill for matches
         for (const [skillName, config] of Object.entries(rules.skills)) {
@@ -239,8 +290,8 @@ async function main() {
                 }
             }
         }
-        // Generate output if matches found OR pattern inference succeeded
-        if (matchedSkills.length > 0 || matchedAgents.length > 0 || patternInference) {
+        // Generate output if matches found OR pattern inference succeeded OR semantic query detected
+        if (matchedSkills.length > 0 || matchedAgents.length > 0 || patternInference || semanticQuery.isSemanticQuery) {
             // Check which skills need LLM validation (potential false positives)
             const skillsNeedingValidation = matchedSkills.filter(s => s.needsValidation);
             const agentsNeedingValidation = matchedAgents.filter(a => a.needsValidation);
@@ -253,6 +304,11 @@ async function main() {
             // CHANGE 2: Show pattern inference output FIRST if available
             if (patternInference) {
                 output += generateAgenticaOutput(patternInference, data.prompt);
+                output += '\n';
+            }
+            // CHANGE 3: Show semantic query suggestion if detected
+            if (semanticQuery.isSemanticQuery && semanticQuery.suggestion) {
+                output += semanticQuery.suggestion;
                 output += '\n';
             }
             // Show skill activation check only if skills/agents matched
@@ -334,10 +390,11 @@ async function main() {
             console.log(output);
         }
         // Check context % from statusLine temp file and add tiered warnings
-        // CLAUDE_PPID is passed from shell wrapper (matches status.sh's $PPID)
-        // This ensures we read the same file that StatusLine wrote
-        const sessionId = process.env.CLAUDE_SESSION_ID || process.env.CLAUDE_PPID || 'default';
-        const contextFile = `/tmp/claude-context-pct-${sessionId}.txt`;
+        // Use hook input session_id first, then env vars as fallback
+        // CLAUDE_PPID kept for backwards compatibility with bash wrapper
+        const rawSessionId = data.session_id || process.env.CLAUDE_SESSION_ID || process.env.CLAUDE_PPID || 'default';
+        const sessionId = rawSessionId.slice(0, 8); // Match status.py truncation
+        const contextFile = join(tmpdir(), `claude-context-pct-${sessionId}.txt`);
         if (existsSync(contextFile)) {
             try {
                 const pct = parseInt(readFileSync(contextFile, 'utf-8').trim(), 10);

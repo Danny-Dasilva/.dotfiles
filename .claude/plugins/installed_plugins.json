@@ -18,6 +18,26 @@
         "installedAt": "2026-01-12T15:52:25.657Z",
         "lastUpdated": "2026-01-12T15:52:25.657Z"
       }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/danny/.claude/plugins/cache/claude-plugins-official/playwright/2cd88e7947b7",
+        "version": "2cd88e7947b7",
+        "installedAt": "2026-01-16T02:08:32.829Z",
+        "lastUpdated": "2026-02-07T22:05:19.755Z",
+        "gitCommitSha": "96276205880a60fd66bbae981f5ab568e70c4cbf"
+      }
+    ],
+    "gopls-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/danny/.claude/plugins/cache/claude-plugins-official/gopls-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-22T16:09:17.946Z",
+        "lastUpdated": "2026-01-22T16:09:17.946Z",
+        "gitCommitSha": "e30768372b4150ca1bc0839d93283e8edc30d60d"
+      }
     ]
   }
 }

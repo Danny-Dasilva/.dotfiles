@@ -1,16 +1,13 @@
 /**
- * UserPromptSubmit Hook: Impact Analysis for Refactoring
+ * UserPromptSubmit Hook: Impact Analysis for Refactoring (DAEMON)
  *
  * When user mentions refactor/change/rename + function name, automatically
- * runs `tldr impact` and injects the results as context.
+ * runs impact analysis via daemon and injects the results as context.
  *
- * Priority:
- * 1. Check cached calls.json first (instant)
- * 2. Fall back to live `tldr impact` command
+ * Uses TLDR daemon for fast cached responses (50ms vs 500ms CLI).
  */
-import { readFileSync, existsSync } from 'fs';
-import { execSync } from 'child_process';
-import { join } from 'path';
+import { readFileSync } from 'fs';
+import { queryDaemonSync, trackHookActivitySync } from './daemon-client';
 // Keywords that trigger impact analysis
 const REFACTOR_KEYWORDS = [
     /\brefactor\b/i,
@@ -67,54 +64,63 @@ function extractFunctionNames(prompt) {
     }
     return Array.from(candidates);
 }
-function findCallersInCache(functionName, cacheDir) {
-    const callsPath = join(cacheDir, 'calls.json');
-    if (!existsSync(callsPath))
-        return null;
+/**
+ * Get module-level importers using TLDR daemon.
+ * Shows which files import a module (broader than function-level callers).
+ */
+function getImportersFromDaemon(moduleName, projectDir) {
     try {
-        const calls = JSON.parse(readFileSync(callsPath, 'utf-8'));
-        const callers = [];
-        // Handle tldr calls format: { edges: [...] }
-        if (calls.edges && Array.isArray(calls.edges)) {
-            for (const edge of calls.edges) {
-                if (edge.to_func === functionName) {
-                    const caller = `${edge.from_file}:${edge.from_func}`;
-                    if (!callers.includes(caller)) {
-                        callers.push(caller);
-                    }
-                }
-            }
-            return callers.length > 0 ? callers : null;
+        const response = queryDaemonSync({ cmd: 'importers', module: moduleName }, projectDir);
+        if (response.indexing) {
+            return null;
         }
-        // Fallback: old format { caller: [callees] }
-        for (const [caller, callees] of Object.entries(calls)) {
-            if (Array.isArray(callees) && callees.includes(functionName)) {
-                callers.push(caller);
-            }
+        if (response.status === 'unavailable' || response.status === 'error') {
+            return null;
         }
-        return callers.length > 0 ? callers : null;
+        if (response.importers && Array.isArray(response.importers)) {
+            return response.importers;
+        }
+        return [];
     }
     catch {
         return null;
     }
 }
-function runTldrImpact(functionName, projectDir) {
+function getImpactFromDaemon(functionName, projectDir) {
     try {
-        // Try src/ first, then project root
-        const srcDir = join(projectDir, 'src');
-        const searchPath = existsSync(srcDir) ? srcDir : projectDir;
-        // Cross-platform: use stdio option to suppress stderr (works on Windows/Linux/macOS)
-        // stdio: ['pipe', 'pipe', 'ignore'] = stdin: pipe, stdout: pipe, stderr: ignore
-        const result = execSync(`tldr impact "${functionName}" "${searchPath}" --depth 2`, {
-            encoding: 'utf-8',
-            timeout: 10000,
-            stdio: ['pipe', 'pipe', 'ignore']
-        });
-        return result?.toString().trim() || null;
+        const response = queryDaemonSync({ cmd: 'impact', func: functionName }, projectDir);
+        if (response.indexing) {
+            return null; // Daemon still indexing
+        }
+        if (response.status === 'unavailable' || response.status === 'error') {
+            return null;
+        }
+        if (response.callers && Array.isArray(response.callers)) {
+            return response.callers;
+        }
+        return [];
     }
     catch {
         return null;
     }
+}
+function formatCallers(callers) {
+    if (callers.length === 0) {
+        return 'No callers found (function may be an entry point or unused)';
+    }
+    return callers.slice(0, 15).map(c => {
+        const loc = c.line ? `${c.file}:${c.line}` : c.file;
+        return `  - ${c.function || 'unknown'} in ${loc}`;
+    }).join('\n') + (callers.length > 15 ? `\n  ... and ${callers.length - 15} more` : '');
+}
+function formatImporters(importers) {
+    if (importers.length === 0) {
+        return 'No importers found';
+    }
+    return importers.slice(0, 10).map(i => {
+        const loc = i.line ? `${i.file}:${i.line}` : i.file;
+        return `  - ${loc}`;
+    }).join('\n') + (importers.length > 10 ? `\n  ... and ${importers.length - 10} more` : '');
 }
 async function main() {
     const input = JSON.parse(readStdin());
@@ -131,27 +137,30 @@ async function main() {
         return;
     }
     const projectDir = process.env.CLAUDE_PROJECT_DIR || input.cwd;
-    const cacheDir = join(projectDir, '.claude', 'cache', 'tldr');
     const results = [];
     for (const funcName of functions.slice(0, 3)) { // Max 3 functions
-        // Try cache first
-        const cachedCallers = findCallersInCache(funcName, cacheDir);
-        if (cachedCallers && cachedCallers.length > 0) {
-            results.push(`📊 **Impact: ${funcName}** (from cache)\nCallers: ${cachedCallers.slice(0, 10).join(', ')}${cachedCallers.length > 10 ? ` (+${cachedCallers.length - 10} more)` : ''}`);
+        const callers = getImpactFromDaemon(funcName, projectDir);
+        if (callers === null) {
+            // Daemon unavailable, skip
             continue;
         }
-        // Fall back to live tldr impact
-        const liveResult = runTldrImpact(funcName, projectDir);
-        if (liveResult && liveResult.length > 10) {
-            // Truncate if too long
-            const truncated = liveResult.length > 500
-                ? liveResult.substring(0, 500) + '\n... (truncated)'
-                : liveResult;
-            results.push(`📊 **Impact: ${funcName}** (live)\n${truncated}`);
+        // Also get module-level importers (broader impact)
+        // Try to infer module name from function name (e.g., "api" from "api.py")
+        const importers = getImportersFromDaemon(funcName, projectDir);
+        let impact = `📊 **Impact: ${funcName}**\nCallers:\n${formatCallers(callers)}`;
+        if (importers && importers.length > 0) {
+            impact += `\n\nModule importers:\n${formatImporters(importers)}`;
         }
+        results.push(impact);
     }
+    // Track hook activity (P8)
+    const totalCallers = results.length > 0 ? results.join(' ').match(/Callers:/g)?.length || 0 : 0;
+    trackHookActivitySync('impact-refactor', projectDir, true, {
+        analyses_run: functions.length,
+        results_found: results.length,
+    });
     if (results.length > 0) {
-        console.log(`\n⚠️ **REFACTORING IMPACT ANALYSIS**\n\n${results.join('\n\n')}\n\nConsider these callers before making changes.\n`);
+        console.log(`\n⚠️ **REFACTORING IMPACT ANALYSIS**\n\n${results.join('\n\n')}\n\nConsider callers AND importers before making changes.\n`);
     }
     else {
         console.log('');

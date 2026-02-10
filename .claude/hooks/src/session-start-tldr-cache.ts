@@ -95,7 +95,28 @@ async function main() {
   }
 
   const projectDir = process.env.CLAUDE_PROJECT_DIR || input.cwd;
+
+  // Skip large directories that shouldn't be indexed (home, root, etc.)
+  const HOME = process.env.HOME || `/home/${process.env.USER}`;
+  const SKIP_DIRS = [HOME, '/', '/home', '/tmp', '/var'];
+  if (SKIP_DIRS.includes(projectDir)) {
+    console.log('{}');
+    return;
+  }
   const cache = getCacheStatus(projectDir);
+
+  // If cache exists and is fresh (<30min), skip daemon query entirely for fast startup
+  const cacheAgeMinutes = cache.age_hours !== undefined ? cache.age_hours * 60 : Infinity;
+  if (cache.exists && cacheAgeMinutes < 30) {
+    const available: string[] = [];
+    if (cache.files.arch) available.push('arch');
+    if (cache.files.calls) available.push('calls');
+    if (cache.files.dead) available.push('dead');
+    const ageStr = cache.age_hours !== undefined ? `${cache.age_hours}h old` : 'fresh';
+    const message = `📊 TLDR cache (${ageStr}): ${available.join(', ')}`;
+    console.log(message);
+    return;
+  }
 
   // Check daemon's actual index state (not just file cache)
   let daemonFiles = 0;
