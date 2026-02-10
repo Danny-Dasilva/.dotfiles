@@ -282,8 +282,8 @@ fi
 section "TLDR (llm-tldr)"
 
 if ! command_exists tldr; then
-    info "Installing llm-tldr via uv..."
-    uv tool install llm-tldr
+    info "Installing llm-tldr from GitHub fork..."
+    uv tool install git+https://github.com/Danny-Dasilva/llm-tldr.git
     ok "llm-tldr installed (provides 'tldr' command)"
     INSTALLED+=("llm-tldr")
 else
