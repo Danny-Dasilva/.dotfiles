@@ -1,0 +1,62 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """\
+[┌\\(](green)$username[@](green)$hostname[\\)——\\(](green)$directory[\\)——\\(](green)$localip[\\)](green) $git_branch$git_status $aws$python$nodejs$rust$golang$docker_context$cmd_duration$jobs$status
+[└─>](green) """
+
+[username]
+show_always = true
+format = "[$user](bold blue)"
+
+[hostname]
+ssh_only = false
+format = "[$hostname](bold blue)"
+
+[directory]
+truncation_length = 5
+truncate_to_repo = false
+format = "[$path](bold cyan)"
+
+[localip]
+ssh_only = false
+disabled = false
+format = "[ $localipv4](bold yellow)"
+
+[git_branch]
+format = "[$branch](bold purple)"
+
+[git_status]
+format = "[$all_status$ahead_behind](bold red)"
+
+[cmd_duration]
+min_time = 2000
+format = "[ $duration](bold yellow)"
+
+[jobs]
+format = "[ $number](bold blue)"
+
+[status]
+disabled = false
+format = "[$status](bold red)"
+
+[aws]
+format = "[$symbol$profile](bold #ff9900)"
+symbol = " "
+
+[python]
+format = "[ $version$virtualenv](yellow)"
+
+[nodejs]
+format = "[ $version](green)"
+
+[rust]
+format = "[ $version](red)"
+
+[golang]
+format = "[ $version](cyan)"
+
+[docker_context]
+format = "[ $context](blue)"
+
+[character]
+disabled = true
