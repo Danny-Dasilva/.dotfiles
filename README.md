@@ -76,7 +76,7 @@ curl -fsSL https://raw.githubusercontent.com/Danny-Dasilva/.dotfiles/master/inst
 | Tool | Install Method | Purpose |
 |------|---------------|---------|
 | [Claude Code](https://claude.ai/claude-code) | npm | AI coding assistant CLI |
-| [llm-tldr](https://github.com/Danny-Dasilva/llm-tldr) | `uv tool install` | Code analysis (AST, call graph, CFG, DFG) |
+| [llm-tldr](https://github.com/Danny-Dasilva/llm-tldr) | `uv tool install git+` | Code analysis (AST, call graph, CFG, DFG) |
 | [GitHub CLI](https://cli.github.com) | apt repo | GitHub from the terminal |
 
 ---
@@ -277,7 +277,8 @@ Code analysis tool providing 95% token savings over raw file reading.
 ### Install
 
 ```bash
-uv tool install llm-tldr
+# Install from forked repo (NOT the default pip package)
+uv tool install git+https://github.com/Danny-Dasilva/llm-tldr.git
 ```
 
 ### Usage
