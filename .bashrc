@@ -28,7 +28,7 @@ shopt -s histappend
 shopt -s cmdhist               # Multi-line commands as single entry
 shopt -s lithist               # Preserve newlines in multi-line commands
 # Real-time history sync across terminals
-PROMPT_COMMAND="history -a; history -c; history -r; ${PROMPT_COMMAND:-}"
+PROMPT_COMMAND="history -a; history -c; history -r${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -259,7 +259,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 export ENCORE_INSTALL="/home/danny/.encore"
 export PATH="$ENCORE_INSTALL/bin:$PATH"
 export PATH=$PATH:$(go env GOPATH)/bin
-. "$HOME/.local/bin/env"
+[[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
 
 # This alias runs the Cursor Setup Wizard, simplifying installation and configuration.
