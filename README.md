@@ -208,7 +208,7 @@ Catppuccin-themed tmux with vi-mode, popup tools, and session persistence.
 | Split vertical | `prefix + -` |
 | Lazygit popup | `prefix + g` |
 | LazyDocker popup | `prefix + G` |
-| Htop popup | `prefix + t` |
+| Btop popup | `prefix + t` |
 | Session picker | `prefix + o` |
 | Help menu | `prefix + ?` |
 | Reload config | `prefix + r` |
@@ -304,11 +304,15 @@ tldr change-impact          # Find tests affected by changes
 ```
 ~
 ├── .bashrc                     # Main shell config
+├── .bash_profile               # Login shell setup (sources .bashrc)
 ├── .tmux.conf                  # Tmux configuration
 ├── .dotfiles                   # Bare repo alias definition
 ├── install.sh                  # This installer
 ├── README.md                   # This file
 ├── .config/
+│   ├── starship.toml           # Starship prompt theme
+│   ├── atuin/
+│   │   └── config.toml         # Atuin shell history config
 │   └── nvim/
 │       ├── init.vim            # Neovim config
 │       └── coc-settings.json   # CoC LSP settings
@@ -323,6 +327,18 @@ tldr change-impact          # Find tests affected by changes
     ├── skills/                 # 103 skill definitions
     └── plugins/                # Plugin configs
 ```
+
+---
+
+## Not Tracked (machine-specific)
+
+These files contain secrets or machine-specific config and must be set up manually:
+
+| File | Purpose |
+|------|---------|
+| `~/.gitconfig` | Git user identity, credential helpers |
+| `~/.ssh/config` | SSH host aliases (multi-account GitHub) |
+| `~/.config/gh/config.yml` | GitHub CLI auth tokens |
 
 ---
 
