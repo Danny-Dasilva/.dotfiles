@@ -118,6 +118,14 @@ async function main() {
     return;
   }
 
+  // Skip large directories that shouldn't be indexed (home, root, etc.)
+  const HOME = process.env.HOME || `/home/${process.env.USER}`;
+  const SKIP_DIRS = [HOME, '/', '/home', '/tmp', '/var'];
+  if (SKIP_DIRS.includes(projectDir)) {
+    console.log('{}');
+    return;
+  }
+
   // Get dead code
   const result = getDeadCode(projectDir);
 

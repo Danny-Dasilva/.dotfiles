@@ -196,7 +196,8 @@ function generateAutoHandoff(summary, sessionName) {
   }
   return lines.join("\n");
 }
-var isMainModule = import.meta.url === `file://${process.argv[1]}`;
+var currentFile = import.meta.url.split("/").pop() || "";
+var isMainModule = currentFile.startsWith("transcript-parser") && import.meta.url === `file://${process.argv[1]}`;
 if (isMainModule) {
   const args = process.argv.slice(2);
   if (args.length === 0) {

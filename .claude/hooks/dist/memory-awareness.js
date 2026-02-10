@@ -12,7 +12,7 @@
  */
 import { readFileSync } from 'fs';
 import { spawnSync } from 'child_process';
-import { join } from 'path';
+import { getOpcDir } from './shared/opc-path.js';
 function readStdin() {
     return readFileSync(0, 'utf-8');
 }
@@ -54,7 +54,7 @@ function extractKeywords(prompt) {
         'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why',
         'how', 'all', 'each', 'few', 'more', 'most', 'other', 'some', 'such',
         'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very',
-        's', 't', 'just', 'don', 'now', 'i', 'me', 'my', 'you', 'your', 'we',
+        's', 't', 'just', 'don', 'now', 'i', 'me', 'my', 'you', 'your', 'we', 'help', 'with',
         'our', 'they', 'them', 'their', 'it', 'its', 'this', 'that', 'these',
         'what', 'which', 'who', 'whom', 'and', 'but', 'if', 'or', 'because',
         'until', 'while', 'about', 'against', 'also', 'get', 'got', 'make',
@@ -77,13 +77,19 @@ function extractKeywords(prompt) {
 function checkMemoryRelevance(intent, projectDir) {
     if (!intent || intent.length < 3)
         return null;
-    const opcDir = join(projectDir, 'opc');
-    // For text search, use first significant keyword (ILIKE needs substring)
-    const keywords = intent.toLowerCase().split(/\s+/).filter(w => w.length > 3);
-    const searchTerm = keywords[0] || intent.split(/\s+/)[0];
+    const opcDir = getOpcDir();
+    if (!opcDir)
+        return null; // Graceful degradation if OPC not available
+    // PostgreSQL full-text search handles stopwords automatically via plainto_tsquery
+    // Just clean up the intent: remove paths, underscores, short words
+    const searchTerm = intent
+        .replace(/[_\/]/g, ' ') // Convert underscores/slashes to spaces
+        .replace(/\b\w{1,2}\b/g, '') // Remove 1-2 char words
+        .replace(/\s+/g, ' ') // Collapse whitespace
+        .trim();
     // Use text-only for fast checking (< 1s), user can run /recall for semantic
     const result = spawnSync('uv', [
-        'run', 'python', 'scripts/recall_learnings.py',
+        'run', 'python', 'scripts/core/recall_learnings.py',
         '--query', searchTerm, // Single keyword for text match
         '--k', '3',
         '--json',
@@ -105,25 +111,28 @@ function checkMemoryRelevance(intent, projectDir) {
         if (!data.results || data.results.length === 0) {
             return null;
         }
-        const topResult = data.results[0];
-        const score = topResult.score || 0;
-        // Text-only search returns 0.5 for any match
-        if (score < 0.3) {
-            return null;
-        }
-        // Extract a short preview from the content
-        const content = topResult.content || '';
-        const preview = content
-            .split('\n')
-            .filter((l) => l.trim().length > 0)
-            .slice(0, 2)
-            .join(' ')
-            .slice(0, 100);
+        // ts_rank returns small values (0.0001-0.1), ILIKE fallback returns 0.1
+        // Any match from FTS is relevant enough to show
+        // Extract structured results with better previews
+        const results = data.results.slice(0, 3).map((r) => {
+            const content = r.content || '';
+            // Get first meaningful line up to 120 chars
+            const preview = content
+                .split('\n')
+                .filter((l) => l.trim().length > 0)
+                .map((l) => l.trim())
+                .join(' ')
+                .slice(0, 120);
+            return {
+                id: (r.id || 'unknown').slice(0, 8),
+                type: r.learning_type || r.type || 'UNKNOWN',
+                content: preview + (content.length > 120 ? '...' : ''),
+                score: r.score || 0
+            };
+        });
         return {
             count: data.results.length,
-            topScore: score,
-            topSession: topResult.session_id || 'unknown',
-            topPreview: preview
+            results
         };
     }
     catch {
@@ -154,8 +163,9 @@ async function main() {
     // Check memory relevance using semantic search
     const match = checkMemoryRelevance(intent, projectDir);
     if (match) {
-        // Claude-only context (user doesn't see this, Claude decides whether to disclose)
-        const claudeContext = `MEMORY MATCH: Found ${match.count} learnings for "${intent}". Preview: "${match.topPreview}". Use if relevant, disclose if helpful.`;
+        // Build structured context for Claude
+        const resultLines = match.results.map((r, i) => `${i + 1}. [${r.type}] ${r.content} (id: ${r.id})`).join('\n');
+        const claudeContext = `MEMORY MATCH (${match.count} results) for "${intent}":\n${resultLines}\nUse /recall "${intent}" for full content. Disclose if helpful.`;
         console.log(JSON.stringify({
             hookSpecificOutput: {
                 hookEventName: 'UserPromptSubmit',

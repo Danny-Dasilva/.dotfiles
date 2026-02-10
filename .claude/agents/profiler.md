@@ -59,40 +59,57 @@ node --inspect app.js
 # Then use Chrome DevTools
 ```
 
+### TLDR CLI (PREFERRED - Token-Efficient)
+
+**Use `tldr` for code analysis.** It provides structured output optimized for performance analysis.
+
+```bash
+# Understand code structure
+tldr tree .                          # File tree
+tldr structure . --lang python       # Functions, classes
+
+# Call graph analysis
+tldr calls .                         # Cross-file call graph
+tldr impact function_name .          # Who calls this? (hotspot analysis)
+
+# Flow analysis (find bottleneck paths)
+tldr cfg src/file.py func_name       # Control flow graph
+tldr dfg src/file.py func_name       # Data flow graph
+tldr slice src/file.py func 42       # What affects line 42?
+
+# Find dead/unreachable code
+tldr dead src/                       # Dead code detection
+
+# Architecture analysis
+tldr arch src/                       # Detect layers, find coupling
+
+# Pattern search
+tldr search "async|await|Thread" .   # Find concurrency patterns
+```
+
+### Alternative: rp-cli (fallback)
+```bash
+rp-cli -e 'search "async|await|Promise|Thread|Lock|Mutex"'
+```
+
 ### Concurrency Analysis
 ```bash
-# Find async patterns
-rp-cli -e 'search "async|await|Promise|Thread|Lock|Mutex"'
-
-# Find potential race conditions
-rp-cli -e 'search "global|shared|static.*mut"'
-
-# Check for blocking operations
-rp-cli -e 'search "sleep|time.sleep|setTimeout|setInterval"'
+tldr search "async|await|Promise|Thread|Lock|Mutex" .
+tldr search "global|shared|static.*mut" .
+tldr search "sleep|time.sleep|setTimeout" .
 ```
 
 ### Memory Patterns
 ```bash
-# Find potential memory leaks
-rp-cli -e 'search "addEventListener|setInterval|cache|Map\(\)|Set\(\)"'
-
-# Check for cleanup
-rp-cli -e 'search "removeEventListener|clearInterval|dispose|cleanup|close"'
-
-# Large data structures
-rp-cli -e 'search "Array|List|Dict|Map" --context-lines 2'
+tldr search "addEventListener|setInterval|cache" .
+tldr search "removeEventListener|clearInterval|dispose|cleanup" .
 ```
 
 ### Database/IO Analysis
 ```bash
-# Find N+1 query patterns
-rp-cli -e 'search "for.*query|for.*fetch|for.*select"'
-
-# Check for batching
-rp-cli -e 'search "batch|bulk|many|all"'
-
-# Find synchronous IO
-rp-cli -e 'search "readFileSync|writeFileSync|execSync"'
+tldr search "for.*query|for.*fetch|for.*select" .
+tldr search "batch|bulk|many|all" .
+tldr search "readFileSync|writeFileSync|execSync" .
 ```
 
 ## Step 3: Benchmark Critical Paths

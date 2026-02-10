@@ -317,6 +317,12 @@ async function main() {
     console.log("{}");
     return;
   }
+  const HOME = process.env.HOME || `/home/${process.env.USER}`;
+  const SKIP_DIRS = [HOME, "/", "/home", "/tmp", "/var"];
+  if (SKIP_DIRS.includes(projectDir)) {
+    console.log("{}");
+    return;
+  }
   const result = getDeadCode(projectDir);
   if (!result || result.count === 0) {
     console.log("{}");

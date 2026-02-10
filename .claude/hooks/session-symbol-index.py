@@ -14,6 +14,14 @@ from pathlib import Path
 
 def main():
     project_dir = Path(os.environ.get('CLAUDE_PROJECT_DIR', os.getcwd()))
+
+    # Skip large directories that shouldn't be indexed
+    home = Path.home()
+    skip_dirs = [home, Path('/'), Path('/home'), Path('/tmp'), Path('/var')]
+    if project_dir in skip_dirs:
+        print(json.dumps({'status': 'skipped_large_dir'}))
+        return
+
     cache_dir = project_dir / '.claude' / 'cache' / 'tldr'
     semantic_dir = cache_dir / 'semantic'
 

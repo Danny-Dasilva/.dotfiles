@@ -1,4 +1,7 @@
 {
+  "env": {
+    "ENABLE_TOOL_SEARCH": "true"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -100,6 +103,11 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash $HOME/.claude/hooks/ensure-ignore-files.sh",
+            "timeout": 3
+          },
+          {
+            "type": "command",
             "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/persist-project-dir.sh"
           },
           {
@@ -114,6 +122,16 @@
           {
             "type": "command",
             "command": "node $HOME/.claude/hooks/run-python.mjs $HOME/.claude/hooks/hook_launcher.py session-symbol-index",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $HOME/.claude/hooks/dist/session-size-monitor.mjs",
             "timeout": 5
           }
         ]
@@ -146,6 +164,11 @@
     "UserPromptSubmit": [
       {
         "hooks": [
+          {
+            "type": "command",
+            "command": "node $HOME/.claude/hooks/dist/auto-handoff-context.mjs",
+            "timeout": 10
+          },
           {
             "type": "command",
             "command": "node $HOME/.claude/hooks/dist/skill-activation-prompt.mjs"
@@ -291,7 +314,9 @@
   },
   "enabledPlugins": {
     "frontend-design@claude-code-plugins": true,
-    "code-simplifier@claude-plugins-official": true
+    "code-simplifier@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
   },
   "semantic_search": {
     "enabled": true,

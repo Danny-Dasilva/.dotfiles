@@ -346,8 +346,10 @@ export function generateAutoHandoff(summary: TranscriptSummary, sessionName: str
 // ============================================================================
 
 // Allow running as CLI for testing: npx tsx transcript-parser.ts /path/to/transcript.jsonl
-// ES module compatible entry point check
-const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+// ES module compatible entry point check - must check filename to avoid triggering in bundles
+const currentFile = import.meta.url.split('/').pop() || '';
+const isMainModule = currentFile.startsWith('transcript-parser') &&
+                     import.meta.url === `file://${process.argv[1]}`;
 
 if (isMainModule) {
   const args = process.argv.slice(2);

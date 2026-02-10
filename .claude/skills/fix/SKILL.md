@@ -213,6 +213,63 @@ Task(
 )
 ```
 
+### Phase 2.5: Multi-Location Bug Detection (AUTOMATIC)
+
+**After investigation, before presenting diagnosis:**
+
+Search for all occurrences of the identified bug pattern:
+
+```bash
+# Search for the bug pattern across codebase
+grep -rn "BUG_PATTERN" --include="*.{ts,tsx,js,jsx,py}" src/
+
+# Or use tldr for semantic search
+tldr search "BUG_PATTERN" src/
+```
+
+**If multiple locations found:**
+
+```markdown
+## Multi-Location Detection
+
+Found **N locations** with the same bug pattern:
+
+| # | File | Line | Context |
+|---|------|------|---------|
+| 1 | src/auth/login.ts | 42 | `buggy code snippet` |
+| 2 | src/auth/signup.ts | 38 | `same pattern` |
+| 3 | src/api/session.ts | 91 | `same pattern` |
+
+**Action required:** Fix all locations, or just the primary one?
+```
+
+```
+AskUserQuestion(
+  question="Found N locations with this bug pattern. How should I proceed?",
+  header="Multi-location",
+  options=[
+    {"label": "Fix all locations (Recommended)", "description": "Systematically fix all N occurrences"},
+    {"label": "Fix primary only", "description": "Fix only the first/main location"},
+    {"label": "Show me the list first", "description": "Review all locations before deciding"}
+  ]
+)
+```
+
+**If "Fix all":**
+- Track all locations in diagnosis
+- Fix each systematically in Phase 5
+- Verify each in Phase 6.5
+- Show verification matrix before human checkpoint
+
+**Verification Matrix Template:**
+```markdown
+| Location | Fixed | Verified |
+|----------|-------|----------|
+| src/auth/login.ts:42 | ✅ | ✅ |
+| src/auth/signup.ts:38 | ✅ | ✅ |
+| src/api/session.ts:91 | ✅ | ✅ |
+```
+
 ### Phase 3: Diagnosis Report
 
 Present findings to user:
@@ -421,11 +478,70 @@ Task(
 )
 ```
 
+### Phase 6.5: Automatic Verification (MANDATORY)
+
+**Before presenting to user, automatically verify the fix:**
+
+```bash
+# 1. Run affected tests only (fast feedback)
+tldr change-impact --run
+
+# 2. Type check the modified files
+tldr diagnostics . --format text
+
+# 3. Lint check
+ruff check src/ --fix --quiet 2>/dev/null || true
+```
+
+**Verification Report (automatic):**
+
+```markdown
+## Automatic Verification Results
+
+### Tests
+- **Affected tests:** N tests identified by change-impact
+- **Result:** ✅ All passed / ❌ N failed
+
+### Type Check
+- **Result:** ✅ No errors / ❌ N type errors
+
+### Lint
+- **Result:** ✅ Clean / ⚠️ N warnings (auto-fixed)
+
+### Multi-Location Status (if applicable)
+| Location | Fixed | Test | Types |
+|----------|-------|------|-------|
+| src/auth/login.ts:42 | ✅ | ✅ | ✅ |
+| src/auth/signup.ts:38 | ✅ | ✅ | ✅ |
+```
+
+**Gate Logic:**
+- If ALL pass → Proceed to human checkpoint
+- If tests fail → Show failures, ask: "Fix test failures or proceed anyway?"
+- If type errors → Show errors, ask: "Fix type errors or proceed anyway?"
+
+```
+if verification.all_passed:
+    proceed_to_human_checkpoint()
+else:
+    AskUserQuestion(
+        question=f"Verification found issues: {verification.summary}. How to proceed?",
+        header="Verification",
+        options=[
+            {"label": "Fix the issues", "description": "Return to implementation phase"},
+            {"label": "Proceed anyway", "description": "Continue despite failures"},
+            {"label": "Show details", "description": "See full error output"}
+        ]
+    )
+```
+
+**NO commit offer until verification passes or user explicitly proceeds.**
+
 ### Phase 7: Human Checkpoint (Verification)
 
 ```
 AskUserQuestion(
-  question="Fix implemented. Please verify and confirm.",
+  question="Fix implemented and verified. Please confirm.",
   options=["looks good", "needs adjustment", "revert"]
 )
 ```
@@ -458,7 +574,10 @@ Task(
 sleuth (investigation)
   |
   v
-[HUMAN CHECKPOINT: diagnosis]
+[AUTO: multi-location detection]
+  |
+  v
+[HUMAN CHECKPOINT: diagnosis + scope]
   |
   v
 [PREMORTEM: quick risk check]
@@ -468,6 +587,9 @@ kraken (implement_task + TDD)
   |
   v
 kraken (regression test)
+  |
+  v
+[AUTO: verification - tests + types + lint]
   |
   v
 [HUMAN CHECKPOINT: verification]
@@ -658,12 +780,23 @@ This skill orchestrates:
 
 ## Checkpoints Summary
 
-| Checkpoint | Purpose | Skip Condition |
-|------------|---------|----------------|
-| After diagnosis | Confirm root cause | Never skip |
-| After premortem | Accept or mitigate risks | No HIGH tigers |
-| After fix | Verify resolution | Never skip |
-| Before commit | Review changes | `--no-commit` |
+| Phase | Type | Purpose | Skip Condition |
+|-------|------|---------|----------------|
+| 2.5 Multi-location | AUTO | Find all bug occurrences | Single location found |
+| 3 Diagnosis | HUMAN | Confirm root cause | Never skip |
+| 4.5 Premortem | AUTO | Assess fix risks | No HIGH tigers |
+| 6.5 Verification | AUTO | Run tests + types + lint | Never skip |
+| 7 Verification | HUMAN | Confirm fix works | Never skip |
+| 8 Commit | HUMAN | Review changes | `--no-commit` |
+
+**Automatic phases (no user input needed):**
+- Multi-location detection: Searches for all occurrences before diagnosis
+- Verification: Runs `tldr change-impact --run` + `tldr diagnostics` + lint
+
+**Human checkpoints (require confirmation):**
+- Diagnosis: User confirms root cause before implementation
+- Verification: User confirms fix works after auto-verification passes
+- Commit: User approves commit message
 
 The human checkpoints are critical for:
 1. Preventing wrong fixes from being implemented

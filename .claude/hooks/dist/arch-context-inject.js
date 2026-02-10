@@ -8,7 +8,7 @@
  * This gives agents/subagents architectural context for better planning.
  */
 import { readFileSync, existsSync } from 'fs';
-import { queryDaemonSync } from './daemon-client.js';
+import { queryDaemonSync, trackHookActivitySync } from './daemon-client.js';
 // Planning-related keywords that trigger arch injection
 const PLANNING_PATTERNS = [
     /\bplan\b/i,
@@ -140,6 +140,11 @@ ${prompt}`;
             },
         },
     };
+    // Track hook activity for flush threshold
+    trackHookActivitySync('arch-context-inject', projectDir, true, {
+        tasks_processed: 1,
+        arch_injected: 1,
+    });
     console.log(JSON.stringify(output));
 }
 main().catch(() => {

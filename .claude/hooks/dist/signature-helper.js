@@ -5,7 +5,7 @@
  * Uses TLDR daemon for fast function lookup (replaces CLI spawning).
  */
 import { readFileSync } from 'fs';
-import { queryDaemonSync } from './daemon-client.js';
+import { queryDaemonSync, trackHookActivitySync } from './daemon-client.js';
 // Keywords and builtins to skip
 const SKIP_NAMES = new Set([
     'if', 'for', 'while', 'with', 'except', 'match', 'case',
@@ -49,10 +49,10 @@ function findFunctionFile(funcName, projectDir) {
 /**
  * Get function signature from TLDR daemon extract.
  */
-function getSignatureFromTLDR(funcName, filePath) {
+function getSignatureFromTLDR(funcName, filePath, sessionId) {
     try {
         const projectDir = getProjectDir();
-        const response = queryDaemonSync({ cmd: 'extract', file: filePath }, projectDir);
+        const response = queryDaemonSync({ cmd: 'extract', file: filePath, session: sessionId }, projectDir);
         // Skip if daemon is indexing or unavailable
         if (response.indexing || response.status === 'unavailable' || response.status === 'error') {
             return null;
@@ -96,7 +96,7 @@ async function main() {
     for (const call of calls.slice(0, 5)) {
         const filePath = findFunctionFile(call, projectDir);
         if (filePath) {
-            const sig = getSignatureFromTLDR(call, filePath);
+            const sig = getSignatureFromTLDR(call, filePath, input.session_id);
             if (sig) {
                 signatures.push(sig);
             }
@@ -112,6 +112,11 @@ async function main() {
             additionalContext: `[Signatures from TLDR]\n${signatures.join('\n')}`
         }
     };
+    // Track hook activity for flush threshold
+    trackHookActivitySync('signature-helper', projectDir, true, {
+        edits_checked: 1,
+        signatures_found: signatures.length,
+    });
     console.log(JSON.stringify(output));
 }
 main().catch(() => console.log('{}'));

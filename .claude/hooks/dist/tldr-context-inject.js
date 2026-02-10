@@ -1,5 +1,5 @@
 /**
- * TLDR Context Injection Hook - Intent-Aware Version
+ * TLDR Context Injection Hook - Intent-Aware Version (DAEMON)
  *
  * Routes to different TLDR layers based on detected intent:
  * - "debug/investigate X" → Call Graph + CFG (what it calls, complexity)
@@ -7,15 +7,12 @@
  * - "what affects line Z" → PDG (program slicing)
  * - "show structure" → AST only
  * - Default → Call Graph (navigation)
+ *
+ * Uses TLDR daemon for fast cached responses (50ms vs 500ms CLI).
  */
 import { readFileSync, existsSync } from 'fs';
-import { execSync } from 'child_process';
 import { join, dirname } from 'path';
-// TLDR installation path
-const TLDR_PATH = process.env.CLAUDE_PROJECT_DIR
-    ? `${process.env.CLAUDE_PROJECT_DIR}/opc/packages/tldr-code`
-    : '/Users/cosimo/.opc-dev/opc/packages/tldr-code';
-const TLDR_VENV = `${TLDR_PATH}/.venv/bin/python`;
+import { queryDaemonSync, trackHookActivitySync, } from './daemon-client';
 const INTENT_PATTERNS = [
     {
         // Data flow questions
@@ -169,142 +166,138 @@ function extractVariableName(prompt) {
     }
     return null;
 }
-// Call TLDR API with specific layer
+// Get TLDR context using daemon (fast, cached)
 function getTldrContext(projectPath, entryPoint, language, layers, lineNumber, varName) {
-    if (!existsSync(TLDR_VENV)) {
-        return null;
-    }
     const results = [];
     try {
         for (const layer of layers) {
-            let cmd;
-            let output;
             switch (layer) {
-                case 'call_graph':
-                    // Default unified API (includes call graph + signatures + CFG metrics)
-                    cmd = `cd "${TLDR_PATH}" && source .venv/bin/activate && python -m tldr.api "${projectPath}" "${entryPoint}" 2 "${language}" 2>/dev/null`;
-                    output = execSync(cmd, { encoding: 'utf-8', timeout: 10000, shell: '/bin/bash' });
-                    if (output.includes('📍')) {
-                        results.push(output.trim());
+                case 'call_graph': {
+                    // Use daemon context command
+                    const response = queryDaemonSync({ cmd: 'context', entry: entryPoint, language, depth: 2 }, projectPath);
+                    if (response.status === 'ok' && response.result) {
+                        const ctx = response.result;
+                        const lines = [`## Context: ${entryPoint}`];
+                        if (ctx.entry_point) {
+                            lines.push(`📍 ${ctx.entry_point.file}:${ctx.entry_point.line}`);
+                            if (ctx.entry_point.signature) {
+                                lines.push(`  ${ctx.entry_point.signature}`);
+                            }
+                        }
+                        if (ctx.callees && ctx.callees.length > 0) {
+                            lines.push(`\nCalls:`);
+                            for (const c of ctx.callees.slice(0, 10)) {
+                                lines.push(`  → ${c.function} (${c.file}:${c.line})`);
+                            }
+                        }
+                        if (ctx.callers && ctx.callers.length > 0) {
+                            lines.push(`\nCalled by:`);
+                            for (const c of ctx.callers.slice(0, 10)) {
+                                lines.push(`  ← ${c.function} (${c.file}:${c.line})`);
+                            }
+                        }
+                        results.push(lines.join('\n'));
                     }
                     break;
-                case 'cfg':
-                    // CFG-specific: get complexity details
-                    cmd = `cd "${TLDR_PATH}" && source .venv/bin/activate && python -c "
-from tldr.cfg_extractor import extract_${language}_cfg
-from pathlib import Path
-import sys
-
-# Find file containing function
-for f in Path('${projectPath}').rglob('*.py' if '${language}' == 'python' else '*.ts'):
-    try:
-        src = f.read_text()
-        if '${entryPoint}'.split('.')[-1] in src:
-            cfg = extract_${language}_cfg(src, '${entryPoint}'.split('.')[-1])
-            if cfg and cfg.blocks:
-                print(f'## CFG: ${entryPoint}')
-                print(f'Blocks: {len(cfg.blocks)}')
-                print(f'Cyclomatic: {cfg.cyclomatic_complexity}')
-                for i, b in enumerate(cfg.blocks[:10]):
-                    print(f'  Block {i}: lines {b.start_line}-{b.end_line}')
-                break
-    except: pass
-" 2>/dev/null`;
-                    output = execSync(cmd, { encoding: 'utf-8', timeout: 10000, shell: '/bin/bash' });
-                    if (output.includes('CFG:')) {
-                        results.push(output.trim());
+                }
+                case 'cfg': {
+                    // Use daemon cfg command - need to find file first
+                    const searchResp = queryDaemonSync({ cmd: 'search', pattern: `def ${entryPoint}` }, projectPath);
+                    if (searchResp.results && searchResp.results.length > 0) {
+                        const file = searchResp.results[0].file;
+                        const cfgResp = queryDaemonSync({ cmd: 'cfg', file, function: entryPoint, language }, projectPath);
+                        if (cfgResp.status === 'ok' && cfgResp.result) {
+                            const cfg = cfgResp.result;
+                            const lines = [`## CFG: ${entryPoint}`];
+                            lines.push(`Blocks: ${cfg.num_blocks || 'N/A'}`);
+                            lines.push(`Cyclomatic: ${cfg.cyclomatic_complexity || 'N/A'}`);
+                            if (cfg.blocks && Array.isArray(cfg.blocks)) {
+                                for (const b of cfg.blocks.slice(0, 8)) {
+                                    lines.push(`  Block ${b.id}: lines ${b.start_line}-${b.end_line} (${b.block_type})`);
+                                }
+                            }
+                            results.push(lines.join('\n'));
+                        }
                     }
                     break;
-                case 'dfg':
-                    // DFG: track variable within a function
-                    const varTarget = varName || entryPoint;
+                }
+                case 'dfg': {
+                    // Use daemon dfg command
                     const funcForDfg = entryPoint.split('.').pop() || entryPoint;
-                    cmd = `cd "${TLDR_PATH}" && source .venv/bin/activate && python -c "
-from tldr.dfg_extractor import extract_${language}_dfg
-from pathlib import Path
-
-for f in Path('${projectPath}').rglob('*.py' if '${language}' == 'python' else '*.ts'):
-    if '.venv' in str(f) or 'node_modules' in str(f):
-        continue
-    try:
-        src = f.read_text()
-        if '${funcForDfg}' in src:
-            dfg = extract_${language}_dfg(src, '${funcForDfg}')
-            if dfg and dfg.var_refs:
-                print(f'## DFG: ${varTarget} in ${funcForDfg}')
-                refs = [r for r in dfg.var_refs if r.var_name == '${varTarget}' or '${varTarget}' in r.var_name]
-                for r in refs[:15]:
-                    print(f'  {r.category}: {r.var_name} @ line {r.line}')
-                edges = [e for e in dfg.edges if '${varTarget}' in e.var_name]
-                for e in edges[:10]:
-                    print(f'  Flow: {e.var_name} from line {e.def_ref.line} -> {e.use_ref.line}')
-                if refs or edges:
-                    break
-    except: pass
-" 2>/dev/null`;
-                    output = execSync(cmd, { encoding: 'utf-8', timeout: 10000, shell: '/bin/bash' });
-                    if (output.includes('DFG:')) {
-                        results.push(output.trim());
+                    const searchResp = queryDaemonSync({ cmd: 'search', pattern: `def ${funcForDfg}` }, projectPath);
+                    if (searchResp.results && searchResp.results.length > 0) {
+                        const file = searchResp.results[0].file;
+                        const dfgResp = queryDaemonSync({ cmd: 'dfg', file, function: funcForDfg, language }, projectPath);
+                        if (dfgResp.status === 'ok' && dfgResp.result) {
+                            const dfg = dfgResp.result;
+                            const varTarget = varName || entryPoint;
+                            const lines = [`## DFG: ${varTarget} in ${funcForDfg}`];
+                            if (dfg.definitions && Array.isArray(dfg.definitions)) {
+                                lines.push('Definitions:');
+                                for (const d of dfg.definitions.slice(0, 10)) {
+                                    lines.push(`  ${d.var_name} @ line ${d.line}`);
+                                }
+                            }
+                            if (dfg.uses && Array.isArray(dfg.uses)) {
+                                lines.push('Uses:');
+                                for (const u of dfg.uses.slice(0, 8)) {
+                                    lines.push(`  ${u.var_name} @ line ${u.line}`);
+                                }
+                            }
+                            results.push(lines.join('\n'));
+                        }
                     }
                     break;
-                case 'pdg':
-                    // PDG: program slice
-                    const targetLine = lineNumber || 0;
-                    cmd = `cd "${TLDR_PATH}" && source .venv/bin/activate && python -c "
-from tldr.pdg_extractor import extract_${language}_pdg
-from pathlib import Path
-
-for f in Path('${projectPath}').rglob('*.py' if '${language}' == 'python' else '*.ts'):
-    try:
-        src = f.read_text()
-        if '${entryPoint}'.split('.')[-1] in src:
-            pdg = extract_${language}_pdg(src, '${entryPoint}'.split('.')[-1])
-            if pdg and pdg.nodes:
-                print(f'## PDG: ${entryPoint}')
-                print(f'Nodes: {len(pdg.nodes)}')
-                print(f'Control deps: {len([e for e in pdg.edges if e.dep_type == \"control\"])}')
-                print(f'Data deps: {len([e for e in pdg.edges if e.dep_type == \"data\"])}')
-                # Show nodes near target line
-                if ${targetLine} > 0:
-                    nearby = [n for n in pdg.nodes if abs(n.line - ${targetLine}) < 10]
-                    for n in nearby[:10]:
-                        print(f'  Line {n.line}: {n.node_type}')
-                break
-    except Exception as e:
-        pass
-" 2>/dev/null`;
-                    output = execSync(cmd, { encoding: 'utf-8', timeout: 10000, shell: '/bin/bash' });
-                    if (output.includes('PDG:')) {
-                        results.push(output.trim());
+                }
+                case 'pdg': {
+                    // Use daemon slice command for PDG
+                    const targetLine = lineNumber || 10; // Default to line 10 if no line specified
+                    const searchResp = queryDaemonSync({ cmd: 'search', pattern: `def ${entryPoint}` }, projectPath);
+                    if (searchResp.results && searchResp.results.length > 0) {
+                        const file = searchResp.results[0].file;
+                        const sliceResp = queryDaemonSync({ cmd: 'slice', file, function: entryPoint, line: targetLine, direction: 'backward' }, projectPath);
+                        if (sliceResp.status === 'ok' && sliceResp.result) {
+                            const slice = sliceResp.result;
+                            const lines = [`## PDG Slice: ${entryPoint} @ line ${targetLine}`];
+                            if (slice.lines && Array.isArray(slice.lines)) {
+                                lines.push(`Slice lines: ${slice.lines.length}`);
+                                for (const ln of slice.lines.slice(0, 15)) {
+                                    lines.push(`  Line ${ln}`);
+                                }
+                            }
+                            if (slice.variables && Array.isArray(slice.variables)) {
+                                lines.push(`Variables: ${slice.variables.join(', ')}`);
+                            }
+                            results.push(lines.join('\n'));
+                        }
                     }
                     break;
-                case 'ast':
-                    // AST: structure only
-                    cmd = `cd "${TLDR_PATH}" && source .venv/bin/activate && python -c "
-from tldr.hybrid_extractor import HybridExtractor
-from pathlib import Path
-
-ext = HybridExtractor()
-for f in Path('${projectPath}').rglob('*.py' if '${language}' == 'python' else '*.ts'):
-    if '.venv' in str(f) or 'node_modules' in str(f):
-        continue
-    try:
-        info = ext.extract(str(f))
-        if info.functions or info.classes:
-            print(f'## {f.name}')
-            for fn in info.functions[:10]:
-                print(f'  fn {fn.name}:{fn.line_number}')
-            for cls in info.classes[:5]:
-                print(f'  class {cls.name}:{cls.line_number}')
-                for m in cls.methods[:5]:
-                    print(f'    .{m.name}:{m.line_number}')
-    except: pass
-" 2>/dev/null | head -50`;
-                    output = execSync(cmd, { encoding: 'utf-8', timeout: 10000, shell: '/bin/bash' });
-                    if (output.includes('##')) {
-                        results.push(output.trim());
+                }
+                case 'ast': {
+                    // Use daemon structure command
+                    const structResp = queryDaemonSync({ cmd: 'structure', language, max_results: 20 }, projectPath);
+                    if (structResp.status === 'ok' && structResp.result) {
+                        const struct = structResp.result;
+                        const lines = [`## Structure Overview`];
+                        if (struct.files && Array.isArray(struct.files)) {
+                            for (const file of struct.files.slice(0, 10)) {
+                                lines.push(`\n### ${file.path || file.file}`);
+                                if (file.functions && Array.isArray(file.functions)) {
+                                    for (const fn of file.functions.slice(0, 8)) {
+                                        lines.push(`  fn ${fn.name}:${fn.line}`);
+                                    }
+                                }
+                                if (file.classes && Array.isArray(file.classes)) {
+                                    for (const cls of file.classes.slice(0, 5)) {
+                                        lines.push(`  class ${cls.name}:${cls.line}`);
+                                    }
+                                }
+                            }
+                        }
+                        results.push(lines.join('\n'));
                     }
                     break;
+                }
             }
         }
         return results.length > 0 ? results.join('\n\n') : null;
@@ -394,6 +387,11 @@ ${prompt}`;
             }
         }
     };
+    // Track hook activity for flush threshold
+    trackHookActivitySync('tldr-context-inject', projectRoot, true, {
+        context_injected: 1,
+        layers_used: layers.length,
+    });
     console.log(JSON.stringify(output));
 }
 main().catch((err) => {

@@ -10,6 +10,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { execSync } from 'child_process';
 import { join } from 'path';
+import { tmpdir } from 'os';
 // LMStudio endpoint for Goedel-Prover-V2-8B
 const LMSTUDIO_BASE_URL = process.env.LMSTUDIO_BASE_URL || 'http://127.0.0.1:1234';
 const LMSTUDIO_ENDPOINT = process.env.LMSTUDIO_ENDPOINT || `${LMSTUDIO_BASE_URL}/v1/completions`;
@@ -20,7 +21,7 @@ let lmStudioCheckedAt = 0;
 const AVAILABILITY_CACHE_MS = 60000; // Re-check every 60s
 const STATE_DIR = process.env.CLAUDE_PROJECT_DIR
     ? join(process.env.CLAUDE_PROJECT_DIR, '.claude', 'cache', 'lean')
-    : '/tmp/claude-lean';
+    : join(tmpdir(), 'claude-lean');
 const STATE_FILE = join(STATE_DIR, 'compiler-state.json');
 function readStdin() {
     return readFileSync(0, 'utf-8');
@@ -36,7 +37,7 @@ function saveState(state) {
 }
 function runLeanCompiler(filePath, cwd) {
     // Add elan to PATH
-    const home = process.env.HOME || '';
+    const home = process.env.HOME || process.env.USERPROFILE || '';
     const elanBin = join(home, '.elan', 'bin');
     const pathWithElan = `${elanBin}:${process.env.PATH}`;
     try {

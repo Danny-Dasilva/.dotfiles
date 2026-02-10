@@ -6,14 +6,34 @@
  */
 import { readFileSync } from 'fs';
 import { basename } from 'path';
-import { queryDaemonSync } from './daemon-client.js';
+import { queryDaemonSync, trackHookActivitySync } from './daemon-client.js';
 /**
- * Get file structure using TLDR daemon extract command.
+ * Get imports for a file using TLDR daemon.
  */
-function getTLDRExtract(filePath) {
+function getTLDRImports(filePath) {
     try {
         const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
-        const response = queryDaemonSync({ cmd: 'extract', file: filePath }, projectDir);
+        const response = queryDaemonSync({ cmd: 'imports', file: filePath }, projectDir);
+        if (response.indexing || response.status === 'unavailable' || response.status === 'error') {
+            return [];
+        }
+        if (response.imports && Array.isArray(response.imports)) {
+            return response.imports;
+        }
+        return [];
+    }
+    catch {
+        return [];
+    }
+}
+/**
+ * Get file structure using TLDR daemon extract command.
+ * @param sessionId - Optional session ID for token tracking
+ */
+function getTLDRExtract(filePath, sessionId) {
+    try {
+        const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+        const response = queryDaemonSync({ cmd: 'extract', file: filePath, session: sessionId }, projectDir);
         // Skip if daemon is indexing or unavailable
         if (response.indexing || response.status === 'unavailable' || response.status === 'error') {
             return null;
@@ -38,26 +58,29 @@ async function main() {
         console.log('{}');
         return;
     }
-    // Get file structure from TLDR
-    const extract = getTLDRExtract(filePath);
-    if (!extract) {
-        console.log('{}');
-        return;
-    }
-    const classCount = extract.classes?.length || 0;
-    const funcCount = extract.functions?.length || 0;
+    // Get file structure from TLDR (pass session_id for token tracking)
+    const extract = getTLDRExtract(filePath, input.session_id);
+    const imports = getTLDRImports(filePath);
+    const classCount = extract?.classes?.length || 0;
+    const funcCount = extract?.functions?.length || 0;
+    const importCount = imports.length;
     const total = classCount + funcCount;
-    if (total === 0) {
+    if (total === 0 && importCount === 0) {
         console.log('{}');
         return;
     }
     // Build compact context message
     const parts = [];
-    if (classCount > 0) {
+    // Show imports first - important for understanding dependencies
+    if (importCount > 0) {
+        const importModules = imports.slice(0, 8).map(i => i.module);
+        parts.push(`Dependencies: ${importModules.join(', ')}${importCount > 8 ? '...' : ''}`);
+    }
+    if (classCount > 0 && extract) {
         const classNames = extract.classes.map(c => c.name).slice(0, 10);
         parts.push(`Classes: ${classNames.join(', ')}${classCount > 10 ? '...' : ''}`);
     }
-    if (funcCount > 0) {
+    if (funcCount > 0 && extract) {
         // Show function names with param counts for quick reference
         const funcSummaries = extract.functions.slice(0, 12).map(f => {
             const paramCount = f.params?.length || 0;
@@ -65,12 +88,21 @@ async function main() {
         });
         parts.push(`Functions: ${funcSummaries.join(', ')}${funcCount > 12 ? '...' : ''}`);
     }
+    const symbolInfo = total > 0 ? `${total} symbols` : '';
+    const depInfo = importCount > 0 ? `${importCount} deps` : '';
+    const summary = [symbolInfo, depInfo].filter(Boolean).join(', ');
     const output = {
         hookSpecificOutput: {
             hookEventName: 'PreToolUse',
-            additionalContext: `[Edit context: ${basename(filePath)} has ${total} symbols]\n${parts.join('\n')}`
+            additionalContext: `[Edit context: ${basename(filePath)} - ${summary}]\n${parts.join('\n')}`
         }
     };
+    // Track hook activity for flush threshold
+    const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+    trackHookActivitySync('edit-context-inject', projectDir, true, {
+        edits_processed: 1,
+        symbols_shown: total,
+    });
     console.log(JSON.stringify(output));
 }
 main().catch(() => console.log('{}'));
