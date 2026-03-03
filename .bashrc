@@ -1,13 +1,12 @@
-# ble.sh must load first for autosuggestions
+#=============================================================================
+# RE-ENTRY GUARD - prevents double-sourcing (login shell sources both
+# .bash_profile and .bashrc, causing all init commands to run twice)
+#=============================================================================
+[[ -n "$_BASHRC_LOADED" ]] && return
+_BASHRC_LOADED=1
+
+# ble.sh must load first for autosuggestions (--noattach defers heavy init)
 [[ $- == *i* ]] && [[ -f ~/.local/share/blesh/ble.sh ]] && source ~/.local/share/blesh/ble.sh --noattach
-
-# My bash config configured for xterm and x11 
-# PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
-
-
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -15,61 +14,52 @@ case $- in
       *) return;;
 esac
 
-# History configuration (optimized)
+# History configuration
 HISTCONTROL=ignoreboth:erasedups
-HISTSIZE=-1                    # Unlimited history
-HISTFILESIZE=-1                # Unlimited history file
+HISTSIZE=-1
+HISTFILESIZE=-1
 HISTTIMEFORMAT="%F %T  "
-# Security: ignore commands containing sensitive patterns
 HISTIGNORE="*[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]*:*[Tt][Oo][Kk][Ee][Nn]*:*[Ss][Ee][Cc][Rr][Ee][Tt]*:*[Aa][Pp][Ii][_-][Kk][Ee][Yy]*:*AWS_*=*:*export *KEY*:*export *SECRET*"
 
-# append to the history file, don't overwrite it
 shopt -s histappend
-shopt -s cmdhist               # Multi-line commands as single entry
-shopt -s lithist               # Preserve newlines in multi-line commands
-# Real-time history sync across terminals
-PROMPT_COMMAND="history -a; history -c; history -r${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+shopt -s cmdhist
+shopt -s lithist
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# History sync - set once, not appended (prevents PROMPT_COMMAND snowball)
+_bash_history_sync() { history -a; history -c; history -r; }
+PROMPT_COMMAND="_bash_history_sync"
+
 shopt -s checkwinsize
+shopt -s globstar
+shopt -s cdspell
+shopt -s dirspell
+shopt -s autocd
+shopt -s nocaseglob
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-shopt -s globstar   # ** matches recursively
-shopt -s cdspell    # Autocorrect minor cd typos
-shopt -s dirspell   # Autocorrect directory typos in completion
-shopt -s autocd     # Type directory name to cd into it
-shopt -s nocaseglob # Case-insensitive globbing
-
-# make less more friendly for non-text input files, see lesspipe(1)
+# lesspipe
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
+# chroot detection
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
+# Prompt setup
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#:force_color_prompt=yes
-
+force_color_prompt=yes
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
+
+# Cache IP once per shell session (avoid subprocess every prompt)
+_CACHED_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
 
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -77,55 +67,34 @@ else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
-IP=$(hostname -I | awk '{print $1}')
 
-# If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-# 	PS1="\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;27m\]\w\[$(tput sgr0)\]\\$ \[$(tput sgr0)\]"
-	PS1="\[\033[38;5;32m\]┌(\[$(tput sgr0)\]\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[\033[38;5;78m\]\w\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[$(tput sgr0)\] $IP \[$(tput sgr0)\]\[\033[38;5;32m\])\n\[$(tput sgr0)\]\[\033[38;5;32m\]└─>\[$(tput sgr0)\]"
-
-    ;;
-*)
+    PS1="\[\033[38;5;32m\]┌(\[$(tput sgr0)\]\[\033[38;5;197m\]\u\[$(tput sgr0)\]\[\033[38;5;254m\]@\h\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[\033[38;5;78m\]\w\[$(tput sgr0)\]\[\033[38;5;32m\])—\[$(tput sgr0)\]\[\033[38;5;32m\]—(\[$(tput sgr0)\] $_CACHED_IP \[$(tput sgr0)\]\[\033[38;5;32m\])\n\[$(tput sgr0)\]\[\033[38;5;32m\]└─>\[$(tput sgr0)\]"
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
+# Color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
+# Basic aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# Programmable completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -133,10 +102,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-#----------------- linebreak for default ubuntu stuff
+
+#----------------- Custom stuff below -----------------
 
 ### ARCHIVE EXTRACTION
-# usage: ex <file>
 ex ()
 {
   if [ -f "$1" ] ; then
@@ -162,47 +131,35 @@ ex ()
   fi
 }
 
-#export WORKON_HOME=~/.environments
-#source /usr/local/bin/virtualenvwrapper.sh
-#export GOROOT=/usr/local/go
-#export PATH=$PATH:$GOROOT/bin
-
-#export GOPATH=/home/tech-garage/Documents/go
-#export PATH=$PATH:$GOPATH/bin
-#export GOPATH=$GOPATH:/home/tech-garage/Documents/GOCODE
-### ALIASES ###
-
-# navigation
-alias ..='cd ..' 
+# Navigation
+alias ..='cd ..'
 alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
-
-# grep alias already defined above in dircolors block
-
-# confirm before overwriting something
+# Safety
 alias cp="cp -i"
 alias mv='mv -i'
-
 
 alias aptup='sudo apt update && sudo apt upgrade'
 alias docker-compose="docker compose"
 alias vim=lvim
 alias pip=pip3
-#set faster speed for  scroll
-[[ -n "$DISPLAY" ]] && xset r rate 300 50 
-export TERM=xterm-256color
-#source dotfiles
-[[ -f ~/.dotfiles ]] && source ~/.dotfiles 
-export LS_COLORS='di=0;36:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=0;32:*.rpm=0:*.tar=0;31'
-#curl -u 'USER' https://api.github.com/user/repos -d '{"name":"REPO"}'
 
-# NVM setup with lazy loading (faster shell startup)
+# xset - only run once per X session, not every shell
+if [[ -n "$DISPLAY" ]] && [[ -z "$_XSET_DONE" ]]; then
+    xset r rate 300 50 2>/dev/null
+    export _XSET_DONE=1
+fi
+
+export TERM=xterm-256color
+[[ -f ~/.dotfiles ]] && source ~/.dotfiles
+export LS_COLORS='di=0;36:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=0;32:*.rpm=0:*.tar=0;31'
+
+# NVM setup with lazy loading
 export NVM_DIR="$HOME/.nvm"
 
-# Add default node bin to PATH immediately (for global packages like claude)
 if [ -d "$NVM_DIR/versions/node" ]; then
   NVM_DEFAULT=$(cat "$NVM_DIR/alias/default" 2>/dev/null)
   if [ -n "$NVM_DEFAULT" ]; then
@@ -217,15 +174,14 @@ if [ -d "$NVM_DIR/versions/node" ]; then
   unset NVM_DEFAULT
 fi
 
-# Lazy load NVM itself (for nvm commands like `nvm use`, `nvm install`)
 _load_nvm() {
   unset -f nvm
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 }
 nvm() { _load_nvm; nvm "$@"; }
-force_color_prompt=yes
-# Pyenv setup with lazy loading (faster shell startup)
+
+# Pyenv setup with lazy loading
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 _load_pyenv() {
@@ -236,13 +192,8 @@ for _pyenv_cmd in pyenv python python3 pip pip3; do
   eval "${_pyenv_cmd}() { _load_pyenv; ${_pyenv_cmd} \"\$@\"; }"
 done
 unset _pyenv_cmd
+
 . "$HOME/.cargo/env"
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# <<< conda initialize <<<
-
 
 # pnpm
 export PNPM_HOME="/home/danny/.local/share/pnpm"
@@ -250,28 +201,32 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
 export PATH=/usr/local/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
-
 export ENCORE_INSTALL="/home/danny/.encore"
 export PATH="$ENCORE_INSTALL/bin:$PATH"
-export PATH=$PATH:$(go env GOPATH)/bin
+
+# Go PATH - cache GOPATH instead of running `go env` every shell start
+if command -v go &>/dev/null; then
+    _GO_CACHE="$HOME/.cache/go-path.cache"
+    if [[ ! -f "$_GO_CACHE" ]] || [[ $(find "$_GO_CACHE" -mtime +7 2>/dev/null) ]]; then
+        go env GOPATH > "$_GO_CACHE" 2>/dev/null
+    fi
+    [[ -f "$_GO_CACHE" ]] && export PATH="$PATH:$(cat "$_GO_CACHE")/bin"
+    unset _GO_CACHE
+fi
+
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
-
-# This alias runs the Cursor Setup Wizard, simplifying installation and configuration.
-# For more details, visit: https://github.com/jorcelinojunior/cursor-setup-wizard
 alias cursor-setup="/home/danny/cursor-setup-wizard/cursor_setup.sh"
 export PATH="$HOME/.local/bin:$PATH"
 
 #=============================================================================
-# MODERN CLI IMPROVEMENTS (Added by Claude)
+# MODERN CLI IMPROVEMENTS
 #=============================================================================
 
-# Modern tool aliases (eza, bat, fd, ripgrep)
 if command -v eza &>/dev/null; then
     alias ls='eza --group-directories-first'
     alias ll='eza -la --group-directories-first --git'
@@ -292,20 +247,17 @@ if command -v fdfind &>/dev/null; then
 fi
 
 #-----------------------------------------------------------------------------
-# FZF - Fuzzy Finder (Ctrl+R history, Ctrl+T files, Alt+C directories)
+# FZF
 #-----------------------------------------------------------------------------
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# FZF configuration
 if command -v fzf &>/dev/null; then
-    # Use fd if available for better performance
     if command -v fdfind &>/dev/null; then
         export FZF_DEFAULT_COMMAND='fdfind --type f --strip-cwd-prefix --hidden --follow --exclude .git'
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
         export FZF_ALT_C_COMMAND='fdfind --type d --strip-cwd-prefix --hidden --follow --exclude .git'
     fi
 
-    # Preview with bat if available
     if command -v batcat &>/dev/null; then
         export FZF_CTRL_T_OPTS="--preview 'batcat --color=always --line-range :500 {}' --preview-window=right:50%"
     elif command -v bat &>/dev/null; then
@@ -316,14 +268,14 @@ if command -v fzf &>/dev/null; then
 fi
 
 #-----------------------------------------------------------------------------
-# Zoxide - Smart directory jumping (use 'j' command)
+# Zoxide
 #-----------------------------------------------------------------------------
 if command -v zoxide &>/dev/null; then
     eval "$(zoxide init bash --cmd j)"
 fi
 
 #-----------------------------------------------------------------------------
-# Starship Prompt (configured to match original prompt style)
+# Starship Prompt
 #-----------------------------------------------------------------------------
 if command -v starship &>/dev/null; then
     eval "$(starship init bash)"
@@ -351,7 +303,6 @@ alias gst='git stash'
 alias gstp='git stash pop'
 alias gf='git fetch --all --prune'
 
-# Git functions
 gac() { git add "${@:-.}" && git commit; }
 gacp() { git add "${@:-.}" && git commit && git push; }
 
@@ -367,7 +318,6 @@ alias dcr='docker compose restart'
 alias dclf='docker compose logs -f'
 alias dex='docker exec -it'
 
-# Docker shell into container
 dsh() { docker exec -it "$1" /bin/bash 2>/dev/null || docker exec -it "$1" /bin/sh; }
 
 #-----------------------------------------------------------------------------
@@ -381,47 +331,46 @@ alias disk='df -h'
 alias usage='du -sh * 2>/dev/null | sort -h'
 alias psg='ps aux | grep -v grep | grep -i'
 
-# Quick edit bashrc
 alias bashrc='${EDITOR:-vim} ~/.bashrc && source ~/.bashrc'
 
 #-----------------------------------------------------------------------------
-# Safety Aliases
+# Safety
 #-----------------------------------------------------------------------------
-alias rm='rm -I'               # Prompt before removing more than 3 files
+alias rm='rm -I'
 
 #-----------------------------------------------------------------------------
-# Tool Completions
+# Completions - LAZY LOADED (docker completion was loading eagerly, ~5MB)
 #-----------------------------------------------------------------------------
-# kubectl completion (if installed)
-if command -v kubectl &>/dev/null; then
-    source <(kubectl completion bash) 2>/dev/null
-    alias k=kubectl
-    complete -o default -F __start_kubectl k 2>/dev/null
-fi
+# Docker completion - load on first tab-complete, not at startup
+_lazy_docker_completion() {
+    unset -f _lazy_docker_completion
+    complete -r docker 2>/dev/null
+    source <(docker completion bash 2>/dev/null)
+    return 124  # retry completion
+}
+command -v docker &>/dev/null && complete -F _lazy_docker_completion docker
 
-# Docker completion (if installed)
-command -v docker &>/dev/null && source <(docker completion bash 2>/dev/null)
-
-# gh CLI completion (if installed)
-command -v gh &>/dev/null && eval "$(gh completion -s bash 2>/dev/null)"
+# gh CLI completion - lazy loaded
+_lazy_gh_completion() {
+    unset -f _lazy_gh_completion
+    complete -r gh 2>/dev/null
+    eval "$(gh completion -s bash 2>/dev/null)"
+    return 124
+}
+command -v gh &>/dev/null && complete -F _lazy_gh_completion gh
 
 #-----------------------------------------------------------------------------
 # Security
 #-----------------------------------------------------------------------------
-# Note: umask 077 was removed - it breaks GNOME (icons, themes, window decorations)
-# by making cache files unreadable to other GNOME processes
 chmod 600 ~/.bash_history 2>/dev/null
 export PATH="$HOME/.deno/bin:$PATH"
 
 #=============================================================================
 # ENHANCED SHELL CONFIGURATION (2026)
 #=============================================================================
-
-# Load helper functions
 [[ -f ~/.config/bash/lib/helpers.sh ]] && source ~/.config/bash/lib/helpers.sh
 [[ -f ~/.config/bash/lib/detect-env.sh ]] && source ~/.config/bash/lib/detect-env.sh
 
-# Load modular configs
 for f in ~/.config/bash/bashrc.d/*.sh; do
     [[ -r "$f" ]] && source "$f"
 done
@@ -431,45 +380,32 @@ done
 #-----------------------------------------------------------------------------
 if command -v atuin &>/dev/null; then
     eval "$(atuin init bash --disable-up-arrow)"
-    # Remove old history sync from PROMPT_COMMAND
-    PROMPT_COMMAND="${PROMPT_COMMAND/history -a; history -c; history -r; /}"
+    # Atuin manages history, remove our sync from PROMPT_COMMAND
+    PROMPT_COMMAND="${PROMPT_COMMAND/_bash_history_sync/true}"
 fi
 
 #-----------------------------------------------------------------------------
-# ble.sh - Fish-like autosuggestions (attach at end)
+# ble.sh - attach at end (OPTIONAL - comment out if memory is still too high)
+# ble.sh uses 200-500MB RAM for autosuggestions/syntax highlighting
 #-----------------------------------------------------------------------------
 [[ ${BLE_VERSION-} ]] && ble-attach
 
 #-----------------------------------------------------------------------------
-# Complete-alias - Tab completion for aliases
+# Complete-alias
 #-----------------------------------------------------------------------------
 if [[ -f ~/.complete-alias/complete_alias ]]; then
     source ~/.complete-alias/complete_alias
-    # Enable for common aliases
     complete -F _complete_alias k dc gs gd ga gc gp 2>/dev/null
 fi
 
 #-----------------------------------------------------------------------------
-# Cached tool initialization (faster startup)
-#-----------------------------------------------------------------------------
-_init_cache() {
-    local tool="$1" cache="$HOME/.cache/${tool}-init.bash"
-    if [[ ! -f "$cache" ]] || [[ $(find "$cache" -mtime +7 2>/dev/null) ]]; then
-        "$@" > "$cache" 2>/dev/null
-    fi
-    [[ -f "$cache" ]] && source "$cache"
-}
-
-#-----------------------------------------------------------------------------
-# Additional aliases and functions
+# Additional aliases
 #-----------------------------------------------------------------------------
 alias top='btop' 2>/dev/null
 alias lg='lazygit' 2>/dev/null
 
-# mkcd - create and enter directory
 mkcd() { mkdir -p -- "$1" && cd -P -- "$1"; }
 
-# Quick system info
 sysinfo() {
     echo "=== CPU ===" && lscpu | grep -E "^(Model name|CPU\(s\))"
     echo "=== Memory ===" && free -h | head -2
