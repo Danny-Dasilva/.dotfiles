@@ -77,6 +77,7 @@ curl -fsSL https://raw.githubusercontent.com/Danny-Dasilva/.dotfiles/master/inst
 |------|---------------|---------|
 | [Claude Code](https://claude.ai/claude-code) | npm | AI coding assistant CLI |
 | [llm-tldr](https://github.com/Danny-Dasilva/llm-tldr) | `uv tool install git+` | Code analysis (AST, call graph, CFG, DFG) |
+| [Pinchtab](https://github.com/pinchtab/pinchtab) | npm | Browser control for AI agents (web search, page reading) |
 | [GitHub CLI](https://cli.github.com) | apt repo | GitHub from the terminal |
 
 ---

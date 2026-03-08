@@ -404,7 +404,22 @@ if [ -f "$HOME/.claude/hooks/build.sh" ]; then
 fi
 
 #=============================================================================
-# 19. GITHUB CLI
+# 19. PINCHTAB (Browser control for AI agents)
+#=============================================================================
+section "Pinchtab"
+
+if ! command_exists pinchtab; then
+    info "Installing Pinchtab..."
+    npm install -g pinchtab
+    ok "Pinchtab installed"
+    INSTALLED+=("pinchtab")
+else
+    ok "Pinchtab already installed ($(pinchtab --version 2>/dev/null))"
+    SKIPPED+=("pinchtab")
+fi
+
+#=============================================================================
+# 20. GITHUB CLI
 #=============================================================================
 section "GitHub CLI"
 
@@ -425,7 +440,7 @@ else
 fi
 
 #=============================================================================
-# 20. FZF (manual install for keybindings)
+# 21. FZF (manual install for keybindings)
 #=============================================================================
 section "FZF Keybindings"
 
@@ -444,7 +459,7 @@ else
 fi
 
 #=============================================================================
-# 21. FONTS
+# 22. FONTS
 #=============================================================================
 section "Fonts"
 
