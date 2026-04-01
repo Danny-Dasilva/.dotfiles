@@ -291,48 +291,33 @@
         "create_handoff": {
             "type": "domain",
             "enforcement": "suggest",
-            "priority": "critical",
+            "priority": "medium",
             "description": "Create handoff document for transferring work to a NEW session",
             "promptTriggers": {
                 "keywords": [
                     "create handoff",
                     "make handoff",
                     "write handoff",
-                    "handoff document",
-                    "hand off",
-                    "done for today",
-                    "end session",
-                    "switching tasks",
-                    "pick this up later",
-                    "wrap up"
+                    "/create_handoff"
                 ],
                 "intentPatterns": [
-                    "(create|make|write).*?handoff",
-                    "(hand|transfer).*?(off|over)",
-                    "(done|finished|stopping).*?(today|now|session)",
-                    "(end|close|wrap).*?session",
-                    "(pick|continue).*?later"
+                    "(create|make|write)\\s+.*?handoff",
+                    "(done|finished|stopping).*?(today|now|session)"
                 ]
             }
         },
         "resume_handoff": {
             "type": "domain",
             "enforcement": "suggest",
-            "priority": "critical",
+            "priority": "medium",
             "description": "Resume work from handoff document with context analysis",
             "promptTriggers": {
                 "keywords": [
                     "resume handoff",
-                    "continue handoff",
-                    "pick up handoff",
-                    "resume work",
-                    "continue work",
-                    "pick up where",
-                    "new session"
+                    "/resume_handoff"
                 ],
                 "intentPatterns": [
-                    "(resume|continue|pick up).*?(handoff|work|session)",
-                    "(new|fresh|another).*?session",
+                    "(resume|continue|pick up)\\s+.*?handoff",
                     "where.*?(left off|stopped)"
                 ]
             }
